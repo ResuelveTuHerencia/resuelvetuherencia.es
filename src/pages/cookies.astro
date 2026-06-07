@@ -1,0 +1,47 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<RootLayout 
+  title="Política de Cookies | Resuelve Tu Herencia"
+  description="Política de Cookies y configuración del sitio web de Resuelve Tu Herencia."
+>
+  <Navbar />
+  <main class="bg-secondary py-16 lg:py-24">
+    <div class="section-container max-w-3xl bg-white p-8 sm:p-12 rounded-2xl border border-primary/10 shadow-sm">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-primary mb-8 border-b border-primary/10 pb-4">
+        Política de Cookies
+      </h1>
+      
+      <div class="prose prose-sm max-w-none text-primary/80 space-y-6">
+        <p>
+          Este sitio web utiliza cookies para mejorar la experiencia de navegación del usuario y obtener métricas de uso anónimas.
+        </p>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">¿Qué son las cookies?</h2>
+          <p>
+            Una cookie es un pequeño fichero que se descarga en su ordenador o dispositivo al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">Cookies Utilizadas en este Sitio</h2>
+          <p>
+            Actualmente, este sitio web utiliza únicamente cookies técnicas y de personalización esenciales para el correcto funcionamiento de la navegación web, así como cookies de análisis técnico que no recopilan información personal identificable.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">Cómo desactivar las Cookies</h2>
+          <p>
+            Puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador. Consulte las guías de ayuda de su navegador (Chrome, Firefox, Safari, Edge) para obtener más información.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</RootLayout>

@@ -1,0 +1,58 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<RootLayout 
+  title="Política de Privacidad | Resuelve Tu Herencia"
+  description="Política de Privacidad y tratamiento de datos personales de Resuelve Tu Herencia."
+>
+  <Navbar />
+  <main class="bg-secondary py-16 lg:py-24">
+    <div class="section-container max-w-3xl bg-white p-8 sm:p-12 rounded-2xl border border-primary/10 shadow-sm">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-primary mb-8 border-b border-primary/10 pb-4">
+        Política de Privacidad
+      </h1>
+      
+      <div class="prose prose-sm max-w-none text-primary/80 space-y-6">
+        <p>
+          En Resuelve Tu Herencia nos tomamos muy en serio la privacidad de sus datos. A continuación, le detallamos cómo tratamos la información personal que nos facilita a través de nuestro formulario de contacto.
+        </p>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">1. Responsable del Tratamiento</h2>
+          <p>
+            El responsable del tratamiento de los datos recabados en este sitio web es Resuelve Tu Herencia, con correo de contacto <strong>agnresuelvetuherencia@gmail.com</strong>.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">2. Finalidad del Tratamiento</h2>
+          <p>
+            Tratamos sus datos personales únicamente con las siguientes finalidades:
+          </p>
+          <ul class="list-disc pl-5 mt-2 space-y-1">
+            <li>Responder a sus consultas y solicitudes de sesión diagnóstica gratuita.</li>
+            <li>Gestionar los servicios de asesoría contratados.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">3. Conservación de Datos</h2>
+          <p>
+            Los datos personales proporcionados se conservarán durante el tiempo necesario para cumplir con la finalidad para la que se recabaron y para determinar las posibles responsabilidades que se pudieran derivar de dicha finalidad.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-primary mb-2">4. Sus Derechos</h2>
+          <p>
+            Puede ejercer sus derechos de acceso, rectificación, supresión, limitación y oposición enviando un correo electrónico detallando su solicitud a <strong>agnresuelvetuherencia@gmail.com</strong>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</RootLayout>

@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-secondary text-primary;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  /* Primary CTA Button - Solid gold pill */
+  .btn-primary {
+    @apply inline-block rounded-full bg-gold px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-primary
+           transition-all duration-300 hover:bg-gold-dark hover:shadow-lg hover:shadow-gold/20;
+  }
+
+  /* Secondary CTA Button - Outlined gold pill */
+  .btn-outline {
+    @apply inline-block rounded-full border-2 border-gold px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-gold
+           transition-all duration-300 hover:bg-gold hover:text-primary;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply container mx-auto px-4 md:px-8 lg:px-12;
+  }
+
+  /* Card with gold border - for Metodo section */
+  .card-method {
+    @apply relative rounded-xl border border-gold/40 bg-white p-5 sm:p-6 lg:p-8 text-center
+           transition-all duration-300 hover:border-gold hover:shadow-xl hover:shadow-gold/5;
+  }
+
+  /* Card for services - white cards on dark bg */
+  .card-service {
+    @apply flex items-start gap-4 sm:gap-5 rounded-xl bg-white p-5 sm:p-6 shadow-sm
+           transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer;
+  }
+}
+
+/* Smooth reveal animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Mobile menu animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.25s ease-out forwards;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-slide-down {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,27 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import Beneficios from '../components/sections/Beneficios.astro';
+import Metodo from '../components/sections/Metodo.astro';
+import Servicios from '../components/sections/Servicios.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import Contacto from '../components/sections/Contacto.astro';
+---
+
+<RootLayout 
+  title="Resuelve Tu Herencia | Gestión de Herencias en Madrid · Asesoría Experta"
+  description="Expertos en tramitación de herencias, liquidación del Impuesto de Sucesiones y gestión patrimonial en Madrid. Sesión diagnóstica gratuita. Simplificamos el proceso para tu familia."
+>
+  <Navbar />
+  <main>
+    <Hero />
+    <Beneficios />
+    <Metodo />
+    <Servicios />
+    <FAQ />
+    <Contacto />
+  </main>
+  <Footer />
+</RootLayout>

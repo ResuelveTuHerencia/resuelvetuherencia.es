@@ -1,0 +1,138 @@
+---
+const faqs = [
+  {
+    question: "¿Cuál es el plazo para liquidar el Impuesto de Sucesiones en la Comunidad de Madrid?",
+    answer: "El plazo legal para liquidar el Impuesto de Sucesiones y Donaciones en la Comunidad de Madrid es de 6 meses contados a partir del día del fallecimiento del causante. Se puede solicitar una prórroga por otros 6 meses adicionales, siempre y cuando se presente la solicitud formal de prórroga dentro de los primeros 5 meses del plazo general ante la Agencia Tributaria de Madrid."
+  },
+  {
+    question: "¿Es necesario desplazarse a Madrid centro si resido en la Sierra Norte o municipios del norte?",
+    answer: "No, en absoluto. Ofrecemos una gestión de herencias 100% digitalizada o, si lo prefieres, nos reunimos contigo de forma presencial en Lozoyuela, Alcobendas, San Sebastián de los Reyes o Colmenar Viejo. Nos encargamos de coordinar con notarías locales y del norte de Madrid para la firma de la escritura de adjudicación, evitando desplazamientos innecesarios y ahorrando tiempo."
+  },
+  {
+    question: "¿Qué trámites legales se deben realizar si el fallecido no dejó testamento?",
+    answer: "Cuando no existe testamento, se debe tramitar una 'Declaración de Herederos Abintestato' ante notario para designar a los herederos legales (hijos, cónyuge o padres) según el Código Civil. Posteriormente, realizamos la recopilación de bienes, la redacción del cuaderno particional, la liquidación fiscal del Impuesto de Sucesiones en Madrid y el cambio de nombre en el Registro de la Propiedad."
+  },
+  {
+    question: "¿Cómo se calculan los honorarios para la tramitación de una herencia?",
+    answer: "Ofrecemos una primera sesión diagnóstica 100% gratuita para evaluar tu caso (número de herederos, bienes inmuebles, cuentas, etc.). Tras este análisis inicial, te facilitamos un presupuesto cerrado y transparente llave en mano, garantizando que no habrá sorpresas, sobrecostes de gestión ni honorarios inesperados al final del proceso."
+  }
+];
+---
+<section id="faq" class="bg-secondary py-20 lg:py-24">
+  <div class="section-container max-w-3xl">
+    <h2 class="mb-12 text-center font-serif text-3xl sm:text-4xl font-bold text-primary">Preguntas Frecuentes</h2>
+    <div class="space-y-4">
+      {faqs.map((faq) => (
+        <details class="group rounded-xl border border-gold/20 bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:border-gold/40 open:border-gold/60 open:shadow-md [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-primary font-semibold text-base sm:text-lg select-none">
+            <span>{faq.question}</span>
+            <span class="relative h-5 w-5 shrink-0 text-gold">
+              <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 h-5 w-5 transition-opacity duration-200 opacity-100 group-open:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 h-5 w-5 transition-opacity duration-200 opacity-0 group-open:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-content overflow-hidden transition-all duration-300">
+            <p class="mt-4 leading-relaxed text-primary/70 text-sm sm:text-base">
+              {faq.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  class Accordion {
+    el: HTMLDetailsElement;
+    summary: HTMLElement;
+    content: HTMLElement;
+    animation: Animation | null;
+    isClosing: boolean;
+    isExpanding: boolean;
+
+    constructor(el: HTMLDetailsElement) {
+      this.el = el;
+      this.summary = el.querySelector('summary')!;
+      this.content = el.querySelector('.faq-content')!;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.summary.addEventListener('click', (e) => this.onClick(e));
+    }
+
+    onClick(e: Event) {
+      e.preventDefault();
+      this.el.style.overflow = 'hidden';
+      if (this.isClosing || !this.el.open) {
+        this.open();
+      } else if (this.isExpanding || this.el.open) {
+        this.shrink();
+      }
+    }
+
+    shrink() {
+      this.isClosing = true;
+      const startHeight = `${this.el.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight + 40}px`; // 40px accounts for vertical padding
+
+      if (this.animation) {
+        this.animation.cancel();
+      }
+
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 250,
+        easing: 'ease-out'
+      });
+
+      this.animation.onfinish = () => this.onAnimationFinish(false);
+      this.animation.oncancel = () => this.isClosing = false;
+    }
+
+    open() {
+      this.el.style.height = `${this.el.offsetHeight}px`;
+      this.el.open = true;
+      window.requestAnimationFrame(() => this.expand());
+    }
+
+    expand() {
+      this.isExpanding = true;
+      const startHeight = `${this.el.offsetHeight}px`;
+      // summary height + content height + top/bottom padding + margin-top
+      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight + 40}px`;
+
+      if (this.animation) {
+        this.animation.cancel();
+      }
+
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 300,
+        easing: 'ease-out'
+      });
+
+      this.animation.onfinish = () => this.onAnimationFinish(true);
+      this.animation.oncancel = () => this.isExpanding = false;
+    }
+
+    onAnimationFinish(open: boolean) {
+      this.el.open = open;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.el.style.height = '';
+      this.el.style.overflow = '';
+    }
+  }
+
+  document.querySelectorAll('details').forEach((el) => {
+    new Accordion(el as HTMLDetailsElement);
+  });
+</script>

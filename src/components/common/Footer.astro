@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.png";
+---
+
+<footer class="border-t-2 border-gold bg-primary pt-12 pb-6 text-secondary">
+  <div class="section-container">
+    <div
+      class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start"
+    >
+      <!-- Col 1: Logo + Brand -->
+      <div class="lg:col-span-1">
+        <a href="/" class="flex flex-col items-start gap-3 mb-4">
+          <Image
+            src={logoImage}
+            alt="Resuelve Tu Herencia"
+            class="h-24 w-auto"
+            width={256}
+            height={256}
+          />
+        </a>
+      </div>
+
+      <!-- Col 2: Links -->
+      <div>
+        <h4
+          class="mb-4 font-sans text-sm font-bold text-white underline underline-offset-4"
+        >
+          Links
+        </h4>
+        <ul class="space-y-2 text-sm text-secondary/75">
+          <li>
+            <a
+              href="#metodo"
+              class="hover:text-gold transition-colors duration-200"
+              >El Método</a
+            >
+          </li>
+          <li>
+            <a
+              href="#servicios"
+              class="hover:text-gold transition-colors duration-200"
+              >Servicios</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contacto"
+              class="hover:text-gold transition-colors duration-200">Contacto</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Oficina -->
+      <div>
+        <h4
+          class="mb-4 font-sans text-sm font-bold text-white underline underline-offset-4"
+        >
+          Oficina
+        </h4>
+        <ul class="space-y-2 text-sm text-secondary/75">
+          <li>28752, Lozoyuela</li>
+          <li>Madrid, Madrid</li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Contacto -->
+      <div>
+        <h4
+          class="mb-4 font-sans text-sm font-bold text-white underline underline-offset-4"
+        >
+          Contacto
+        </h4>
+        <ul class="space-y-2 text-sm text-secondary/75">
+          <li>
+            <a
+              href="mailto:agnresuelvetuherencia@gmail.com"
+              class="hover:text-gold transition-colors duration-200"
+            >
+              agnresuelvetuherencia@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright line -->
+    <div class="mt-10 border-t border-gold/20 pt-6 text-center">
+      <p class="text-xs text-gold/70">
+        Copyright &copy; {new Date().getFullYear()} Resuelve tu Herencia. Todos los
+        derechos reservados.
+      </p>
+      <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gold/70">
+        <a href="/aviso-legal" class="hover:text-white transition-colors duration-200">Aviso Legal</a>
+        <a href="/politica-privacidad" class="hover:text-white transition-colors duration-200">Política de Privacidad</a>
+        <a href="/cookies" class="hover:text-white transition-colors duration-200">Política de Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,246 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.png";
+---
+
+<header class="sticky top-0 z-50 w-full bg-primary border-b border-gold/15">
+  <div class="section-container flex h-[72px] items-center justify-between">
+    <!-- Logo + Brand -->
+    <a href="/" class="flex items-center gap-3 shrink-0">
+      <Image
+        src={logoImage}
+        alt="Resuelve Tu Herencia"
+        class="h-10 w-auto object-contain"
+        width={40}
+        height={40}
+      />
+    </a>
+
+    <!-- Desktop Navigation (centered) -->
+    <nav class="relative hidden md:flex items-center gap-8 py-2">
+      <!-- Smooth sliding indicator -->
+      <div
+        id="nav-indicator"
+        class="absolute bottom-0 h-0.5 bg-gold transition-all duration-300 ease-out rounded-full pointer-events-none"
+        style="left: 0; width: 0; bottom: -2px;"
+      >
+      </div>
+
+      <a
+        href="#inicio"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >Inicio</a
+      >
+      <a
+        href="#metodo"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >El Método</a
+      >
+      <a
+        href="#servicios"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >Servicios</a
+      >
+      <a
+        href="#faq"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >FAQs</a
+      >
+      <a
+        href="#contacto"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >Contacto</a
+      >
+    </nav>
+
+    <!-- CTA Button (right) -->
+    <div class="flex items-center gap-3">
+      <a
+        href="#contacto"
+        class="hidden lg:inline-block btn-outline text-xs py-2 px-5"
+      >
+        MÁS INFORMACIÓN
+      </a>
+
+      <!-- Mobile hamburger button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden flex flex-col gap-1.5 p-2 text-white"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+      >
+        <span
+          class="block w-6 h-0.5 bg-white transition-transform duration-200"
+          id="bar-1"></span>
+        <span
+          class="block w-6 h-0.5 bg-white transition-opacity duration-200"
+          id="bar-2"></span>
+        <span
+          class="block w-6 h-0.5 bg-white transition-transform duration-200"
+          id="bar-3"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden bg-primary/98 border-t border-gold/10 backdrop-blur-lg"
+  >
+    <div class="section-container py-4 flex flex-col gap-3">
+      <a
+        href="#inicio"
+        class="text-sm font-medium text-white/80 py-2 mobile-nav-link">Inicio</a
+      >
+      <a
+        href="#metodo"
+        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
+        >El Método</a
+      >
+      <a
+        href="#faq"
+        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
+        >FAQs</a
+      >
+      <a
+        href="#servicios"
+        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
+        >Servicios</a
+      >
+      <a
+        href="#contacto"
+        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
+        >Contacto</a
+      >
+      <a href="#contacto" class="btn-primary text-center text-xs mt-2"
+        >Solicitar Sesión Gratuita</a
+      >
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const bar1 = document.getElementById("bar-1");
+  const bar2 = document.getElementById("bar-2");
+  const bar3 = document.getElementById("bar-3");
+
+  // Mobile menu toggle
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      const isOpen = !menu.classList.contains("hidden");
+      menu.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(!isOpen));
+
+      if (!isOpen) {
+        menu.classList.add("animate-slide-down");
+        bar1?.classList.add("rotate-45", "translate-y-2");
+        bar2?.classList.add("opacity-0");
+        bar3?.classList.add("-rotate-45", "-translate-y-2");
+      } else {
+        menu.classList.remove("animate-slide-down");
+        bar1?.classList.remove("rotate-45", "translate-y-2");
+        bar2?.classList.remove("opacity-0");
+        bar3?.classList.remove("-rotate-45", "-translate-y-2");
+      }
+    });
+
+    // Close menu when clicking a link
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+        bar1?.classList.remove("rotate-45", "translate-y-2");
+        bar2?.classList.remove("opacity-0");
+        bar3?.classList.remove("-rotate-45", "-translate-y-2");
+      });
+    });
+  }
+
+  // Active section tracking with smooth indicator
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+  const indicator = document.getElementById("nav-indicator");
+
+  function updateIndicator(activeLink: HTMLElement | null) {
+    if (!indicator || !activeLink) return;
+    const rect = activeLink.getBoundingClientRect();
+    const navRect = activeLink.parentElement?.getBoundingClientRect();
+    if (navRect) {
+      indicator.style.left = `${rect.left - navRect.left}px`;
+      indicator.style.width = `${rect.width}px`;
+      indicator.style.opacity = "1";
+    }
+  }
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-40% 0px -45% 0px",
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+
+        // Update Desktop Indicator
+        let activeLink: HTMLElement | null = null;
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          const element = link as HTMLElement;
+          if (href === `#${id}`) {
+            element.classList.add("text-white");
+            element.classList.remove("text-white/70");
+            activeLink = element;
+          } else {
+            element.classList.remove("text-white");
+            element.classList.add("text-white/70");
+          }
+        });
+        if (activeLink) {
+          updateIndicator(activeLink);
+        }
+
+        // Update Mobile menu active state
+        mobileNavLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          const element = link as HTMLElement;
+          if (href === `#${id}`) {
+            element.classList.add("text-gold");
+            element.classList.remove("text-white/80");
+          } else {
+            element.classList.remove("text-gold");
+            element.classList.add("text-white/80");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => observer.observe(section));
+
+  // Handle resizing and initial layout rendering
+  window.addEventListener("resize", () => {
+    const activeLink = document.querySelector(
+      ".nav-link.text-white",
+    ) as HTMLElement;
+    if (activeLink) {
+      updateIndicator(activeLink);
+    }
+  });
+
+  // Small delay to ensure styles and layouts are resolved before positioning indicator
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const activeLink = document.querySelector(
+        ".nav-link.text-white",
+      ) as HTMLElement;
+      if (activeLink) {
+        updateIndicator(activeLink);
+      }
+    }, 100);
+  });
+</script>
