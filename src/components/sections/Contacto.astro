@@ -1,20 +1,15 @@
 ---
-// Cargar la API Key de Web3Forms desde variables de entorno
-const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE";
 ---
 <section id="contacto" class="bg-white py-20 lg:py-24">
   <div class="section-container max-w-4xl">
-    <div class="rounded-2xl border border-gold/20 bg-secondary p-6 sm:p-8 md:p-12 shadow-lg">
-      <div class="mb-10 text-center">
-        <h2 class="mb-4 font-serif text-3xl sm:text-4xl font-bold text-primary">Solicita tu Sesión Diagnóstica</h2>
-        <p class="text-primary/65 text-sm sm:text-base max-w-lg mx-auto">Déjanos tus datos y nos pondremos en contacto contigo para evaluar tu caso sin compromiso.</p>
-      </div>
+    <div class="rounded-2xl border border-gold/20 bg-secondary p-4 sm:p-8 md:p-12 shadow-lg">
+      <div id="contact-wrapper">
+        <div class="mb-10 text-center">
+          <h2 class="mb-4 font-serif text-3xl sm:text-4xl font-bold text-primary">Solicita tu Sesión Diagnóstica</h2>
+          <p class="text-primary/65 text-sm sm:text-base max-w-lg mx-auto">Déjanos tus datos y nos pondremos en contacto contigo para evaluar tu caso sin compromiso.</p>
+        </div>
 
-      <form action="https://api.web3forms.com/submit" method="POST" class="grid gap-5 md:grid-cols-2" id="secure-contact-form">
-        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-        <input type="hidden" name="subject" value="Nueva solicitud de sesión - Resuelve Tu Herencia" />
-        <input type="hidden" name="from_name" value="Resuelve Tu Herencia Web" />
-        <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+        <form action="/api/submit" method="POST" class="grid gap-5 md:grid-cols-2" id="secure-contact-form">
         
         <!-- Honeypot anti-spam para interceptar envíos de bots automatizados -->
         <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
@@ -76,25 +71,80 @@ const WEB3FORMS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_H
 </section>
 
 <script>
-  // Prevención de inyección (XSS / SQLi básico) del lado del cliente antes del envío
-  const form = document.getElementById('secure-contact-form') as HTMLFormElement | null;
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      const inputs = form.querySelectorAll('input[type="text"], input[type="tel"], textarea');
-      let isSafe = true;
+  const setupForm = () => {
+    const form = document.getElementById('secure-contact-form') as HTMLFormElement | null;
+    const wrapper = document.getElementById('contact-wrapper');
 
-      inputs.forEach((input) => {
-        const value = (input as HTMLInputElement | HTMLTextAreaElement).value;
-        // Impedir caracteres comunes usados para inyectar HTML/Scripts (<, >, &, =, ")
-        if (/[<>&=]/.test(value)) {
-          isSafe = false;
+    if (form && wrapper) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const inputs = form.querySelectorAll('input[type="text"], input[type="tel"], textarea');
+        let isSafe = true;
+
+        inputs.forEach((input) => {
+          const value = (input as HTMLInputElement | HTMLTextAreaElement).value;
+          if (/[<>&=]/.test(value)) {
+            isSafe = false;
+          }
+        });
+
+        if (!isSafe) {
+          alert('Se han detectado caracteres especiales no permitidos en tu mensaje (<, >, &, =). Por favor, evítalos.');
+          return;
+        }
+
+        const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        const originalBtnText = submitBtn ? submitBtn.innerText : 'ENVIAR SOLICITUD';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerText = 'ENVIANDO...';
+        }
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('/api/submit', {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            wrapper.innerHTML = `
+              <div class="text-center py-12 px-4 animate-fade-in-up flex flex-col items-center max-w-lg mx-auto">
+                <div class="w-16 h-16 bg-gold/10 text-gold rounded-full flex items-center justify-center mb-6 border border-gold/20">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-8 h-8">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-primary mb-4">¡Solicitud Enviada!</h2>
+                <p class="text-primary/70 text-sm sm:text-base leading-relaxed mb-6 font-sans">
+                  Gracias por contactar con nosotros. Un especialista revisará tu caso y te llamará en las próximas 24 horas hábiles.
+                </p>
+                <a href="/" class="btn-outline text-xs px-6 py-2.5">
+                  VOLVER A INICIO
+                </a>
+              </div>
+            `;
+          } else {
+            alert(result.message || 'Hubo un error al enviar la solicitud. Por favor, inténtalo de nuevo.');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = originalBtnText;
+            }
+          }
+        } catch (err) {
+          console.error('Error submitting form:', err);
+          alert('Error de conexión. Por favor, verifica tu conexión a internet e inténtalo de nuevo.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = originalBtnText;
+          }
         }
       });
+    }
+  };
 
-      if (!isSafe) {
-        e.preventDefault();
-        alert('Se han detectado caracteres especiales no permitidos en tu mensaje (<, >, &, =). Por favor, evítalos.');
-      }
-    });
-  }
+  document.addEventListener('astro:page-load', setupForm);
 </script>

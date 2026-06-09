@@ -235,6 +235,68 @@ import logoImage from "../../assets/logo.png";
 
     sections.forEach((section) => observer.observe(section));
 
+    // Set active link state and indicator based on URL path/hash
+    function setInitialActiveState() {
+      const path = window.location.pathname;
+      if (path.includes('/contacto')) {
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href === '/contacto') {
+            link.classList.add("text-white");
+            link.classList.remove("text-white/70");
+            updateIndicator(link as HTMLElement);
+          } else {
+            link.classList.remove("text-white");
+            link.classList.add("text-white/70");
+          }
+        });
+        mobileNavLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href === '/contacto') {
+            link.classList.add("text-gold");
+            link.classList.remove("text-white/80");
+          } else {
+            link.classList.remove("text-gold");
+            link.classList.add("text-white/80");
+          }
+        });
+      } else {
+        const hash = window.location.hash;
+        const targetHash = hash || '#inicio';
+        let activeLink: HTMLElement | null = null;
+
+        navLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          const linkHash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+          const element = link as HTMLElement;
+          if (linkHash === targetHash) {
+            element.classList.add("text-white");
+            element.classList.remove("text-white/70");
+            activeLink = element;
+          } else {
+            element.classList.remove("text-white");
+            element.classList.add("text-white/70");
+          }
+        });
+        if (activeLink) {
+          updateIndicator(activeLink);
+        }
+
+        mobileNavLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          const linkHash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+          const element = link as HTMLElement;
+          if (linkHash === targetHash) {
+            element.classList.add("text-gold");
+            element.classList.remove("text-white/80");
+          } else {
+            element.classList.remove("text-gold");
+            element.classList.add("text-white/80");
+          }
+        });
+      }
+    }
+
     // Handle resizing
     const handleResize = () => {
       const activeLink = document.querySelector(
@@ -246,18 +308,10 @@ import logoImage from "../../assets/logo.png";
     };
     window.addEventListener("resize", handleResize);
 
-    // Initial positioning of indicator
-    setTimeout(() => {
-      const activeLink = document.querySelector(
-        ".nav-link.text-white",
-      ) as HTMLElement;
-      if (activeLink) {
-        updateIndicator(activeLink);
-      }
-    }, 100);
+    // Run initial positioning
+    setTimeout(setInitialActiveState, 100);
   };
 
   // Run on initial load and page transitions
-  document.addEventListener("DOMContentLoaded", initNavbar);
   document.addEventListener("astro:page-load", initNavbar);
 </script>

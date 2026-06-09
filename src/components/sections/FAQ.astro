@@ -23,7 +23,7 @@ const faqs = [
     <h2 class="mb-12 text-center font-serif text-3xl sm:text-4xl font-bold text-primary">Preguntas Frecuentes</h2>
     <div class="space-y-4">
       {faqs.map((faq) => (
-        <details class="group rounded-xl border border-gold/20 bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:border-gold/40 open:border-gold/60 open:shadow-md [&_summary::-webkit-details-marker]:hidden">
+        <details class="group rounded-xl border border-gold/20 bg-white p-4 sm:p-5 md:p-6 shadow-sm transition-all duration-300 hover:border-gold/40 open:border-gold/60 open:shadow-md [&_summary::-webkit-details-marker]:hidden">
           <summary class="flex cursor-pointer items-center justify-between gap-4 text-primary font-semibold text-base sm:text-lg select-none">
             <span>{faq.question}</span>
             <span class="relative h-5 w-5 shrink-0 text-gold">
@@ -78,7 +78,9 @@ const faqs = [
     shrink() {
       this.isClosing = true;
       const startHeight = `${this.el.offsetHeight}px`;
-      const endHeight = `${this.summary.offsetHeight + 40}px`; // 40px accounts for vertical padding
+      const computedStyle = window.getComputedStyle(this.el);
+      const verticalPadding = parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+      const endHeight = `${this.summary.offsetHeight + verticalPadding}px`;
 
       if (this.animation) {
         this.animation.cancel();
@@ -104,8 +106,9 @@ const faqs = [
     expand() {
       this.isExpanding = true;
       const startHeight = `${this.el.offsetHeight}px`;
-      // summary height + content height + top/bottom padding + margin-top
-      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight + 40}px`;
+      const computedStyle = window.getComputedStyle(this.el);
+      const verticalPadding = parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight + verticalPadding}px`;
 
       if (this.animation) {
         this.animation.cancel();

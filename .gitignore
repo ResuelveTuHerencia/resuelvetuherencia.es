@@ -28,3 +28,9 @@ Thumbs.db
 DB.txt
 design.md
 MVP_Web_Resuelve_Tu_Herencia.md
+security-audit.md
+
+# Build / Deployment directories
+.vercel/
+.netlify/
+.output/

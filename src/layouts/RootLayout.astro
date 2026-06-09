@@ -122,13 +122,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://resuelve
     <!-- Reset scroll position instantly after each page swap to prevent
          the "already scrolled" visual glitch caused by smooth scroll + ClientRouter -->
     <script>
-      document.addEventListener('astro:after-swap', () => {
-        // Temporarily disable smooth scroll, jump to top, then re-enable
+      // Disable smooth scroll when navigation starts
+      document.addEventListener('astro:before-preparation', () => {
         document.documentElement.style.scrollBehavior = 'auto';
-        window.scrollTo(0, 0);
-        // Re-enable smooth scroll on next frame after the jump
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        // Scroll to top instantly if there is no hash in the destination URL
+        if (!window.location.hash) {
+          window.scrollTo(0, 0);
+        }
+      });
+
+      // Once the page is loaded and any scroll-to-hash has finished, re-enable smooth scroll
+      document.addEventListener('astro:page-load', () => {
         requestAnimationFrame(() => {
-          document.documentElement.style.scrollBehavior = '';
+          requestAnimationFrame(() => {
+            document.documentElement.style.scrollBehavior = '';
+          });
         });
       });
     </script>
