@@ -331,14 +331,21 @@ import Footer from "../components/common/Footer.astro";
   const longitude = -3.6176370164417504;
   const latitude = 40.92586430923798;
 
+  let mapInstance: MapLibreGL.Map | null = null;
+
   // Initialize Map
   const initMap = () => {
     const mapContainer = document.getElementById("contact-map");
     const loader = document.getElementById("contact-map-loader");
     if (!mapContainer) return;
 
+    if (mapInstance) {
+      mapInstance.remove();
+      mapInstance = null;
+    }
+
     try {
-      const map = new MapLibreGL.Map({
+      mapInstance = new MapLibreGL.Map({
         container: "contact-map",
         style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
         center: [longitude, latitude],
@@ -347,7 +354,7 @@ import Footer from "../components/common/Footer.astro";
         attributionControl: false,
       });
 
-      map.addControl(
+      mapInstance.addControl(
         new MapLibreGL.NavigationControl({ showCompass: false }),
         "top-right",
       );
@@ -385,10 +392,10 @@ import Footer from "../components/common/Footer.astro";
       new MapLibreGL.Marker({ element: el })
         .setLngLat([longitude, latitude])
         .setPopup(popup)
-        .addTo(map);
-      popup.setLngLat([longitude, latitude]).addTo(map);
+        .addTo(mapInstance);
+      popup.setLngLat([longitude, latitude]).addTo(mapInstance);
 
-      map.on("load", () => {
+      mapInstance.on("load", () => {
         if (loader) {
           loader.style.opacity = "0";
           setTimeout(() => loader.remove(), 500);
@@ -400,8 +407,7 @@ import Footer from "../components/common/Footer.astro";
     }
   };
 
-  // Run on page load & Astro page transition change
-  document.addEventListener("DOMContentLoaded", initMap);
+  // Run on Astro page transition change (which also runs on initial page load)
   document.addEventListener("astro:page-load", initMap);
 
   // Secure validation logic
@@ -412,6 +418,14 @@ import Footer from "../components/common/Footer.astro";
     const wrapper = document.getElementById("contact-page-wrapper");
 
     if (form && wrapper) {
+      // Prefill message from tools redirection if present
+      const storedMsg = sessionStorage.getItem("herramientas_msg");
+      const messageField = document.getElementById("message") as HTMLTextAreaElement | null;
+      if (storedMsg && messageField) {
+        messageField.value = storedMsg;
+        sessionStorage.removeItem("herramientas_msg");
+      }
+
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 

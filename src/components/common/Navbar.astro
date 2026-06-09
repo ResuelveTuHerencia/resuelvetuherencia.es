@@ -32,14 +32,14 @@ import logoImage from "../../assets/logo.png";
         >Inicio</a
       >
       <a
-        href="/#metodo"
-        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
-        >El Método</a
-      >
-      <a
         href="/#servicios"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >Servicios</a
+      >
+      <a
+        href="/#herramientas"
+        class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
+        >Herramientas</a
       >
       <a
         href="/#sobre-nosotros"
@@ -98,14 +98,14 @@ import logoImage from "../../assets/logo.png";
         class="text-sm font-medium text-white/80 py-2 mobile-nav-link">Inicio</a
       >
       <a
-        href="/#metodo"
-        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
-        >El Método</a
-      >
-      <a
         href="/#servicios"
         class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
         >Servicios</a
+      >
+      <a
+        href="/#herramientas"
+        class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
+        >Herramientas</a
       >
       <a
         href="/#sobre-nosotros"
@@ -201,7 +201,10 @@ import logoImage from "../../assets/logo.png";
           let activeLink: HTMLElement | null = null;
           navLinks.forEach((link) => {
             const href = link.getAttribute("href");
-            const hash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+            const hash =
+              href && href.includes("#")
+                ? href.substring(href.indexOf("#"))
+                : "";
             const element = link as HTMLElement;
             if (hash === `#${id}`) {
               element.classList.add("text-white");
@@ -219,7 +222,10 @@ import logoImage from "../../assets/logo.png";
           // Update Mobile menu active state
           mobileNavLinks.forEach((link) => {
             const href = link.getAttribute("href");
-            const hash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+            const hash =
+              href && href.includes("#")
+                ? href.substring(href.indexOf("#"))
+                : "";
             const element = link as HTMLElement;
             if (hash === `#${id}`) {
               element.classList.add("text-gold");
@@ -238,10 +244,10 @@ import logoImage from "../../assets/logo.png";
     // Set active link state and indicator based on URL path/hash
     function setInitialActiveState() {
       const path = window.location.pathname;
-      if (path.includes('/contacto')) {
+      if (path.includes("/contacto")) {
         navLinks.forEach((link) => {
           const href = link.getAttribute("href");
-          if (href === '/contacto') {
+          if (href === "/contacto") {
             link.classList.add("text-white");
             link.classList.remove("text-white/70");
             updateIndicator(link as HTMLElement);
@@ -252,7 +258,7 @@ import logoImage from "../../assets/logo.png";
         });
         mobileNavLinks.forEach((link) => {
           const href = link.getAttribute("href");
-          if (href === '/contacto') {
+          if (href === "/contacto") {
             link.classList.add("text-gold");
             link.classList.remove("text-white/80");
           } else {
@@ -262,12 +268,13 @@ import logoImage from "../../assets/logo.png";
         });
       } else {
         const hash = window.location.hash;
-        const targetHash = hash || '#inicio';
+        const targetHash = hash || "#inicio";
         let activeLink: HTMLElement | null = null;
 
         navLinks.forEach((link) => {
           const href = link.getAttribute("href");
-          const linkHash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+          const linkHash =
+            href && href.includes("#") ? href.substring(href.indexOf("#")) : "";
           const element = link as HTMLElement;
           if (linkHash === targetHash) {
             element.classList.add("text-white");
@@ -284,7 +291,8 @@ import logoImage from "../../assets/logo.png";
 
         mobileNavLinks.forEach((link) => {
           const href = link.getAttribute("href");
-          const linkHash = href && href.includes('#') ? href.substring(href.indexOf('#')) : '';
+          const linkHash =
+            href && href.includes("#") ? href.substring(href.indexOf("#")) : "";
           const element = link as HTMLElement;
           if (linkHash === targetHash) {
             element.classList.add("text-gold");

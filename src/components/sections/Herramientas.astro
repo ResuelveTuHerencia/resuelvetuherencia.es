@@ -1,0 +1,289 @@
+---
+import TaxCalculator from "./TaxCalculator.astro";
+import InheritanceAssistant from "./InheritanceAssistant.astro";
+---
+
+<section
+  id="herramientas"
+  class="bg-white py-20 lg:py-24 border-b border-slate-100 relative overflow-hidden"
+>
+  <!-- Subtle decorative glow -->
+  <div
+    class="absolute -left-64 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"
+  >
+  </div>
+
+  <div class="section-container relative z-10">
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center mb-12 animate-fade-in-up">
+      <h2
+        class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 leading-tight"
+      >
+        Planifica tu Herencia
+      </h2>
+      <p class="text-base sm:text-lg text-primary/80 leading-relaxed">
+        Ponemos a tu disposición nuestras herramientas digitales para guiarte en
+        el proceso fiscal y legal de sucesiones en la Comunidad de Madrid.
+      </p>
+    </div>
+
+    <!-- Tabs Switcher -->
+    <div
+      class="flex justify-center border-b border-slate-200 mb-10 max-w-xl mx-auto"
+    >
+      <button
+        type="button"
+        id="tab-calculator-btn"
+        class="flex-1 py-4 text-center font-serif text-base sm:text-lg font-bold border-b-2 transition-all duration-300 select-none cursor-pointer border-gold text-primary"
+      >
+        Calculadora de Costes
+      </button>
+      <button
+        type="button"
+        id="tab-assistant-btn"
+        class="flex-1 py-4 text-center font-serif text-base sm:text-lg font-bold border-b-2 transition-all duration-300 select-none cursor-pointer border-transparent text-primary/50 hover:text-primary"
+      >
+        Asistente Interactivo
+      </button>
+    </div>
+
+    <!-- Tab Contents Carousel Wrapper -->
+    <div
+      id="carousel-wrapper"
+      class="w-full overflow-hidden transition-all duration-500 ease-in-out"
+      style="overflow-anchor: none;"
+    >
+      <div
+        id="carousel-track"
+        class="flex items-start w-[200%] transition-transform duration-500 ease-in-out"
+        style="transform: translateX(0%);"
+      >
+        <!-- Slide 1: Tax Calculator -->
+        <div id="tab-calculator-content" class="w-1/2 shrink-0 px-2 md:px-4">
+          <TaxCalculator />
+        </div>
+
+        <!-- Slide 2: Inheritance Assistant -->
+        <div id="tab-assistant-content" class="w-1/2 shrink-0 px-2 md:px-4">
+          <InheritanceAssistant />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const initHerramientasTabs = () => {
+    const tabCalcBtn = document.getElementById("tab-calculator-btn");
+    const tabAsstBtn = document.getElementById("tab-assistant-btn");
+    const carouselTrack = document.getElementById("carousel-track");
+    const carouselWrapper = document.getElementById("carousel-wrapper");
+    const tabCalcContent = document.getElementById("tab-calculator-content");
+    const tabAsstContent = document.getElementById("tab-assistant-content");
+    const sharedCtaBtn = document.getElementById("btn-herramientas-shared-cta");
+
+    if (
+      !tabCalcBtn ||
+      !tabAsstBtn ||
+      !carouselTrack ||
+      !carouselWrapper ||
+      !tabCalcContent ||
+      !tabAsstContent
+    )
+      return;
+
+    // Switch to Calculator tab
+    const activateCalculator = () => {
+      tabCalcBtn.classList.add("border-gold", "text-primary");
+      tabCalcBtn.classList.remove("border-transparent", "text-primary/50");
+
+      tabAsstBtn.classList.remove("border-gold", "text-primary");
+      tabAsstBtn.classList.add("border-transparent", "text-primary/50");
+
+      // Slide to first slot (0%)
+      (carouselTrack as HTMLElement).style.transform = "translateX(0%)";
+
+      // Set wrapper height
+      carouselWrapper.style.height = `${(tabCalcContent as HTMLElement).offsetHeight}px`;
+    };
+
+    // Switch to Assistant tab
+    const activateAssistant = () => {
+      tabAsstBtn.classList.add("border-gold", "text-primary");
+      tabAsstBtn.classList.remove("border-transparent", "text-primary/50");
+
+      tabCalcBtn.classList.remove("border-gold", "text-primary");
+      tabCalcBtn.classList.add("border-transparent", "text-primary/50");
+
+      // Slide to second slot (-50%)
+      (carouselTrack as HTMLElement).style.transform = "translateX(-50%)";
+
+      // Set wrapper height
+      carouselWrapper.style.height = `${(tabAsstContent as HTMLElement).offsetHeight}px`;
+    };
+
+    tabCalcBtn.addEventListener("click", activateCalculator);
+    tabAsstBtn.addEventListener("click", activateAssistant);
+
+    // Auto-adjust wrapper height using ResizeObserver
+    if (window.ResizeObserver) {
+      const resizeObserver = new ResizeObserver(() => {
+        const isCalculatorActive =
+          (carouselTrack as HTMLElement).style.transform === "translateX(0%)" ||
+          !(carouselTrack as HTMLElement).style.transform;
+        const activeContent = isCalculatorActive
+          ? tabCalcContent
+          : tabAsstContent;
+        if (activeContent) {
+          carouselWrapper.style.height = `${activeContent.offsetHeight}px`;
+        }
+      });
+      resizeObserver.observe(tabCalcContent);
+      resizeObserver.observe(tabAsstContent);
+    }
+
+    // Shared CTA logic
+    if (sharedCtaBtn) {
+      sharedCtaBtn.addEventListener("click", () => {
+        let msg = "";
+
+        // Check which tab is active
+        const isCalculatorActive =
+          (carouselTrack as HTMLElement).style.transform === "translateX(0%)" ||
+          !(carouselTrack as HTMLElement).style.transform;
+
+        if (isCalculatorActive) {
+          // Collect calculator data
+          const valorProp =
+            (
+              document.getElementById(
+                "valor-propiedades",
+              ) as HTMLInputElement | null
+            )?.value || "0";
+          const dineroCuentas =
+            (
+              document.getElementById(
+                "dinero-cuentas",
+              ) as HTMLInputElement | null
+            )?.value || "0";
+          const herederos =
+            (
+              document.getElementById(
+                "calc-herederos-count",
+              ) as HTMLInputElement | null
+            )?.value || "1";
+
+          const comunidadSelect = document.getElementById(
+            "calc-comunidad-select",
+          ) as HTMLSelectElement | null;
+          const comunidad = comunidadSelect
+            ? comunidadSelect.options[comunidadSelect.selectedIndex].text
+            : "Madrid";
+
+          const parentescoSelect = document.getElementById(
+            "calc-parentesco-select",
+          ) as HTMLSelectElement | null;
+          const parentesco = parentescoSelect
+            ? parentescoSelect.options[parentescoSelect.selectedIndex].text
+            : "Grupo I/II";
+
+          const impuestoEst =
+            document.getElementById("calc-sucesiones")?.innerText || "0 €";
+          const plusvaliaEst =
+            document.getElementById("calc-plusvalia")?.innerText || "0 €";
+          const notariaEst =
+            document.getElementById("calc-notaria")?.innerText || "0 €";
+          const asesoriaEst =
+            document.getElementById("calc-asesoria")?.innerText || "0 €";
+
+          msg = `Hola, he utilizado vuestra calculadora de herencia y me gustaría solicitar una consulta diagnóstica gratuita.
+Mis datos calculados son:
+- Valor inmuebles: ${parseFloat(valorProp).toLocaleString("es-ES")} €
+- Dinero en cuentas: ${parseFloat(dineroCuentas).toLocaleString("es-ES")} €
+- Herederos: ${herederos}
+- Comunidad Autónoma: ${comunidad}
+- Parentesco: ${parentesco}
+
+Estimaciones obtenidas:
+- Impuesto de Sucesiones: ${impuestoEst}
+- Plusvalía Municipal: ${plusvaliaEst}
+- Gastos de Notaría/Registro: ${notariaEst}
+- Honorarios de Asesoría: ${asesoriaEst}
+
+Quedo a la espera de que se pongan en contacto conmigo para confirmar estos datos. Gracias.`;
+        } else {
+          // Collect assistant data
+          const assistantForm = document.getElementById(
+            "assistant-form",
+          ) as HTMLFormElement | null;
+          let testamento = "No especificado";
+          let propiedades = "No especificado";
+          let herederos = "1";
+          let comunidad = "Comunidad de Madrid";
+
+          if (assistantForm) {
+            const formData = new FormData(assistantForm);
+            const testValue = formData.get("testamento");
+            testamento =
+              testValue === "si"
+                ? "Sí, existe testamento"
+                : testValue === "no"
+                  ? "No, no hay testamento"
+                  : "No lo sabemos";
+
+            const propValue = formData.get("propiedades");
+            propiedades =
+              propValue === "si"
+                ? "Sí, existen propiedades"
+                : propValue === "no"
+                  ? "No existen propiedades"
+                  : "No lo sabemos";
+
+            herederos =
+              (
+                document.getElementById(
+                  "herederos-count",
+                ) as HTMLInputElement | null
+              )?.value || "1";
+
+            const comunidadSelect = document.getElementById(
+              "comunidad-select",
+            ) as HTMLSelectElement | null;
+            comunidad = comunidadSelect
+              ? comunidadSelect.options[comunidadSelect.selectedIndex].text
+              : "Comunidad de Madrid";
+          }
+
+          msg = `Hola, he utilizado el asistente de pasos de herencia y me gustaría solicitar vuestra asesoría gratuita.
+Los datos de mi caso son:
+- ¿Existe testamento?: ${testamento}
+- ¿Cuántos herederos hay?: ${herederos}
+- ¿Existen propiedades inmuebles?: ${propiedades}
+- Comunidad Autónoma de residencia: ${comunidad}
+
+Me gustaría que me indicaran los pasos exactos y agendar una sesión diagnóstica gratuita. Gracias.`;
+        }
+
+        // Scroll to contact form and populate details
+        const contactForm = document.getElementById(
+          "secure-contact-page-form",
+        ) as HTMLFormElement | null;
+        if (contactForm) {
+          const messageTextarea = contactForm.querySelector(
+            "#message",
+          ) as HTMLTextAreaElement | null;
+          if (messageTextarea) {
+            messageTextarea.value = msg;
+          }
+          contactForm.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // If not on contact form page, store in sessionStorage and redirect
+          sessionStorage.setItem("herramientas_msg", msg);
+          window.location.href = "/contacto";
+        }
+      });
+    }
+  };
+
+  document.addEventListener("astro:page-load", initHerramientasTabs);
+</script>

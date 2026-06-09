@@ -83,7 +83,7 @@
         </div>
 
         <a
-          href="#contacto"
+          href="contacto"
           class="btn-primary text-xs py-3 px-6 shadow-md shadow-gold/15"
         >
           SOLICITAR CITA PREVIA
@@ -143,6 +143,8 @@
   const longitude = -3.6176370164417504;
   const latitude = 40.92586430923798;
 
+  let mapInstance: MapLibreGL.Map | null = null;
+
   // Initialize the map
   const initMap = () => {
     const mapContainer = document.getElementById("homepage-map");
@@ -150,8 +152,13 @@
 
     if (!mapContainer) return;
 
+    if (mapInstance) {
+      mapInstance.remove();
+      mapInstance = null;
+    }
+
     try {
-      const map = new MapLibreGL.Map({
+      mapInstance = new MapLibreGL.Map({
         container: "homepage-map",
         style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", // Light theme basemap
         center: [longitude, latitude],
@@ -161,7 +168,7 @@
       });
 
       // Add navigation controls (zoom buttons)
-      map.addControl(
+      mapInstance.addControl(
         new MapLibreGL.NavigationControl({
           showCompass: false,
         }),
@@ -206,13 +213,13 @@
       new MapLibreGL.Marker({ element: el })
         .setLngLat([longitude, latitude])
         .setPopup(popup)
-        .addTo(map);
+        .addTo(mapInstance);
 
       // Open popup by default
-      popup.setLngLat([longitude, latitude]).addTo(map);
+      popup.setLngLat([longitude, latitude]).addTo(mapInstance);
 
       // Hide loader once style is loaded
-      map.on("load", () => {
+      mapInstance.on("load", () => {
         if (loader) {
           loader.style.opacity = "0";
           setTimeout(() => loader.remove(), 500);
@@ -224,8 +231,7 @@
     }
   };
 
-  // Run on page load & Astro page transition change
-  document.addEventListener("DOMContentLoaded", initMap);
+  // Run on Astro page transition change (which also runs on initial page load)
   document.addEventListener("astro:page-load", initMap);
 </script>
 

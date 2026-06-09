@@ -1,0 +1,382 @@
+---
+---
+
+<div class="grid gap-8 lg:grid-cols-12 items-stretch">
+  <!-- Inputs Column -->
+  <div class="lg:col-span-5 bg-slate-50 border border-slate-200/60 rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+    <form id="tax-calculator-form" class="space-y-5">
+      <!-- Valor de propiedades -->
+      <div>
+        <label for="valor-propiedades" class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans">
+          Valor de propiedades inmuebles:
+        </label>
+        <div class="relative rounded-lg shadow-sm">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-primary/40 text-sm">
+            €
+          </div>
+          <input
+            type="number"
+            id="valor-propiedades"
+            name="valor_propiedades"
+            min="0"
+            value="150000"
+            step="1000"
+            class="w-full rounded-lg border border-slate-200 bg-white pl-8 pr-4 py-3 text-sm text-primary focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium"
+            placeholder="0"
+          />
+        </div>
+      </div>
+
+      <!-- Dinero en cuentas -->
+      <div>
+        <label for="dinero-cuentas" class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans">
+          Dinero en cuentas bancarias:
+        </label>
+        <div class="relative rounded-lg shadow-sm">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-primary/40 text-sm">
+            €
+          </div>
+          <input
+            type="number"
+            id="dinero-cuentas"
+            name="dinero_cuentas"
+            min="0"
+            value="50000"
+            step="1000"
+            class="w-full rounded-lg border border-slate-200 bg-white pl-8 pr-4 py-3 text-sm text-primary focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium"
+            placeholder="0"
+          />
+        </div>
+      </div>
+
+      <!-- Número de herederos -->
+      <div>
+        <label for="calc-herederos-count" class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans">
+          Número de herederos:
+        </label>
+        <div class="relative flex items-center max-w-[150px]">
+          <button type="button" id="btn-dec-calc-herederos" class="flex h-10 w-10 items-center justify-center rounded-l-lg border border-slate-200 bg-white text-primary hover:bg-slate-50 transition-colors cursor-pointer select-none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <input 
+            type="number" 
+            id="calc-herederos-count" 
+            name="herederos" 
+            min="1" 
+            max="20" 
+            value="2" 
+            class="h-10 w-full border-y border-slate-200 bg-white text-center text-sm font-bold text-primary focus:outline-none"
+            readonly
+          />
+          <button type="button" id="btn-inc-calc-herederos" class="flex h-10 w-10 items-center justify-center rounded-r-lg border border-slate-200 bg-white text-primary hover:bg-slate-50 transition-colors cursor-pointer select-none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Comunidad Autónoma -->
+      <div>
+        <label for="calc-comunidad-select" class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans">
+          Comunidad Autónoma:
+        </label>
+        <div class="relative">
+          <select 
+            id="calc-comunidad-select" 
+            name="comunidad" 
+            class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-primary appearance-none focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium cursor-pointer"
+          >
+            <option value="madrid" selected>Comunidad de Madrid</option>
+            <option value="andalucia">Andalucía</option>
+            <option value="catalunya">Cataluña</option>
+            <option value="valencia">Comunidad Valenciana</option>
+            <option value="galicia">Galicia</option>
+            <option value="otras">Otras Comunidades</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary/60">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parentesco -->
+      <div>
+        <label for="calc-parentesco-select" class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans">
+          Parentesco con el fallecido:
+        </label>
+        <div class="relative">
+          <select 
+            id="calc-parentesco-select" 
+            name="parentesco" 
+            class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-primary appearance-none focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium cursor-pointer"
+          >
+            <option value="grupo2" selected>Hijos, Cónyuge o Padres (Grupo I/II)</option>
+            <option value="grupo3">Hermanos, Sobrinos o Tíos (Grupo III)</option>
+            <option value="grupo4">Otros parentescos o sin parentesco (Grupo IV)</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary/60">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Column -->
+  <div class="lg:col-span-7 bg-slate-50 border border-slate-200/60 rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+    <div>
+      <h3 class="font-serif text-xl font-bold text-primary mb-6 flex items-center gap-2">
+        <span class="flex h-3 w-3 rounded-full bg-gold animate-pulse"></span>
+        Resultado Estimado
+      </h3>
+
+      <div class="space-y-4">
+        <!-- Impuesto de Sucesiones -->
+        <div class="flex items-center justify-between p-4 rounded-xl bg-white border border-slate-100 shadow-sm transition-all hover:border-gold/20">
+          <div class="flex items-start gap-3">
+            <div class="text-gold shrink-0 mt-0.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-primary">Impuesto de Sucesiones</h4>
+              <p class="text-[10px] text-primary/50 font-medium">Estimado por el conjunto de la herencia</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span id="calc-sucesiones" class="font-serif text-lg font-bold text-primary">0 €</span>
+          </div>
+        </div>
+
+        <!-- Plusvalía Municipal -->
+        <div class="flex items-center justify-between p-4 rounded-xl bg-white border border-slate-100 shadow-sm transition-all hover:border-gold/20">
+          <div class="flex items-start gap-3">
+            <div class="text-gold shrink-0 mt-0.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M3 21h18M3 10h18M5 6h14M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-primary">Plusvalía Municipal</h4>
+              <p class="text-[10px] text-primary/50 font-medium">Abonado en el ayuntamiento de los inmuebles</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span id="calc-plusvalia" class="font-serif text-lg font-bold text-primary">0 €</span>
+          </div>
+        </div>
+
+        <!-- Honorarios de Notaría y Registro -->
+        <div class="flex items-center justify-between p-4 rounded-xl bg-white border border-slate-100 shadow-sm transition-all hover:border-gold/20">
+          <div class="flex items-start gap-3">
+            <div class="text-gold shrink-0 mt-0.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-primary">Honorarios de Notaría y Registro</h4>
+              <p class="text-[10px] text-primary/50 font-medium">Aranceles oficiales de escrituración</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span id="calc-notaria" class="font-serif text-lg font-bold text-primary">0 €</span>
+          </div>
+        </div>
+
+        <!-- Honorarios de Asesoría (Resuelve tu herencia) -->
+        <div class="flex items-center justify-between p-4 rounded-xl bg-white border border-slate-100 shadow-sm transition-all hover:border-gold/20">
+          <div class="flex items-start gap-3">
+            <div class="text-gold shrink-0 mt-0.5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-primary">Honorarios de Asesoría (Estimados)</h4>
+              <p class="text-[10px] text-primary/50 font-medium">Gestión integral de herencia y liquidación</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span id="calc-asesoria" class="font-serif text-lg font-bold text-primary">Desde 950 €</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Madrid Savings Badge / Notice -->
+      <div id="madrid-saving-badge" class="mt-6 p-4 rounded-xl border border-gold/20 bg-gold/5 flex items-start gap-3 transition-opacity duration-300">
+        <div class="text-gold shrink-0 mt-0.5 animate-bounce">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div>
+          <h5 class="text-xs font-bold text-primary">¡Ventajas Fiscales Aplicadas!</h5>
+          <p id="madrid-saving-text" class="text-xs text-primary/70 leading-relaxed mt-0.5">
+            Se ha aplicado la bonificación fiscal de la **Comunidad de Madrid**. Ahorras miles de euros en el impuesto.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small note -->
+    <div class="mt-6 text-center lg:text-left">
+      <p class="text-[11px] text-primary/50 leading-relaxed italic">
+        *Los resultados mostrados son estimaciones aproximadas basadas en aranceles e impuestos genéricos. Para obtener un cálculo exacto y un presupuesto personalizado, solicita nuestra asesoría gratuita.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initTaxCalculator = () => {
+    const form = document.getElementById("tax-calculator-form") as HTMLFormElement | null;
+    const propInput = document.getElementById("valor-propiedades") as HTMLInputElement | null;
+    const cuentasInput = document.getElementById("dinero-cuentas") as HTMLInputElement | null;
+    const herederosInput = document.getElementById("calc-herederos-count") as HTMLInputElement | null;
+    const comunidadSelect = document.getElementById("calc-comunidad-select") as HTMLSelectElement | null;
+    const parentescoSelect = document.getElementById("calc-parentesco-select") as HTMLSelectElement | null;
+
+    const btnDec = document.getElementById("btn-dec-calc-herederos");
+    const btnInc = document.getElementById("btn-inc-calc-herederos");
+
+    const resSucesiones = document.getElementById("calc-sucesiones");
+    const resPlusvalia = document.getElementById("calc-plusvalia");
+    const resNotaria = document.getElementById("calc-notaria");
+    const resAsesoria = document.getElementById("calc-asesoria");
+
+    const savingsBadge = document.getElementById("madrid-saving-badge");
+    const savingsText = document.getElementById("madrid-saving-text");
+
+    if (!form) return;
+
+    const formatCurrency = (val: number) => {
+      return Math.round(val).toLocaleString("es-ES") + " €";
+    };
+
+    // Standard progressive Spanish Sucesiones tax brackets
+    function calculateBaseSucesiones(taxableShare: number) {
+      const brackets = [
+        { limit: 7850, rate: 0.0765, base: 0 },
+        { limit: 15690, rate: 0.085, base: 600.58 },
+        { limit: 31380, rate: 0.102, base: 1267.35 },
+        { limit: 78400, rate: 0.153, base: 2868.12 },
+        { limit: 117600, rate: 0.187, base: 10064.21 },
+        { limit: 235000, rate: 0.212, base: 17395.21 },
+        { limit: 392000, rate: 0.255, base: 42287.21 },
+        { limit: 795000, rate: 0.2975, base: 82327.21 },
+        { limit: Infinity, rate: 0.34, base: 202157.21 }
+      ];
+
+      let prevLimit = 0;
+      let tax = 0;
+      for (const bracket of brackets) {
+        if (taxableShare <= bracket.limit) {
+          tax = bracket.base + (taxableShare - prevLimit) * bracket.rate;
+          break;
+        }
+        prevLimit = bracket.limit;
+      }
+      return Math.max(0, tax);
+    }
+
+    // Perform calculations and update results
+    function calculate() {
+      if (!propInput || !cuentasInput || !herederosInput || !comunidadSelect || !parentescoSelect) return;
+
+      const propValue = Math.max(0, parseFloat(propInput.value) || 0);
+      const cuentasValue = Math.max(0, parseFloat(cuentasInput.value) || 0);
+      const herederos = Math.max(1, parseInt(herederosInput.value, 10) || 1);
+      const comunidad = comunidadSelect.value;
+      const parentesco = parentescoSelect.value;
+
+      const totalEstate = propValue + cuentasValue;
+      const sharePerHeir = totalEstate / herederos;
+
+      // Sucesiones Impuesto calculation
+      // Apply general family deduction (Grupo II = 16.000€ per heir under state standard)
+      const deduction = parentesco === "grupo2" ? 16000 : 0;
+      const taxableShare = Math.max(0, sharePerHeir - deduction);
+
+      const baseTaxPerHeir = calculateBaseSucesiones(taxableShare);
+      let totalSucesionesTax = baseTaxPerHeir * herederos;
+
+      let saving = 0;
+      let savingsPctStr = "";
+
+      // Apply regional modifications
+      if (comunidad === "madrid") {
+        if (parentesco === "grupo2") {
+          // Madrid has 99% bonification for direct heirs
+          saving = totalSucesionesTax * 0.99;
+          totalSucesionesTax = totalSucesionesTax * 0.01;
+          savingsPctStr = "99% (Grupo II)";
+        } else if (parentesco === "grupo3") {
+          // Siblings have 15% bonification, nephews have 10%
+          // Let's take a middle ground or 15% as default siblings
+          saving = totalSucesionesTax * 0.15;
+          totalSucesionesTax = totalSucesionesTax * 0.85;
+          savingsPctStr = "15% (Grupo III - Hermanos)";
+        }
+      } else {
+        // Other regions might have minor reductions or none in this simplified model
+        // Let's assume standard state tax is paid
+      }
+
+      // Plusvalía Municipal (1.5% of property value as rough estimate)
+      const plusvalia = propValue > 0 ? propValue * 0.015 : 0;
+
+      // Notary fees (arancel scale)
+      let notaryBase = 150;
+      if (totalEstate > 24000 && totalEstate <= 100000) notaryBase = 250;
+      else if (totalEstate > 100000 && totalEstate <= 250000) notaryBase = 350;
+      else if (totalEstate > 250000 && totalEstate <= 500000) notaryBase = 450;
+      else if (totalEstate > 500000) notaryBase = 600;
+      
+      const totalNotary = notaryBase + (herederos * 50);
+
+      // Asesoría fees (Resuelve Tu Herencia estimate)
+      const baseAsesoria = 950;
+      const variableAsesoria = totalEstate > 100000 ? Math.min(1550, Math.round((totalEstate - 100000) * 0.005)) : 0;
+      const totalAsesoria = baseAsesoria + variableAsesoria;
+
+      // Update DOM
+      if (resSucesiones) resSucesiones.innerText = formatCurrency(totalSucesionesTax);
+      if (resPlusvalia) resPlusvalia.innerText = formatCurrency(plusvalia);
+      if (resNotaria) resNotaria.innerText = formatCurrency(totalNotary);
+      if (resAsesoria) resAsesoria.innerText = formatCurrency(totalAsesoria);
+
+      // Update Savings Badge
+      if (savingsBadge && savingsText) {
+        if (comunidad === "madrid" && (parentesco === "grupo2" || parentesco === "grupo3")) {
+          savingsBadge.classList.remove("opacity-0", "pointer-events-none");
+          savingsBadge.classList.add("opacity-100");
+          savingsText.innerHTML = `Se ha aplicado una bonificación del <strong>${savingsPctStr}</strong> por residir en la <strong>Comunidad de Madrid</strong>. Ahorro estimado de <strong>${formatCurrency(saving)}</strong> en comparación con la tarifa estándar nacional.`;
+        } else {
+          savingsBadge.classList.add("opacity-0", "pointer-events-none");
+          savingsBadge.classList.remove("opacity-100");
+        }
+      }
+    }
+
+    // Inputs event listeners
+    if (propInput) propInput.addEventListener("input", calculate);
+    if (cuentasInput) cuentasInput.addEventListener("input", calculate);
+    if (comunidadSelect) comunidadSelect.addEventListener("change", calculate);
+    if (parentescoSelect) parentescoSelect.addEventListener("change", calculate);
+
+    // Heirs counter controls
+    if (btnDec && btnInc && herederosInput) {
+      btnDec.addEventListener("click", () => {
+        let val = parseInt(herederosInput.value, 10) || 1;
+        if (val > 1) {
+          herederosInput.value = String(val - 1);
+          calculate();
+        }
+      });
+
+      btnInc.addEventListener("click", () => {
+        let val = parseInt(herederosInput.value, 10) || 1;
+        if (val < 20) {
+          herederosInput.value = String(val + 1);
+          calculate();
+        }
+      });
+    }
+
+    // Initial calculation
+    calculate();
+  };
+
+  document.addEventListener("astro:page-load", initTaxCalculator);
+</script>

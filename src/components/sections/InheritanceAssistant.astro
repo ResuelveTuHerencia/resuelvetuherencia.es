@@ -1,0 +1,1650 @@
+<div
+  id="assistant-grid"
+  class="grid gap items-stretch w-full max-w-2xl mx-auto transition-all duration-700"
+>
+  <!-- Form Column (Centered initially, spans 12 columns) -->
+  <div
+    id="assistant-form-col"
+    class="w-full transition-all duration-700 bg-slate-50 border border-slate-200/60 rounded-2xl p-6 sm:p-8 flex flex-col justify-between"
+  >
+    <form id="assistant-form" class="grid gap-x-6 gap-y-5 md:grid-cols-2">
+      <!-- Q1: ¿Hay testamento? -->
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2.5 font-sans"
+        >
+          ¿Hay testamento?
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="testamento"
+              value="si"
+              checked
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >Sí</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="testamento"
+              value="no"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="testamento"
+              value="ns"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No lo sé</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <!-- Q2: ¿Cuántos herederos hay? -->
+      <div class="flex items-center justify-between gap-4">
+        <label
+          for="herederos-count"
+          class="text-xs font-bold uppercase tracking-wider text-primary/80 font-sans"
+        >
+          ¿Cuántos herederos hay?
+        </label>
+        <div class="relative flex items-center max-w-[130px]">
+          <button
+            type="button"
+            id="btn-dec-herederos"
+            class="flex h-9 w-9 items-center justify-center rounded-l-lg border border-slate-200 bg-white text-primary hover:bg-slate-50 transition-colors cursor-pointer select-none"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              class="w-4 h-4"><line x1="5" y1="12" x2="19" y2="12"></line></svg
+            >
+          </button>
+          <input
+            type="number"
+            id="herederos-count"
+            name="herederos"
+            min="1"
+            max="20"
+            value="2"
+            class="h-9 w-12 border-y border-slate-200 bg-white text-center text-sm font-bold text-primary focus:outline-none p-0"
+            readonly
+          />
+          <button
+            type="button"
+            id="btn-inc-herederos"
+            class="flex h-9 w-9 items-center justify-center rounded-r-lg border border-slate-200 bg-white text-primary hover:bg-slate-50 transition-colors cursor-pointer select-none"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              class="w-4 h-4"
+              ><line x1="12" y1="5" x2="12" y2="19"></line><line
+                x1="5"
+                y1="12"
+                x2="19"
+                y2="12"></line></svg
+            >
+          </button>
+        </div>
+      </div>
+
+      <!-- Q3: ¿Hay acuerdo entre herederos? -->
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2.5 font-sans"
+        >
+          ¿Existe mutuo acuerdo entre los herederos?
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="acuerdo"
+              value="si"
+              checked
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >Sí</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="acuerdo"
+              value="no"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No (Disputas)</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="acuerdo"
+              value="ns"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No lo sé</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <!-- Q4: ¿Existen deudas? -->
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2.5 font-sans"
+        >
+          ¿Existen deudas conocidas del fallecido?
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="deudas"
+              value="si"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >Sí</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="deudas"
+              value="no"
+              checked
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="deudas"
+              value="ns"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No lo sé</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <!-- Q5: ¿Menores o Incapacitados? -->
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2.5 font-sans"
+        >
+          ¿Hay herederos menores o incapacitados?
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="menores"
+              value="si"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >Sí</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="menores"
+              value="no"
+              checked
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <!-- Q6: ¿Existen propiedades? -->
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2.5 font-sans"
+        >
+          ¿Existen propiedades inmuebles?
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="propiedades"
+              value="si"
+              checked
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >Sí</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="propiedades"
+              value="no"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No</span
+            >
+          </label>
+          <label
+            class="flex flex-col items-center justify-center p-2.5 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-gold/50 transition-all text-center select-none group"
+          >
+            <input
+              type="radio"
+              name="propiedades"
+              value="ns"
+              class="sr-only assistant-radio"
+            />
+            <span
+              class="text-xs font-semibold text-primary/70 group-[.selected]:text-gold"
+              >No lo sé</span
+            >
+          </label>
+        </div>
+      </div>
+
+      <!-- Q7: Provincia -->
+      <div id="assistant-q7-wrapper" class="md:col-span-2">
+        <label
+          for="provincia-select"
+          class="block text-xs font-bold uppercase tracking-wider text-primary/80 mb-2 font-sans"
+        >
+          Provincia de residencia del fallecido:
+        </label>
+        <div class="relative">
+          <select
+            id="provincia-select"
+            name="provincia"
+            class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-primary appearance-none focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium cursor-pointer"
+          >
+            <option value="alava">Álava</option>
+            <option value="albacete">Albacete</option>
+            <option value="alicante">Alicante</option>
+            <option value="almeria">Almería</option>
+            <option value="asturias">Asturias</option>
+            <option value="avila">Ávila</option>
+            <option value="badajoz">Badajoz</option>
+            <option value="barcelona">Barcelona</option>
+            <option value="burgos">Burgos</option>
+            <option value="caceres">Cáceres</option>
+            <option value="cadiz">Cádiz</option>
+            <option value="cantabria">Cantabria</option>
+            <option value="castellon">Castellón</option>
+            <option value="ceuta">Ceuta</option>
+            <option value="ciudadreal">Ciudad Real</option>
+            <option value="cordoba">Córdoba</option>
+            <option value="cuenca">Cuenca</option>
+            <option value="girona">Girona</option>
+            <option value="granada">Granada</option>
+            <option value="guadalajara">Guadalajara</option>
+            <option value="gipuzkoa">Gipuzkoa</option>
+            <option value="huelva">Huelva</option>
+            <option value="huesca">Huesca</option>
+            <option value="baleares">Islas Baleares</option>
+            <option value="jaen">Jaén</option>
+            <option value="coruna">La Coruña</option>
+            <option value="larioja">La Rioja</option>
+            <option value="laspalmas">Las Palmas</option>
+            <option value="leon">León</option>
+            <option value="lerida">Lérida</option>
+            <option value="lugo">Lugo</option>
+            <option value="madrid" selected>Madrid</option>
+            <option value="malaga">Málaga</option>
+            <option value="melilla">Melilla</option>
+            <option value="murcia">Murcia</option>
+            <option value="navarra">Navarra</option>
+            <option value="orense">Orense</option>
+            <option value="palencia">Palencia</option>
+            <option value="pontevedra">Pontevedra</option>
+            <option value="salamanca">Salamanca</option>
+            <option value="tenerife">Santa Cruz de Tenerife</option>
+            <option value="segovia">Segovia</option>
+            <option value="sevilla">Sevilla</option>
+            <option value="soria">Soria</option>
+            <option value="tarragona">Tarragona</option>
+            <option value="teruel">Teruel</option>
+            <option value="toledo">Toledo</option>
+            <option value="valencia">Valencia</option>
+            <option value="valladolid">Valladolid</option>
+            <option value="vizcaya">Vizcaya</option>
+            <option value="zamora">Zamora</option>
+            <option value="zaragoza">Zaragoza</option>
+          </select>
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary/60"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="w-4 h-4"><polyline points="6 9 12 15 18 9"></polyline></svg
+            >
+          </div>
+        </div>
+        <p
+          id="assistant-law-badge"
+          class="text-[10px] text-gold font-semibold mt-1.5 font-sans"
+        >
+          Legislación: Derecho Común (Legítima de 2/3)
+        </p>
+      </div>
+    </form>
+
+    <div class="mt-8 pt-6 border-t border-slate-200/60">
+      <button
+        type="button"
+        id="btn-ver-pasos"
+        class="btn-primary w-full text-center py-3.5 shadow-md shadow-gold/10 text-xs tracking-wider"
+      >
+        GENERAR MI HOJA DE RUTA
+      </button>
+    </div>
+  </div>
+
+  <!-- Result Column (Initially Hidden, starts centered) -->
+  <div
+    id="assistant-result-col"
+    class="w-full hidden opacity-0 pointer-events-none translate-y-4 transition-all duration-700 ease-out bg-slate-50 border border-slate-200/60 rounded-2xl p-6 sm:p-8 flex-col justify-between"
+  >
+    <!-- Lead Lock Screen -->
+    <div
+      id="assistant-lock-wrapper"
+      class="flex flex-col justify-center h-full min-h-[350px]"
+    >
+      <div class="text-center max-w-md mx-auto">
+        <div
+          class="w-14 h-14 bg-gold/10 text-gold rounded-full flex items-center justify-center mb-5 mx-auto border border-gold/20"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="w-6 h-6"
+            ><rect x="3" y="11" width="18" height="11" rx="2" ry="2"
+            ></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg
+          >
+        </div>
+        <h3 class="font-serif text-xl font-bold text-primary mb-3">
+          Obtén tu Hoja de Ruta Detallada
+        </h3>
+        <p
+          class="text-xs sm:text-sm text-primary/70 leading-relaxed mb-6 font-sans"
+        >
+          Introduce tus datos de contacto para recibir el informe completo de
+          herencia por correo electrónico.
+        </p>
+
+        <!-- Multi-step Unlocking Form -->
+        <div
+          id="unlock-form-wrapper"
+          class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-left"
+        >
+          <!-- Progress Indicator -->
+          <div class="flex items-center justify-between mb-4">
+            <span
+              id="unlock-step-title"
+              class="text-[10px] font-bold uppercase tracking-wider text-gold font-sans"
+              >Paso 1 de 2: Tu Nombre</span
+            >
+            <div class="flex gap-1">
+              <span
+                id="bullet-1"
+                class="h-1.5 w-6 rounded-full bg-gold transition-all"></span>
+              <span
+                id="bullet-2"
+                class="h-1.5 w-6 rounded-full bg-slate-200 transition-all"
+              ></span>
+            </div>
+          </div>
+
+          <!-- Input Step 1: Name -->
+          <div id="unlock-form-step-1" class="space-y-4">
+            <div>
+              <label
+                for="unlock-name"
+                class="block text-xs font-semibold text-primary/70 mb-1.5 font-sans"
+                >Nombre y Apellidos:</label
+              >
+              <input
+                type="text"
+                id="unlock-name"
+                placeholder="Ej. Juan Pérez"
+                class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              />
+            </div>
+            <button
+              type="button"
+              id="btn-unlock-next"
+              class="btn-primary w-full text-center py-2.5 text-xs font-bold tracking-wider cursor-pointer"
+            >
+              CONTINUAR
+            </button>
+            <button
+              type="button"
+              id="btn-unlock-back-to-questions"
+              class="mt-3 w-full text-center text-xs font-semibold text-primary/50 hover:text-gold transition-colors py-1 cursor-pointer font-sans block"
+            >
+              ← Volver a modificar respuestas
+            </button>
+          </div>
+
+          <!-- Input Step 2: Email -->
+          <div id="unlock-form-step-2" class="hidden space-y-4">
+            <div>
+              <label
+                for="unlock-email"
+                class="block text-xs font-semibold text-primary/70 mb-1.5 font-sans"
+                >Correo Electrónico:</label
+              >
+              <input
+                type="email"
+                id="unlock-email"
+                placeholder="tucorreo@ejemplo.com"
+                class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              />
+            </div>
+            <div class="flex gap-2">
+              <button
+                type="button"
+                id="btn-unlock-back"
+                class="btn-outline w-1/3 py-2.5 text-xs font-bold text-center cursor-pointer"
+              >
+                ATRÁS
+              </button>
+              <button
+                type="button"
+                id="btn-unlock-submit"
+                class="btn-primary w-2/3 py-2.5 text-xs font-bold text-center tracking-wider cursor-pointer"
+              >
+                OBTENER GUÍA Y VER RESULTADOS
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Success Screen -->
+          <div
+            id="unlock-form-step-3"
+            class="hidden text-center py-4 space-y-4"
+          >
+            <div
+              class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto border border-emerald-100"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-5 h-5"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+            </div>
+            <h4 class="font-serif text-sm font-bold text-primary">
+              ¡Informe Enviado con Éxito!
+            </h4>
+            <p class="text-xs text-primary/60 leading-relaxed font-sans">
+              Hemos enviado la hoja de ruta y los detalles de las deudas y
+              legítima a tu correo electrónico.
+            </p>
+            <button
+              type="button"
+              id="btn-reveal-timeline"
+              class="btn-primary w-full py-2.5 text-xs font-bold text-center tracking-wider cursor-pointer"
+            >
+              VER GUÍA INTERACTIVA
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Timeline (Unlocked) -->
+    <div
+      id="assistant-results-wrapper"
+      class="hidden flex-col justify-between h-full space-y-6"
+    >
+      <div>
+        <!-- Section Title -->
+        <div class="flex items-center justify-between mb-4">
+          <h3
+            class="font-serif text-lg font-bold text-primary flex items-center gap-2"
+          >
+            <span class="flex h-3 w-3 rounded-full bg-gold"></span>
+            Resultado: Hoja de Ruta
+          </h3>
+          <span
+            id="active-step-badge"
+            class="text-[10px] font-bold uppercase tracking-wider text-gold font-sans"
+            >Paso 1 de 6</span
+          >
+        </div>
+
+        <!-- Horizontal Steps Header -->
+        <div class="relative flex items-center justify-between mb-6 px-4">
+          <!-- Connecting gold line -->
+          <div
+            class="absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 z-0"
+          >
+          </div>
+
+          <!-- Step nodes (1 to 6) -->
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-gold text-xs font-bold text-gold cursor-pointer transition-all hover:bg-gold hover:text-white active-node"
+            data-step="1">1</button
+          >
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
+            data-step="2">2</button
+          >
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
+            data-step="3">3</button
+          >
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
+            data-step="4">4</button
+          >
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
+            data-step="5">5</button
+          >
+          <button
+            type="button"
+            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
+            data-step="6">6</button
+          >
+        </div>
+
+        <!-- Active Step Detail Card -->
+        <div
+          class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm min-h-[180px] flex flex-col justify-center transition-all duration-350"
+        >
+          <h4
+            id="active-step-title"
+            class="font-sans text-sm font-bold text-primary mb-2"
+          >
+            Paso 1: Recopilación de documentos
+          </h4>
+          <p
+            id="active-step-desc"
+            class="text-xs sm:text-sm text-primary/70 leading-relaxed"
+          >
+            Obteniendo certificado de defunción y últimas voluntades para
+            localizar el testamento.
+          </p>
+        </div>
+      </div>
+
+      <!-- Timeline Navigation Footer -->
+      <div
+        class="flex items-center justify-between border-t border-slate-200/60 pt-4 mt-4"
+      >
+        <button
+          type="button"
+          id="btn-prev-step"
+          class="btn-outline px-4 py-2 text-xs font-bold select-none cursor-pointer"
+        >
+          Anterior
+        </button>
+        <span class="text-xs font-semibold text-primary/50 font-sans"
+          >Usa los botones para navegar</span
+        >
+        <button
+          type="button"
+          id="btn-next-step"
+          class="btn-outline px-4 py-2 text-xs font-bold select-none cursor-pointer"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .step-node.active-node {
+    background-color: #c5a059 !important;
+    border-color: #c5a059 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+  }
+
+  /* Hide number input spinners for perfect text centering */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+</style>
+
+<script>
+  // Complete province legal database
+  const provinceData: Record<
+    string,
+    { name: string; ca: string; law: string; tax: string }
+  > = {
+    alava: { name: "Álava", ca: "País Vasco", law: "vasco", tax: "vasco" },
+    albacete: {
+      name: "Albacete",
+      ca: "Castilla-La Mancha",
+      law: "comun",
+      tax: "general",
+    },
+    alicante: {
+      name: "Alicante",
+      ca: "Comunidad Valenciana",
+      law: "comun",
+      tax: "bonif99",
+    },
+    almeria: {
+      name: "Almería",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    asturias: {
+      name: "Asturias",
+      ca: "Principado de Asturias",
+      law: "comun",
+      tax: "general",
+    },
+    avila: {
+      name: "Ávila",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    badajoz: {
+      name: "Badajoz",
+      ca: "Extremadura",
+      law: "comun",
+      tax: "bonif99",
+    },
+    barcelona: {
+      name: "Barcelona",
+      ca: "Cataluña",
+      law: "catalan",
+      tax: "catalunya",
+    },
+    burgos: {
+      name: "Burgos",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    caceres: {
+      name: "Cáceres",
+      ca: "Extremadura",
+      law: "comun",
+      tax: "bonif99",
+    },
+    cadiz: {
+      name: "Cádiz",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    cantabria: {
+      name: "Cantabria",
+      ca: "Cantabria",
+      law: "comun",
+      tax: "general",
+    },
+    castellon: {
+      name: "Castellón",
+      ca: "Comunidad Valenciana",
+      law: "comun",
+      tax: "bonif99",
+    },
+    ceuta: { name: "Ceuta", ca: "Ceuta", law: "comun", tax: "general" },
+    ciudadreal: {
+      name: "Ciudad Real",
+      ca: "Castilla-La Mancha",
+      law: "comun",
+      tax: "general",
+    },
+    cordoba: {
+      name: "Córdoba",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    cuenca: {
+      name: "Cuenca",
+      ca: "Castilla-La Mancha",
+      law: "comun",
+      tax: "general",
+    },
+    girona: {
+      name: "Girona",
+      ca: "Cataluña",
+      law: "catalan",
+      tax: "catalunya",
+    },
+    granada: {
+      name: "Granada",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    guadalajara: {
+      name: "Guadalajara",
+      ca: "Castilla-La Mancha",
+      law: "comun",
+      tax: "general",
+    },
+    gipuzkoa: {
+      name: "Gipuzkoa",
+      ca: "País Vasco",
+      law: "vasco",
+      tax: "vasco",
+    },
+    huelva: {
+      name: "Huelva",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    huesca: { name: "Huesca", ca: "Aragón", law: "aragones", tax: "general" },
+    baleares: {
+      name: "Islas Baleares",
+      ca: "Islas Baleares",
+      law: "balear",
+      tax: "general",
+    },
+    jaen: { name: "Jaén", ca: "Andalucía", law: "comun", tax: "bonif99_limit" },
+    coruna: { name: "A Coruña", ca: "Galicia", law: "gallego", tax: "galicia" },
+    larioja: { name: "La Rioja", ca: "La Rioja", law: "comun", tax: "general" },
+    laspalmas: {
+      name: "Las Palmas",
+      ca: "Islas Canarias",
+      law: "comun",
+      tax: "bonif99",
+    },
+    leon: { name: "León", ca: "Castilla y León", law: "comun", tax: "bonif99" },
+    lerida: {
+      name: "Lérida",
+      ca: "Cataluña",
+      law: "catalan",
+      tax: "catalunya",
+    },
+    lugo: { name: "Lugo", ca: "Galicia", law: "gallego", tax: "galicia" },
+    madrid: {
+      name: "Madrid",
+      ca: "Comunidad de Madrid",
+      law: "comun",
+      tax: "bonif99",
+    },
+    malaga: {
+      name: "Málaga",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    melilla: { name: "Melilla", ca: "Melilla", law: "comun", tax: "general" },
+    murcia: {
+      name: "Murcia",
+      ca: "Región de Murcia",
+      law: "comun",
+      tax: "general",
+    },
+    navarra: {
+      name: "Navarra",
+      ca: "Comunidad Foral de Navarra",
+      law: "navarro",
+      tax: "navarra",
+    },
+    orense: { name: "Orense", ca: "Galicia", law: "gallego", tax: "galicia" },
+    palencia: {
+      name: "Palencia",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    pontevedra: {
+      name: "Pontevedra",
+      ca: "Galicia",
+      law: "gallego",
+      tax: "galicia",
+    },
+    salamanca: {
+      name: "Salamanca",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    tenerife: {
+      name: "Santa Cruz de Tenerife",
+      ca: "Islas Canarias",
+      law: "comun",
+      tax: "bonif99",
+    },
+    segovia: {
+      name: "Segovia",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    sevilla: {
+      name: "Sevilla",
+      ca: "Andalucía",
+      law: "comun",
+      tax: "bonif99_limit",
+    },
+    soria: {
+      name: "Soria",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    tarragona: {
+      name: "Tarragona",
+      ca: "Cataluña",
+      law: "catalan",
+      tax: "catalunya",
+    },
+    teruel: { name: "Teruel", ca: "Aragón", law: "aragones", tax: "general" },
+    toledo: {
+      name: "Toledo",
+      ca: "Castilla-La Mancha",
+      law: "comun",
+      tax: "general",
+    },
+    valencia: {
+      name: "Valencia",
+      ca: "Comunidad Valenciana",
+      law: "comun",
+      tax: "bonif99",
+    },
+    valladolid: {
+      name: "Valladolid",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    vizcaya: { name: "Vizcaya", ca: "País Vasco", law: "vasco", tax: "vasco" },
+    zamora: {
+      name: "Zamora",
+      ca: "Castilla y León",
+      law: "comun",
+      tax: "bonif99",
+    },
+    zaragoza: {
+      name: "Zaragoza",
+      ca: "Aragón",
+      law: "aragones",
+      tax: "general",
+    },
+  };
+
+  const initAssistant = () => {
+    // DOM Elements
+    const assistantGrid = document.getElementById("assistant-grid");
+    const formCol = document.getElementById("assistant-form-col");
+    const form = document.getElementById(
+      "assistant-form",
+    ) as HTMLFormElement | null;
+    const herederosInput = document.getElementById(
+      "herederos-count",
+    ) as HTMLInputElement | null;
+    const btnDec = document.getElementById(
+      "btn-dec-herederos",
+    ) as HTMLButtonElement | null;
+    const btnInc = document.getElementById(
+      "btn-inc-herederos",
+    ) as HTMLButtonElement | null;
+    const btnVerPasos = document.getElementById(
+      "btn-ver-pasos",
+    ) as HTMLButtonElement | null;
+    const provinciaSelect = document.getElementById(
+      "provincia-select",
+    ) as HTMLSelectElement | null;
+    const lawBadge = document.getElementById("assistant-law-badge");
+
+    // Unlocking Form Flow Elements
+    const resultCol = document.getElementById("assistant-result-col");
+    const lockWrapper = document.getElementById("assistant-lock-wrapper");
+    const resultsWrapper = document.getElementById("assistant-results-wrapper");
+    const unlockStepTitle = document.getElementById("unlock-step-title");
+    const bullet1 = document.getElementById("bullet-1");
+    const bullet2 = document.getElementById("bullet-2");
+
+    const unlockStep1 = document.getElementById("unlock-form-step-1");
+    const unlockStep2 = document.getElementById("unlock-form-step-2");
+    const unlockStep3 = document.getElementById("unlock-form-step-3");
+
+    const inputName = document.getElementById(
+      "unlock-name",
+    ) as HTMLInputElement | null;
+    const inputEmail = document.getElementById(
+      "unlock-email",
+    ) as HTMLInputElement | null;
+
+    const btnNext = document.getElementById(
+      "btn-unlock-next",
+    ) as HTMLButtonElement | null;
+    const btnBack = document.getElementById(
+      "btn-unlock-back",
+    ) as HTMLButtonElement | null;
+    const btnSubmit = document.getElementById(
+      "btn-unlock-submit",
+    ) as HTMLButtonElement | null;
+    const btnRevealTimeline = document.getElementById(
+      "btn-reveal-timeline",
+    ) as HTMLButtonElement | null;
+    const btnBackToQuestions = document.getElementById(
+      "btn-unlock-back-to-questions",
+    ) as HTMLButtonElement | null;
+
+    // Timeline Elements
+    const stepNodes = document.querySelectorAll(".step-node");
+    const activeStepTitle = document.getElementById("active-step-title");
+    const activeStepDesc = document.getElementById("active-step-desc");
+    const activeStepBadge = document.getElementById("active-step-badge");
+    const btnPrevStep = document.getElementById(
+      "btn-prev-step",
+    ) as HTMLButtonElement | null;
+    const btnNextStep = document.getElementById(
+      "btn-next-step",
+    ) as HTMLButtonElement | null;
+
+    let currentActiveStep = 1;
+    let unlocked = false;
+
+    // Timeline state data
+    let compiledSteps: Array<{ title: string; desc: string }> = [];
+
+    if (!form) return;
+
+    // Set styling for initial custom radio selections
+    const updateRadiosSelection = () => {
+      const labels = form.querySelectorAll("label");
+      labels.forEach((label) => {
+        const input = label.querySelector(
+          "input[type='radio']",
+        ) as HTMLInputElement | null;
+        if (input) {
+          if (input.checked) {
+            label.classList.add("selected", "border-gold", "bg-gold/5");
+            label.classList.remove("border-slate-200", "bg-white");
+          } else {
+            label.classList.remove("selected", "border-gold", "bg-gold/5");
+            label.classList.add("border-slate-200", "bg-white");
+          }
+        }
+      });
+    };
+
+    updateRadiosSelection();
+
+    // Helper to update the timeline dynamically when options change (if unlocked)
+    function updateTimelineLive() {
+      if (unlocked) {
+        buildGuideData();
+        renderStep(currentActiveStep);
+      }
+    }
+
+    // Event listeners for radio changes
+    const radios = form.querySelectorAll(".assistant-radio");
+    radios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        updateRadiosSelection();
+        updateLawBadge();
+        updateTimelineLive();
+      });
+    });
+
+    // Update law badge on province change
+    function updateLawBadge() {
+      if (!provinciaSelect || !lawBadge) return;
+      const provKey = provinciaSelect.value;
+      const provInfo = provinceData[provKey];
+      if (!provInfo) return;
+
+      let lawText = "Derecho Común (Legítima de 2/3)";
+      if (provInfo.law === "catalan")
+        lawText = "Derecho Civil Catalán (Legítima de 1/4)";
+      else if (provInfo.law === "gallego")
+        lawText = "Derecho Civil de Galicia (Legítima de 1/4)";
+      else if (provInfo.law === "vasco")
+        lawText = "Derecho Civil Vasco (Legítima de 1/3 colectiva)";
+      else if (provInfo.law === "aragones")
+        lawText = "Derecho Civil Aragonés (Legítima de 1/2 colectiva)";
+      else if (provInfo.law === "balear")
+        lawText = "Derecho Civil Balear (Legítima de 1/3 o 1/2)";
+      else if (provInfo.law === "navarro")
+        lawText = "Derecho Civil Navarro (Libertad absoluta de testar)";
+
+      lawBadge.innerText = `Legislación: ${lawText}`;
+    }
+
+    if (provinciaSelect) {
+      provinciaSelect.addEventListener("change", () => {
+        updateLawBadge();
+        updateTimelineLive();
+      });
+    }
+
+    // Heirs counter controls
+    if (btnDec && btnInc && herederosInput) {
+      btnDec.addEventListener("click", () => {
+        let val = parseInt(herederosInput.value, 10) || 1;
+        if (val > 1) {
+          herederosInput.value = String(val - 1);
+          updateTimelineLive();
+        }
+      });
+
+      btnInc.addEventListener("click", () => {
+        let val = parseInt(herederosInput.value, 10) || 1;
+        if (val < 20) {
+          herederosInput.value = String(val + 1);
+          updateTimelineLive();
+        }
+      });
+    }
+
+    // Lead capture form flow event listeners
+    if (
+      btnNext &&
+      unlockStep1 &&
+      unlockStep2 &&
+      unlockStepTitle &&
+      bullet1 &&
+      bullet2 &&
+      inputName
+    ) {
+      btnNext.addEventListener("click", () => {
+        const nameVal = inputName.value.trim();
+        if (nameVal.length < 2) {
+          alert("Por favor, introduce tu nombre.");
+          return;
+        }
+        unlockStep1.classList.add("hidden");
+        unlockStep2.classList.remove("hidden");
+        unlockStepTitle.innerText = "Paso 2 de 2: Correo Electrónico";
+        bullet1.classList.remove("bg-gold");
+        bullet1.classList.add("bg-slate-200");
+        bullet2.classList.remove("bg-slate-200");
+        bullet2.classList.add("bg-gold");
+      });
+    }
+
+    if (
+      btnBack &&
+      unlockStep1 &&
+      unlockStep2 &&
+      unlockStepTitle &&
+      bullet1 &&
+      bullet2
+    ) {
+      btnBack.addEventListener("click", () => {
+        unlockStep2.classList.add("hidden");
+        unlockStep1.classList.remove("hidden");
+        unlockStepTitle.innerText = "Paso 1 de 2: Tu Nombre";
+        bullet2.classList.remove("bg-gold");
+        bullet2.classList.add("bg-slate-200");
+        bullet1.classList.remove("bg-slate-200");
+        bullet1.classList.add("bg-gold");
+      });
+    }
+
+    // Main action button on left: "GENERAR MI HOJA DE RUTA"
+    // Animates the results card into view smoothly!
+    if (btnVerPasos && resultCol && formCol && assistantGrid) {
+      btnVerPasos.addEventListener("click", () => {
+        // If already unlocked previously, directly render split layout
+        if (unlocked) {
+          assistantGrid.classList.remove("max-w-2xl");
+          assistantGrid.classList.add("lg:grid-cols-12", "max-w-6xl");
+
+          formCol.classList.remove("hidden", "opacity-0", "translate-y-4");
+          formCol.classList.add(
+            "lg:col-span-5",
+            "opacity-100",
+            "translate-y-0",
+          );
+
+          resultCol.classList.remove(
+            "hidden",
+            "opacity-0",
+            "pointer-events-none",
+            "translate-y-4",
+          );
+          resultCol.classList.add(
+            "lg:col-span-7",
+            "opacity-100",
+            "pointer-events-auto",
+            "translate-y-0",
+          );
+
+          renderStep(currentActiveStep);
+        } else {
+          // Phase 2: Show lead form centered (hide questions form)
+          formCol.classList.add("opacity-0", "translate-y-4");
+
+          setTimeout(() => {
+            formCol.classList.add("hidden");
+
+            // Show right column centered
+            resultCol.classList.remove("hidden", "lg:col-span-7");
+
+            setTimeout(() => {
+              resultCol.classList.remove(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-4",
+              );
+              resultCol.classList.add(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+              );
+
+              if (inputName) {
+                inputName.focus();
+              }
+            }, 50);
+          }, 300);
+        }
+
+        // Update compiled data (so it's ready in memory)
+        buildGuideData();
+      });
+    }
+
+    // Go back to modify questions from the lead form
+    if (btnBackToQuestions && formCol && resultCol) {
+      btnBackToQuestions.addEventListener("click", () => {
+        resultCol.classList.add("opacity-0", "translate-y-4");
+
+        setTimeout(() => {
+          resultCol.classList.add("hidden");
+
+          // Show questions form centered again
+          formCol.classList.remove("hidden");
+
+          setTimeout(() => {
+            formCol.classList.remove("opacity-0", "translate-y-4");
+            formCol.classList.add("opacity-100", "translate-y-0");
+          }, 50);
+        }, 300);
+      });
+    }
+
+    // Submit lead and send email using server proxy (/api/submit)
+    if (
+      btnSubmit &&
+      inputName &&
+      inputEmail &&
+      unlockStep2 &&
+      unlockStep3 &&
+      unlockStepTitle
+    ) {
+      btnSubmit.addEventListener("click", async () => {
+        const name = inputName.value.trim();
+        const email = inputEmail.value.trim();
+
+        // Simple validation
+        if (name.length < 2) {
+          alert("Por favor, introduce tu nombre.");
+          return;
+        }
+        if (!email.includes("@") || email.length < 5) {
+          alert("Por favor, introduce un correo electrónico válido.");
+          return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "ENVIANDO...";
+
+        // 1. Build personal guide
+        buildGuideData();
+
+        // 2. Compile message body for email
+        const provKey = provinciaSelect?.value || "madrid";
+        const provInfo = provinceData[provKey] || provinceData.madrid;
+
+        const testRadio = form.querySelector(
+          "input[name='testamento']:checked",
+        ) as HTMLInputElement | null;
+        const acuerdoRadio = form.querySelector(
+          "input[name='acuerdo']:checked",
+        ) as HTMLInputElement | null;
+        const deudasRadio = form.querySelector(
+          "input[name='deudas']:checked",
+        ) as HTMLInputElement | null;
+        const menoresRadio = form.querySelector(
+          "input[name='menores']:checked",
+        ) as HTMLInputElement | null;
+        const propRadio = form.querySelector(
+          "input[name='propiedades']:checked",
+        ) as HTMLInputElement | null;
+        const herederos = herederosInput ? herederosInput.value : "2";
+
+        const testamentoTexto =
+          testRadio?.value === "si"
+            ? "Sí"
+            : testRadio?.value === "no"
+              ? "No"
+              : "No lo sabemos";
+        const acuerdoTexto =
+          acuerdoRadio?.value === "si"
+            ? "Sí (Hay acuerdo)"
+            : acuerdoRadio?.value === "no"
+              ? "No (Discrepancias)"
+              : "No lo sabemos";
+        const deudasTexto =
+          deudasRadio?.value === "si"
+            ? "Sí, existen deudas"
+            : deudasRadio?.value === "no"
+              ? "No existen deudas"
+              : "No lo sabemos";
+        const menoresTexto =
+          menoresRadio?.value === "si" ? "Sí (menores o incapacitados)" : "No";
+        const propiedadesTexto =
+          propRadio?.value === "si"
+            ? "Sí"
+            : propRadio?.value === "no"
+              ? "No"
+              : "No lo sabemos";
+
+        let emailMsg = `HOJA DE RUTA PERSONALIZADA PARA TRAMITACIÓN DE HERENCIA
+Estimado/a ${name},
+
+A continuación detallamos los pasos y especificaciones legales y fiscales para el proceso sucesorio según los datos introducidos:
+
+DATOS DEL CASO:
+- Fallecido/a residente en la provincia de: ${provInfo.name} (${provInfo.ca})
+- ¿Existe testamento?: ${testamentoTexto}
+- Número de herederos: ${herederos}
+- ¿Mutuo acuerdo?: ${acuerdoTexto}
+- ¿Existen deudas?: ${deudasTexto}
+- ¿Menores/Incapacitados?: ${menoresTexto}
+- ¿Existen propiedades inmuebles?: ${propiedadesTexto}
+
+---------------------------------------------------------
+PASOS E HOJA DE RUTA RECOMENDADA:
+
+`;
+
+        compiledSteps.forEach((step, idx) => {
+          emailMsg += `PASO ${idx + 1}: ${step.title.toUpperCase()}\n${step.desc.replace(/<[^>]*>/g, "")}\n\n`;
+        });
+
+        emailMsg += `---------------------------------------------------------
+¿Necesitas ayuda con estos trámites?
+En Resuelve Tu Herencia somos especialistas en la gestión de sucesiones y optimización fiscal. Te ayudamos a resolver todo el proceso llave en mano.
+
+Solicita tu sesión diagnóstica 100% gratuita llamando al +34 608 06 55 89 o respondiendo a este correo electrónico.
+
+Atentamente,
+El equipo de Resuelve Tu Herencia.`;
+
+        // 3. Post to our API endpoint
+        try {
+          const formData = new FormData();
+          formData.append("name", name);
+          formData.append("email", email);
+          formData.append("municipio", `${provInfo.name} (${provInfo.ca})`);
+          formData.append("message", emailMsg);
+          formData.append("phone", "Asistente Digital");
+
+          const response = await fetch("/api/submit", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            // Success transition
+            unlockStep2.classList.add("hidden");
+            unlockStep3.classList.remove("hidden");
+            unlockStepTitle.innerText = "¡Informe Listo!";
+          } else {
+            alert(
+              result.message ||
+                "Hubo un error al enviar el informe. Por favor, inténtalo de nuevo.",
+            );
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "OBTENER GUÍA Y VER RESULTADOS";
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error de conexión al servidor. Inténtalo de nuevo.");
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = "OBTENER GUÍA Y VER RESULTADOS";
+        }
+      });
+    }
+
+    // Show timeline after successful submission (Reveal split layout)
+    if (
+      btnRevealTimeline &&
+      lockWrapper &&
+      resultsWrapper &&
+      assistantGrid &&
+      formCol &&
+      resultCol
+    ) {
+      btnRevealTimeline.addEventListener("click", () => {
+        unlocked = true;
+        lockWrapper.classList.add("hidden");
+        resultsWrapper.classList.remove("hidden");
+
+        // Transition layout to split columns
+        assistantGrid.classList.remove("max-w-2xl");
+        assistantGrid.classList.add("lg:grid-cols-12", "max-w-6xl");
+
+        // Bring back formCol (left column)
+        formCol.classList.remove("hidden");
+        formCol.classList.add("lg:col-span-5");
+
+        // Set resultCol to right column
+        resultCol.classList.add("lg:col-span-7");
+
+        // Ensure fade-in classes are applied smoothly
+        setTimeout(() => {
+          formCol.classList.remove("opacity-0", "translate-y-4");
+          formCol.classList.add("opacity-100", "translate-y-0");
+        }, 50);
+
+        renderStep(1);
+      });
+    }
+
+    // Logic to generate the localized steps
+    function buildGuideData() {
+      if (!form || !provinciaSelect) return;
+
+      const testRadio = form.querySelector(
+        "input[name='testamento']:checked",
+      ) as HTMLInputElement | null;
+      const acuerdoRadio = form.querySelector(
+        "input[name='acuerdo']:checked",
+      ) as HTMLInputElement | null;
+      const deudasRadio = form.querySelector(
+        "input[name='deudas']:checked",
+      ) as HTMLInputElement | null;
+      const menoresRadio = form.querySelector(
+        "input[name='menores']:checked",
+      ) as HTMLInputElement | null;
+      const propRadio = form.querySelector(
+        "input[name='propiedades']:checked",
+      ) as HTMLInputElement | null;
+
+      const testamento = testRadio?.value || "si";
+      const acuerdo = acuerdoRadio?.value || "si";
+      const deudas = deudasRadio?.value || "no";
+      const menores = menoresRadio?.value || "no";
+      const propiedades = propRadio?.value || "si";
+      const herederos = herederosInput ? parseInt(herederosInput.value, 10) : 2;
+
+      const provKey = provinciaSelect.value;
+      const provInfo = provinceData[provKey] || provinceData.madrid;
+
+      compiledSteps = [];
+
+      // Paso 1
+      let s1Title = "Paso 1: Recopilación de documentos";
+      let s1Desc = "";
+      if (testamento === "si") {
+        s1Desc = `Obtener el <strong>Certificado de Últimas Voluntades</strong> tras 15 días del fallecimiento. Al existir testamento, se debe localizar la notaría correspondiente para solicitar una <strong>Copia Autorizada del Testamento</strong>.`;
+      } else if (testamento === "no") {
+        s1Desc = `Obtener el <strong>Certificado de Últimas Voluntades</strong>. Al no existir testamento, será obligatorio tramitar previamente una <strong>Declaración de Herederos Abintestato</strong> ante un Notario competente de la provincia de ${provInfo.name} para declarar legalmente los herederos.`;
+      } else {
+        s1Desc = `Solicitar obligatoriamente el <strong>Certificado de Últimas Voluntades</strong>. Este documento oficial revelará si el fallecido otorgó testamento y en qué notaría, guiando los siguientes trámites documentales.`;
+      }
+
+      if (menores === "si") {
+        s1Desc += ` Al haber <strong>herederos menores de edad o incapacitados</strong>, en esta fase inicial se debe localizar su documentación legal de representación (patria potestad, tutoría o nombramiento de defensor judicial).`;
+      }
+      compiledSteps.push({ title: s1Title, desc: s1Desc });
+
+      // Paso 2
+      let s2Title = "Paso 2: Solicitud de certificados";
+      let s2Desc = `Solicitar el <strong>Certificado Literal de Defunción</strong> en el Registro Civil. Con él, obtener el <strong>Certificado de Últimas Voluntades</strong> y el <strong>Certificado de Contratos de Seguros de Vida</strong> del Ministerio de Justicia.`;
+      compiledSteps.push({ title: s2Title, desc: s2Desc });
+
+      // Paso 3
+      let s3Title = "Paso 3: Inventario de bienes";
+      let s3Desc = "";
+      if (propiedades === "si") {
+        s3Desc = `Recopilar las escrituras de los inmuebles y solicitar <strong>Notas Simples</strong> actualizadas en el Registro de la Propiedad de ${provInfo.name}. También solicitar los certificados de saldos y valores bancarios de las cuentas a fecha de defunción.`;
+      } else if (propiedades === "no") {
+        s3Desc = `Solicitar los <strong>certificados de saldo bancario</strong> con fecha de defunción en las entidades financieras del causante. Al no existir bienes inmuebles, el inventario se limitará a cuentas, vehículos y enseres.`;
+      } else {
+        s3Desc = `Realizar una consulta general de bienes en el Catastro y en el Índice del Registro de la Propiedad para verificar si existen fincas rústicas o urbanas registradas a nombre del fallecido en la provincia de ${provInfo.name}, además de pedir los saldos bancarios.`;
+      }
+      compiledSteps.push({ title: s3Title, desc: s3Desc });
+
+      // Paso 4
+      let s4Title = "Paso 4: Aceptación o renuncia";
+      let s4Desc = "";
+      let lawNote = "";
+
+      // Adapt based on regional civil code
+      if (provInfo.law === "comun") {
+        lawNote = `Al regirse por el <strong>Derecho Civil Común</strong>, la legítima de los descendientes es de <strong>2/3 del caudal hereditario</strong> (1/3 legítima estricta y 1/3 de mejora).`;
+      } else if (provInfo.law === "catalan") {
+        lawNote = `Se aplica el <strong>Derecho Civil de Cataluña</strong>. La legítima de los hijos se limita a <strong>1/4 (25%) del total de la herencia</strong>, a repartir entre todos los descendientes legitimarios.`;
+      } else if (provInfo.law === "gallego") {
+        lawNote = `Se aplica el <strong>Derecho Civil de Galicia</strong>. La legítima de los descendientes es del <strong>25% (un cuarto)</strong> del valor neto de los bienes hereditarios.`;
+      } else if (provInfo.law === "vasco") {
+        lawNote = `Se aplica la ley civil del <strong>País Vasco</strong>. La legítima de los descendientes es de <strong>1/3</strong>, con la ventaja de que el causante puede atribuirla enteramente a un solo heredero, apartando al resto.`;
+      } else if (provInfo.law === "aragones") {
+        lawNote = `Se aplica el <strong>Derecho Civil de Aragón</strong>. La legítima colectiva para descendientes es de la <strong>mitad (50%)</strong> del patrimonio, pudiendo distribuirse libremente entre ellos.`;
+      } else if (provInfo.law === "balear") {
+        lawNote = `Se rige por el <strong>Derecho Civil Foral de Baleares</strong>. La legítima de los hijos es de <strong>1/3</strong> del caudal relicto (si hay 4 o menos) o la <strong>mitad</strong> (si hay más de 4).`;
+      } else if (provInfo.law === "navarro") {
+        lawNote = `Se aplica el Fuero Nuevo de <strong>Navarra</strong>, que confiere **libertad absoluta de testar**. La legítima es meramente formal y no confiere derechos patrimoniales (cinco sueldos y una robada).`;
+      }
+
+      s4Desc = `${lawNote} Redactar el cuaderno particional y formalizar la <strong>Escritura de Aceptación y Adjudicación de Herencia</strong> ante Notario para los ${herederos} herederos.`;
+
+      // Specific warning for debts (Beneficio de inventario)
+      if (deudas === "si") {
+        s4Desc += ` <br/><strong class="text-amber-600">¡AVISO IMPORTANTE POR DEUDAS!</strong> Se aconseja formalizar la aceptación a **beneficio de inventario**. Esto te permite responder de las deudas del fallecido exclusivamente con los bienes de la herencia, protegiendo así por completo tu patrimonio personal.`;
+      }
+
+      // Specific warning for discrepancies (Mediation)
+      if (acuerdo === "no") {
+        s4Desc += ` <br/><strong class="text-amber-600 font-bold">¡DISCREPANCIAS DETECTADAS!</strong> Al no existir mutuo acuerdo, se aconseja recurrir a la **Mediación Familiar** para negociar el cuaderno particional. Esto evita un costoso y largo proceso judicial de división de herencia.`;
+      }
+
+      // Specific warning for minors
+      if (menores === "si") {
+        s4Desc += ` <br/><strong class="text-gold">INFO MENORES:</strong> Al existir menores o incapacitados, se necesitará la intervención del **Ministerio Fiscal** o de un defensor judicial, y la posterior aprobación del juzgado si se alteran sus derechos mínimos.`;
+      }
+
+      compiledSteps.push({ title: s4Title, desc: s4Desc });
+
+      // Paso 5
+      let s5Title = "Paso 5: Pago de impuestos";
+      let s5Desc = "";
+      let taxNote = "";
+
+      // Adapt based on regional tax code
+      if (provInfo.tax === "bonif99") {
+        taxNote = `En ${provInfo.ca} cuentas con una **bonificación del 99%** de la cuota tributaria en el Impuesto de Sucesiones (Modelo 650) para cónyuges, hijos y padres. El impuesto a pagar será prácticamente simbólico.`;
+      } else if (provInfo.tax === "bonif99_limit") {
+        taxNote = `En Andalucía el Impuesto de Sucesiones está **bonificado al 99%** para herederos directos de Grupo I y II, además de contar con una reducción de hasta 1.000.000 € por heredero.`;
+      } else if (provInfo.tax === "catalunya") {
+        taxNote = `En Cataluña se aplican reducciones personales progresivas y bonificaciones de la cuota que oscilan entre el 99% y el 57% para herederos directos, variando según la base heredada.`;
+      } else if (provInfo.tax === "galicia") {
+        taxNote = `En Galicia los herederos directos mayores de 21 años gozan de una reducción de hasta 1.000.000 € por heredero, tributando al 5% o menos en importes superiores.`;
+      } else if (provInfo.tax === "vasco") {
+        taxNote = `En el País Vasco los herederos directos disfrutan de una exención de hasta 400.000 €, tributando a un tipo plano muy reducido de tan solo el 1,5% por el exceso.`;
+      } else if (provInfo.tax === "navarra") {
+        taxNote = `En Navarra se aplican tipos reducidos específicos según ley foral sobre la herencia, con exenciones y deducciones directas.`;
+      } else {
+        taxNote = `Se deberá liquidar el Impuesto de Sucesiones aplicando la normativa vigente de **${provInfo.ca}** dentro del plazo obligatorio de 6 meses desde el fallecimiento.`;
+      }
+
+      s5Desc = `Liquidar el <strong>Impuesto de Sucesiones (Modelo 650)</strong>. ${taxNote}`;
+      if (propiedades === "si") {
+        s5Desc += ` Asimismo, al existir bienes inmuebles, es obligatorio liquidar la **Plusvalía Municipal** en el Ayuntamiento correspondiente a la provincia de ${provInfo.name} en el mismo plazo.`;
+      }
+      compiledSteps.push({ title: s5Title, desc: s5Desc });
+
+      // Paso 6
+      let s6Title = "Paso 6: Adjudicación y registro";
+      let s6Desc = "";
+      if (propiedades === "si") {
+        s6Desc = `Tras el pago de impuestos, presentar la escritura e **inscribir los nuevos titulares de las fincas y viviendas en el Registro de la Propiedad** de ${provInfo.name} para completar el traspaso patrimonial de forma legal.`;
+      } else {
+        s6Desc = `Presentar la escritura de aceptación y adjudicación de herencia liquidada ante las entidades bancarias correspondientes para proceder al **reparto y desbloqueo de los fondos** de las cuentas.`;
+      }
+      compiledSteps.push({ title: s6Title, desc: s6Desc });
+    }
+
+    // Timeline steps rendering logic
+    function renderStep(stepIndex: number) {
+      if (compiledSteps.length === 0) buildGuideData();
+
+      const step = compiledSteps[stepIndex - 1];
+      if (!step) return;
+
+      currentActiveStep = stepIndex;
+
+      // Update Node classes (horizontal nodes at the top)
+      stepNodes.forEach((node) => {
+        const nodeStep = parseInt(
+          (node as HTMLElement).dataset.step || "1",
+          10,
+        );
+        if (nodeStep === stepIndex) {
+          node.classList.add("active-node");
+        } else {
+          node.classList.remove("active-node");
+        }
+      });
+
+      // Update Text values
+      if (activeStepTitle) activeStepTitle.innerHTML = step.title;
+      if (activeStepDesc) activeStepDesc.innerHTML = step.desc;
+      if (activeStepBadge) activeStepBadge.innerText = `Paso ${stepIndex} de 6`;
+
+      // Disable/Enable nav buttons
+      if (btnPrevStep) {
+        (btnPrevStep as HTMLButtonElement).disabled = stepIndex === 1;
+      }
+      if (btnNextStep) {
+        (btnNextStep as HTMLButtonElement).disabled = stepIndex === 6;
+      }
+    }
+
+    // Event listener for node clicks
+    stepNodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        const stepVal = parseInt((node as HTMLElement).dataset.step || "1", 10);
+        renderStep(stepVal);
+      });
+    });
+
+    // Event listener for Prev/Next buttons
+    if (btnPrevStep) {
+      btnPrevStep.addEventListener("click", () => {
+        if (currentActiveStep > 1) {
+          renderStep(currentActiveStep - 1);
+        }
+      });
+    }
+
+    if (btnNextStep) {
+      btnNextStep.addEventListener("click", () => {
+        if (currentActiveStep < 6) {
+          renderStep(currentActiveStep + 1);
+        }
+      });
+    }
+  };
+
+  // Run on page load and page transitions
+  document.addEventListener("astro:page-load", initAssistant);
+</script>
