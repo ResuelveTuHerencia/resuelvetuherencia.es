@@ -1,0 +1,248 @@
+---
+const locations = [
+  "Lozoyuela",
+  "Buitrago del Lozoya",
+  "Torrelaguna",
+  "La Cabrera",
+  "San Agustín del Guadalix",
+  "El Molar",
+  "Colmenar Viejo",
+  "Alcobendas",
+  "San Sebastián de los Reyes",
+  "Venturada",
+  "Bustarviejo",
+  "Miraflores de la Sierra",
+];
+---
+
+<section
+  id="sobre-nosotros"
+  class="bg-white py-20 lg:py-24 border-y border-slate-100 relative overflow-hidden"
+>
+  <!-- Decorative subtle background circle -->
+  <div
+    class="absolute -right-64 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"
+  >
+  </div>
+
+  <div class="section-container relative z-10">
+    <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
+      <!-- Text & SEO Info Column -->
+      <div class="lg:col-span-7 flex flex-col items-start">
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/10 text-xs font-semibold uppercase tracking-wider text-gold mb-4"
+        >
+          📍 Asesoría en Lozoyuela
+        </span>
+        <h2
+          class="mb-6 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight"
+        >
+          Asesoría de Herencias en la <span class="text-gold"
+            >Sierra Norte de Madrid</span
+          >
+        </h2>
+        <p class="text-base sm:text-lg text-primary/80 leading-relaxed mb-6">
+          En <strong>Resuelve Tu Herencia</strong> somos una asesoría jurídica y fiscal
+          altamente especializada en la <strong
+            >tramitación integral de herencias en la Sierra Norte de Madrid</strong
+          >. Aportamos profesionalidad, cercanía y una gestión eficiente para
+          simplificar el proceso sucesorio sin que tengas que desplazarse a
+          Madrid capital.
+        </p>
+
+        <!-- Local Benefits list (AEO / GEO oriented) -->
+        <div class="space-y-4 mb-8 w-full">
+          <div class="flex items-start gap-3.5">
+            <div
+              class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center text-gold shrink-0 mt-0.5"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-3.5 h-3.5"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+            </div>
+            <div>
+              <h4
+                class="font-semibold text-primary text-sm sm:text-base mb-0.5"
+              >
+                Gestión 100% Sin Desplazamientos
+              </h4>
+              <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
+                Nos adaptamos a ti. Ofrecemos asesoramiento en nuestras oficinas
+                locales, a domicilio en tu municipio o mediante canales
+                digitales de videoconferencia y teléfono.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5">
+            <div
+              class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center text-gold shrink-0 mt-0.5"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-3.5 h-3.5"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+            </div>
+            <div>
+              <h4
+                class="font-semibold text-primary text-sm sm:text-base mb-0.5"
+              >
+                Coordinación con Notarías de la Zona Norte
+              </h4>
+              <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
+                Tramitamos y agilizamos la firma de la escritura de herencia
+                directamente con notarías de la zona norte de Madrid,
+                facilitando una firma cómoda y cercana.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5">
+            <div
+              class="w-5 h-5 rounded-full bg-gold/15 flex items-center justify-center text-gold shrink-0 mt-0.5"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-3.5 h-3.5"
+                ><polyline points="20 6 9 17 4 12"></polyline></svg
+              >
+            </div>
+            <div>
+              <h4
+                class="font-semibold text-primary text-sm sm:text-base mb-0.5"
+              >
+                Especialización en Fiscalidad Autonómica
+              </h4>
+              <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
+                Conocemos en profundidad las bonificaciones fiscales de la
+                Comunidad de Madrid para optimizar al máximo el ahorro en el
+                Impuesto de Sucesiones.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Local municipalities served tag-grid (GEO / Local SEO Optimization) -->
+        <div class="w-full">
+          <p
+            class="text-xs font-semibold uppercase tracking-wider text-primary/55 mb-3"
+          >
+            Municipios de Cobertura Preferente:
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {
+              locations.map((loc) => (
+                <span class="inline-block px-2.5 py-1 bg-secondary hover:bg-gold/10 hover:text-gold transition-colors duration-200 rounded text-xs font-medium text-primary/80 border border-slate-100">
+                  {loc}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote & Visual Value Proposition Column (SEM / AXO / Copywriting) -->
+      <div class="lg:col-span-5">
+        <div
+          class="relative rounded-2xl border border-gold/30 bg-secondary p-8 sm:p-10 shadow-lg shadow-gold/5 flex flex-col justify-between h-full group overflow-hidden"
+        >
+          <!-- Monogram decoration -->
+          <div
+            class="absolute -right-8 -top-8 text-[120px] font-serif font-semibold text-gold/5 select-none pointer-events-none group-hover:scale-110 transition-transform duration-500"
+          >
+            RH
+          </div>
+
+          <div class="relative z-10">
+            <!-- Quote SVG mark -->
+            <svg
+              class="w-10 h-10 text-gold/20 mb-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.995 2.638-4.995 5.886h5v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-4.996 2.638-4.996 5.886h5v10h-10z"
+              ></path>
+            </svg>
+
+            <blockquote
+              class="font-serif text-lg sm:text-xl md:text-2xl italic text-primary leading-relaxed mb-6"
+            >
+              "Entendemos que una herencia no es solo un trámite legal, sino una <strong
+                >situación personal que requiere cuidado, empatía y claridad</strong
+              >. Te acompañamos en cada fase del proceso sucesorio, con un trato
+              cercano y un servicio profesional adaptado a tus necesidades."
+            </blockquote>
+          </div>
+
+          <div
+            class="relative z-10 pt-6 border-t border-primary/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mt-4"
+          >
+            <div>
+              <p class="font-serif font-bold text-primary text-base">
+                Resuelve Tu Herencia
+              </p>
+              <p class="text-xs text-primary/60">
+                Asesoría de Herencias y Patrimonio Familiar
+              </p>
+            </div>
+
+            <a
+              href="/contacto"
+              class="btn-outline text-center text-xs py-2 px-4 whitespace-nowrap"
+            >
+              Contactar Ahora
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JSON-LD LocalBusiness Structured Data for Local SEO/GEO -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Resuelve Tu Herencia - Asesoría Sierra Norte",
+    "description": "Asesoría especializada en la gestión y tramitación integral de herencias en la Sierra Norte de Madrid. Atención presencial y a domicilio en Lozoyuela, Buitrago, La Cabrera, Torrelaguna y Colmenar Viejo.",
+    "url": "https://resuelvetuherencia.es",
+    "telephone": "+34608065589",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lozoyuela",
+      "addressRegion": "Comunidad de Madrid",
+      "addressCountry": "ES"
+    },
+    "areaServed": [
+      "Lozoyuela",
+      "Buitrago del Lozoya",
+      "Torrelaguna",
+      "La Cabrera",
+      "San Agustín del Guadalix",
+      "El Molar",
+      "Colmenar Viejo",
+      "Alcobendas",
+      "San Sebastián de los Reyes",
+      "Venturada",
+      "Bustarviejo",
+      "Miraflores de la Sierra",
+      "Soto del Real",
+      "Guadalix de la Sierra"
+    ]
+  }
+</script>

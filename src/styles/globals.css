@@ -6,6 +6,12 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Disable smooth scroll during Astro View Transitions to prevent
+     the "already scrolled" visual glitch when navigating between pages */
+  html[data-astro-transition] {
+    scroll-behavior: auto !important;
+  }
   body {
     @apply font-sans bg-secondary text-primary;
   }

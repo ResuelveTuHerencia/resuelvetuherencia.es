@@ -1,0 +1,255 @@
+---
+
+---
+
+<section
+  id="ubicacion"
+  class="py-20 lg:py-24 bg-secondary relative overflow-hidden"
+>
+  <!-- Decorative subtle background circle -->
+  <div
+    class="absolute -right-64 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"
+  >
+  </div>
+
+  <div class="section-container relative z-10">
+    <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
+      <!-- Info Column -->
+      <div class="lg:col-span-5 flex flex-col items-start">
+        <span
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/10 text-xs font-semibold uppercase tracking-wider text-gold mb-4"
+        >
+          📍 ¿Dónde estamos?
+        </span>
+        <h2
+          class="mb-6 font-serif text-3xl sm:text-4xl font-bold text-primary leading-tight"
+        >
+          Nuestra oficina en Lozoyuela
+        </h2>
+        <p class="text-base text-primary/80 leading-relaxed mb-6">
+          Ofrecemos nuestros servicios en la Sierra Norte de Madrid. Nos
+          encontramos en una ubicación de fácil acceso, y si lo prefieres, sin
+          la necesidad de desplazarte al centro de la capital.
+        </p>
+
+        <div class="space-y-4 mb-8 w-full">
+          <div class="flex items-start gap-3.5">
+            <div class="text-gold shrink-0 mt-1">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-5 h-5"
+                aria-hidden="true"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-primary text-sm sm:text-base">
+                Dirección
+              </h4>
+              <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
+                Avenida de Madrid, 62, 28752 Lozoyuela, Madrid
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5">
+            <div class="text-gold shrink-0 mt-1">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                class="w-5 h-5"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-primary text-sm sm:text-base">
+                Horario de Atención
+              </h4>
+              <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
+                Lunes a Viernes: 09:00 - 18:00 (Cita previa recomendada)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="#contacto"
+          class="btn-primary text-xs py-3 px-6 shadow-md shadow-gold/15"
+        >
+          SOLICITAR CITA PREVIA
+        </a>
+      </div>
+
+      <!-- Map Column -->
+      <div class="lg:col-span-7">
+        <div
+          class="relative rounded-2xl border border-gold/30 overflow-hidden shadow-xl shadow-gold/5 bg-white h-[450px] w-full group"
+        >
+          <!-- Loading placeholder -->
+          <div
+            id="homepage-map-loader"
+            class="absolute inset-0 bg-secondary/80 flex items-center justify-center z-20 transition-opacity duration-500"
+          >
+            <div class="flex flex-col items-center gap-3">
+              <svg
+                class="animate-spin h-8 w-8 text-gold"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span class="text-xs text-primary/60 font-medium tracking-wide"
+                >Cargando mapa interactivo...</span
+              >
+            </div>
+          </div>
+
+          <!-- Map container -->
+          <div id="homepage-map" class="h-full w-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Include Maplibre GL stylesheet and JavaScript natively on the client -->
+<script>
+  import MapLibreGL from "maplibre-gl";
+  import "maplibre-gl/dist/maplibre-gl.css";
+
+  // Coordinates for Avenida de Madrid 62, Lozoyuela
+  const longitude = -3.6176370164417504;
+  const latitude = 40.92586430923798;
+
+  // Initialize the map
+  const initMap = () => {
+    const mapContainer = document.getElementById("homepage-map");
+    const loader = document.getElementById("homepage-map-loader");
+
+    if (!mapContainer) return;
+
+    try {
+      const map = new MapLibreGL.Map({
+        container: "homepage-map",
+        style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", // Light theme basemap
+        center: [longitude, latitude],
+        zoom: 15.5,
+        scrollZoom: false, // Prevent zoom on scroll unless focused
+        attributionControl: false,
+      });
+
+      // Add navigation controls (zoom buttons)
+      map.addControl(
+        new MapLibreGL.NavigationControl({
+          showCompass: false,
+        }),
+        "top-right",
+      );
+
+      // Custom marker element
+      const el = document.createElement("div");
+      el.className = "custom-marker";
+      el.style.width = "36px";
+      el.style.height = "36px";
+      el.style.cursor = "pointer";
+      el.style.display = "flex";
+      el.style.alignItems = "center";
+      el.style.justifyContent = "center";
+
+      // SVG custom golden pin — use inline styles (Tailwind JIT won't scan dynamic innerHTML)
+      el.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" style="width:36px;height:36px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35));" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#c5a059" stroke="#ffffff" stroke-width="1.5"/>
+        </svg>
+      `;
+
+      // Create popup
+      const popup = new MapLibreGL.Popup({
+        offset: 30,
+        closeButton: false,
+        className: "custom-map-popup",
+        focusAfterOpen: false,
+      }).setHTML(`
+        <div class="p-3 font-sans text-primary">
+          <p class="font-serif font-bold text-sm text-gold mb-1">Resuelve Tu Herencia</p>
+          <p class="text-xs text-primary/80 leading-relaxed font-medium">Avenida de Madrid, 62, 28752 Lozoyuela, Madrid</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=40.92586430923798,-3.6176370164417504" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase text-gold hover:underline mt-2">
+            Cómo llegar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-2.5 h-2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      `);
+
+      // Add marker to map
+      new MapLibreGL.Marker({ element: el })
+        .setLngLat([longitude, latitude])
+        .setPopup(popup)
+        .addTo(map);
+
+      // Open popup by default
+      popup.setLngLat([longitude, latitude]).addTo(map);
+
+      // Hide loader once style is loaded
+      map.on("load", () => {
+        if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => loader.remove(), 500);
+        }
+      });
+    } catch (err) {
+      console.error("Error loading map:", err);
+      if (loader) loader.remove();
+    }
+  };
+
+  // Run on page load & Astro page transition change
+  document.addEventListener("DOMContentLoaded", initMap);
+  document.addEventListener("astro:page-load", initMap);
+</script>
+
+<style is:global>
+  /* Custom styles for maplibre popups to fit client premium aesthetics */
+  .maplibregl-popup-content {
+    border-radius: 12px !important;
+    border: 1px solid rgba(197, 160, 89, 0.3) !important;
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+  }
+  .maplibregl-popup-anchor-top .maplibregl-popup-tip {
+    border-bottom-color: rgba(197, 160, 89, 0.3) !important;
+  }
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+    border-top-color: rgba(197, 160, 89, 0.3) !important;
+  }
+  .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    border-right-color: rgba(197, 160, 89, 0.3) !important;
+  }
+  .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    border-left-color: rgba(197, 160, 89, 0.3) !important;
+  }
+</style>
