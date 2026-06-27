@@ -12,7 +12,7 @@
         <form action="/api/submit" method="POST" class="grid gap-5 md:grid-cols-2" id="secure-contact-form">
         
         <!-- Honeypot anti-spam para interceptar envíos de bots automatizados -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <div class="md:col-span-1">
           <label for="name" class="mb-1.5 block text-sm font-medium text-primary">Nombre y Apellidos</label>

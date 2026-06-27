@@ -48,9 +48,9 @@
               </svg>
             </div>
             <div>
-              <h4 class="font-bold text-primary text-sm sm:text-base">
+              <h3 class="font-bold text-primary text-sm sm:text-base">
                 Dirección
-              </h4>
+              </h3>
               <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
                 Avenida de Madrid, 62, 28752 Lozoyuela, Madrid
               </p>
@@ -72,9 +72,9 @@
               </svg>
             </div>
             <div>
-              <h4 class="font-bold text-primary text-sm sm:text-base">
+              <h3 class="font-bold text-primary text-sm sm:text-base">
                 Horario de Atención
-              </h4>
+              </h3>
               <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
                 Lunes a Viernes: 09:00 - 18:00 (Cita previa recomendada)
               </p>
@@ -136,17 +136,14 @@
 
 <!-- Include Maplibre GL stylesheet and JavaScript natively on the client -->
 <script>
-  import MapLibreGL from "maplibre-gl";
-  import "maplibre-gl/dist/maplibre-gl.css";
-
   // Coordinates for Avenida de Madrid 62, Lozoyuela
   const longitude = -3.6176370164417504;
   const latitude = 40.92586430923798;
 
-  let mapInstance: MapLibreGL.Map | null = null;
+  let mapInstance: any = null;
 
   // Initialize the map
-  const initMap = () => {
+  const initMap = async () => {
     const mapContainer = document.getElementById("homepage-map");
     const loader = document.getElementById("homepage-map-loader");
 
@@ -158,6 +155,13 @@
     }
 
     try {
+      // Dynamically load maplibre and its stylesheet to keep critical path clean
+      const [MapLibreGLModule] = await Promise.all([
+        import("maplibre-gl"),
+        import("maplibre-gl/dist/maplibre-gl.css")
+      ]);
+      const MapLibreGL = MapLibreGLModule.default;
+
       mapInstance = new MapLibreGL.Map({
         container: "homepage-map",
         style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", // Light theme basemap
@@ -184,6 +188,8 @@
       el.style.display = "flex";
       el.style.alignItems = "center";
       el.style.justifyContent = "center";
+      el.setAttribute("role", "button"); // Set role to make ARIA attributes valid
+      el.setAttribute("aria-label", "Ver ubicación de la oficina"); // Descriptive name for screen readers
 
       // SVG custom golden pin — use inline styles (Tailwind JIT won't scan dynamic innerHTML)
       el.innerHTML = `
@@ -231,8 +237,28 @@
     }
   };
 
+  // Set up lazy loading with IntersectionObserver
+  const setupLazyMap = () => {
+    const mapSection = document.getElementById("ubicacion");
+    if (!mapSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initMap();
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "200px" } // Begin loading map assets 200px before map enters viewport
+    );
+
+    observer.observe(mapSection);
+  };
+
   // Run on Astro page transition change (which also runs on initial page load)
-  document.addEventListener("astro:page-load", initMap);
+  document.addEventListener("astro:page-load", setupLazyMap);
 </script>
 
 <style is:global>

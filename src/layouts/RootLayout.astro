@@ -2,6 +2,7 @@
 import '../styles/globals.css';
 import { ClientRouter } from 'astro:transitions';
 import WhatsAppButton from '../components/common/WhatsAppButton.astro';
+import { faqs } from '../data/faqs';
 
 interface Props {
   title: string;
@@ -10,7 +11,21 @@ interface Props {
 
 const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://resuelvetuherencia.es');
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
 ---
+
 
 <!doctype html>
 <html lang="es">
@@ -45,7 +60,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://resuelve
     <!-- Google Fonts: Playfair Display (serif headings) + Inter (sans body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
     
     <!-- JSON-LD Structured Data for Local Business -->
     <script type="application/ld+json">
@@ -75,46 +93,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://resuelve
       "priceRange": "€€"
     }
     </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Cuál es el plazo para liquidar el Impuesto de Sucesiones en la Comunidad de Madrid?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "El plazo legal para liquidar el Impuesto de Sucesiones y Donaciones en la Comunidad de Madrid es de 6 meses contados a partir del día del fallecimiento del causante. Se puede solicitar una prórroga por otros 6 meses adicionales, siempre y cuando se presente la solicitud formal de prórroga dentro de los primeros 5 meses del plazo general ante la Agencia Tributaria de Madrid."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Es necesario desplazarse a Madrid centro si resido en la Sierra Norte o municipios del norte?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No, en absoluto. Ofrecemos una gestión de herencias 100% digitalizada o, si lo prefieres, nos reunimos contigo de forma presencial en Lozoyuela, Alcobendas, San Sebastián de los Reyes o Colmenar Viejo. Nos encargamos de coordinar con notarías locales y del norte de Madrid para la firma de la escritura de adjudicación, evitando desplazamientos innecesarios y ahorrando tiempo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué trámites legales se deben realizar si el fallecido no dejó testamento?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Cuando no existe testamento, se debe tramitar una 'Declaración de Herederos Abintestato' ante notario para designar a los herederos legales (hijos, cónyuge o padres) según el Código Civil. Posteriormente, realizamos la recopilación de bienes, la redacción del cuaderno particional, la liquidación fiscal del Impuesto de Sucesiones en Madrid y el cambio de nombre en el Registro de la Propiedad."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cómo se calculan los honorarios para la tramitación de una herencia?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ofrecemos una primera sesión diagnóstica 100% gratuita para evaluar tu caso (número de herederos, bienes inmuebles, cuentas, etc.). Tras este análisis inicial, te facilitamos un presupuesto cerrado y transparente llave en mano, garantizando que no habrá sorpresas, sobrecostes de gestión ni honorarios inesperados al final del proceso."
-          }
-        }
-      ]
-    }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
 
     <!-- View Transitions for smooth page animations -->
     <ClientRouter />
