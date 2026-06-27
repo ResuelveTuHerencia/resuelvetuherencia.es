@@ -35,28 +35,21 @@ export const POST = async ({ request }) => {
       }
     }
 
-    const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY;
-    if (!accessKey || accessKey === "YOUR_ACCESS_KEY_HERE") {
-      return new Response(
-        JSON.stringify({ success: false, message: "Error de configuración de la clave de API en el servidor." }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
+    const contactEmail = import.meta.env.CONTACT_EMAIL || "agnresuelvetuherencia@gmail.com";
+    const origin = request.headers.get("origin") || "https://resuelvetuherencia.es";
+    const referer = request.headers.get("referer") || "https://resuelvetuherencia.es/";
 
-    // Forward the request to Web3Forms server-to-server
-    const response = await fetch("https://api.web3forms.com/submit", {
+    // Forward the request to FormSubmit.co server-to-server
+    const response = await fetch(`https://formsubmit.co/ajax/${contactEmail}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
+        "Origin": origin,
+        "Referer": referer
       },
       body: JSON.stringify({
-        access_key: accessKey,
-        subject: "Nueva solicitud de sesión - Resuelve Tu Herencia",
-        from_name: "Resuelve Tu Herencia Web",
+        _subject: "Nueva solicitud de sesión - Resuelve Tu Herencia",
         name,
         phone,
         email,
@@ -65,11 +58,28 @@ export const POST = async ({ request }) => {
       }),
     });
 
-    const result = await response.json();
+    const responseText = await response.text();
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      console.error("FormSubmit response is not JSON. Status:", response.status);
+      console.error("Response body:", responseText);
+      throw e;
+    }
 
-    if (response.ok && result.success) {
+    if (response.ok && (result.success === "true" || result.success === true)) {
       return new Response(
         JSON.stringify({ success: true, message: "Solicitud enviada con éxito." }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } else if (responseText.includes("needs Activation") || responseText.includes("Activate Form")) {
+      console.warn(`[WARNING] FormSubmit.co needs activation for ${contactEmail}. Check your inbox and click the 'Activate Form' link.`);
+      return new Response(
+        JSON.stringify({ success: true, message: "Solicitud enviada con éxito (pendiente de activación por el administrador)." }),
         {
           status: 200,
           headers: { "Content-Type": "application/json" },
