@@ -8,10 +8,20 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 interface Props {
   title: string;
   description: string;
+  showFaqSchema?: boolean;
 }
 
-const { title, description } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://resuelvetuherencia.es');
+const { title, description, showFaqSchema = false } = Astro.props;
+
+// SEO: Home sections served by [...slug].astro must canonicalize to "/"
+// to avoid duplicate content signals for identical HTML.
+const homeSections = ['inicio', 'servicios', 'herramientas', 'sobre-nosotros', 'faq'];
+const currentPath = Astro.url.pathname.replace(/^\/|\/$/g, '');
+const isHomeSection = currentPath === '' || homeSections.includes(currentPath);
+
+const canonicalURL = isHomeSection
+  ? new URL('/', Astro.site || 'https://resuelvetuherencia.es')
+  : new URL(Astro.url.pathname, Astro.site || 'https://resuelvetuherencia.es');
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -55,7 +65,7 @@ const faqSchema = {
     
     <!-- Local SEO -->
     <meta name="geo.region" content="ES-M" />
-    <meta name="geo.placename" content="Madrid" />
+    <meta name="geo.placename" content="Lozoyuela, Madrid" />
     <meta name="robots" content="index, follow" />
 
     <!-- Google Fonts: Playfair Display (serif headings) + Inter (sans body) -->
@@ -70,9 +80,9 @@ const faqSchema = {
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": "LegalService",
       "name": "Resuelve Tu Herencia",
-      "description": "Asesoría integral especializada en tramitación de herencias, sucesiones y gestión patrimonial en Madrid.",
+      "description": "Asesoría integral especializada en tramitación de herencias, sucesiones y gestión patrimonial en la Comunidad de Madrid.",
       "url": "https://resuelvetuherencia.es",
       "email": "agnresuelvetuherencia@gmail.com",
       "telephone": "+34613955069",
@@ -80,21 +90,28 @@ const faqSchema = {
         "@type": "GeoCircle",
         "geoMidpoint": {
           "@type": "GeoCoordinates",
-          "latitude": 40.4168,
-          "longitude": -3.7038
+          "latitude": 40.925864,
+          "longitude": -3.617637
         },
         "geoRadius": "50000"
       },
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Madrid",
+        "streetAddress": "Avenida de Madrid, 62",
+        "postalCode": "28752",
+        "addressLocality": "Lozoyuela",
         "addressRegion": "Comunidad de Madrid",
         "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.925864,
+        "longitude": -3.617637
       },
       "priceRange": "€€"
     }
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    {showFaqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
 
     <!-- View Transitions for smooth page animations -->

@@ -4,7 +4,8 @@
     "jsx": "preserve",
     "jsxImportSource": "astro",
     "moduleResolution": "Bundler",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": [
     ".astro/types.d.ts",

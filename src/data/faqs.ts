@@ -30,7 +30,7 @@ export const faqs: FAQItem[] = [
   },
   {
     question: "¿Qué documentos son obligatorios para gestionar una herencia en la Comunidad de Madrid?",
-    answer: "Para iniciar la tramitación se requieren Ascertificados indispensables: 1) Certificado Literal de Defunción (obtenido en el Registro Civil), 2) Certificado de Actos de Última Voluntad (que confirma si hay testamento), 3) Certificado de Contratos de Seguros de Cobertura de Fallecimiento, 4) Copia autorizada del Testamento o Acta de Declaración de Herederos, y 5) Títulos de propiedad de los bienes (escrituras, recibos del IBI, certificados bancarios)."
+    answer: "Para iniciar la tramitación se requieren certificados indispensables: 1) Certificado Literal de Defunción (obtenido en el Registro Civil), 2) Certificado de Actos de Última Voluntad (que confirma si hay testamento), 3) Certificado de Contratos de Seguros de Cobertura de Fallecimiento, 4) Copia autorizada del Testamento o Acta de Declaración de Herederos, y 5) Títulos de propiedad de los bienes (escrituras, recibos del IBI, certificados bancarios)."
   },
   {
     question: "¿Qué pasa con las deudas del fallecido al aceptar una herencia en Madrid?",
