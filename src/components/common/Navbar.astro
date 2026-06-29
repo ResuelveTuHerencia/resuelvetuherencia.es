@@ -27,27 +27,27 @@ import logoImage from "../../assets/logo.png";
       </div>
 
       <a
-        href="/#inicio"
+        href="/"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >Inicio</a
       >
       <a
-        href="/#servicios"
+        href="/servicios"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >Servicios</a
       >
       <a
-        href="/#herramientas"
+        href="/herramientas"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >Herramientas</a
       >
       <a
-        href="/#sobre-nosotros"
+        href="/sobre-nosotros"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >Sobre Nosotros</a
       >
       <a
-        href="/#faq"
+        href="/faq"
         class="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 pb-1 relative nav-link"
         >FAQs</a
       >
@@ -94,26 +94,26 @@ import logoImage from "../../assets/logo.png";
   >
     <div class="section-container py-4 flex flex-col gap-3">
       <a
-        href="/#inicio"
+        href="/"
         class="text-sm font-medium text-white/80 py-2 mobile-nav-link">Inicio</a
       >
       <a
-        href="/#servicios"
+        href="/servicios"
         class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
         >Servicios</a
       >
       <a
-        href="/#herramientas"
+        href="/herramientas"
         class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
         >Herramientas</a
       >
       <a
-        href="/#sobre-nosotros"
+        href="/sobre-nosotros"
         class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
         >Sobre Nosotros</a
       >
       <a
-        href="/#faq"
+        href="/faq"
         class="text-sm font-medium text-white/80 hover:text-gold py-2 transition-colors mobile-nav-link"
         >FAQs</a
       >
@@ -174,9 +174,17 @@ import logoImage from "../../assets/logo.png";
     const navLinks = document.querySelectorAll(".nav-link");
     const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
     const indicator = document.getElementById("nav-indicator");
+    const sectionPaths = ['inicio', 'servicios', 'herramientas', 'sobre-nosotros', 'faq'];
+
+    let isProgrammaticScroll = false;
+    let scrollTimeout: number | undefined;
 
     function updateIndicator(activeLink: HTMLElement | null) {
-      if (!indicator || !activeLink) return;
+      if (!indicator) return;
+      if (!activeLink) {
+        indicator.style.opacity = "0";
+        return;
+      }
       const rect = activeLink.getBoundingClientRect();
       const navRect = activeLink.parentElement?.getBoundingClientRect();
       if (navRect) {
@@ -186,65 +194,119 @@ import logoImage from "../../assets/logo.png";
       }
     }
 
+    function updateActiveLink(id: string) {
+      let activeLink: HTMLElement | null = null;
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href");
+        const path = href ? href.replace(/^\/|\/$/g, '') : '';
+        const element = link as HTMLElement;
+        if ((id === 'inicio' && path === '') || path === id) {
+          element.classList.add("text-white");
+          element.classList.remove("text-white/70");
+          activeLink = element;
+        } else {
+          element.classList.remove("text-white");
+          element.classList.add("text-white/70");
+        }
+      });
+      updateIndicator(activeLink);
+
+      mobileNavLinks.forEach((link) => {
+        const href = link.getAttribute("href");
+        const path = href ? href.replace(/^\/|\/$/g, '') : '';
+        const element = link as HTMLElement;
+        if ((id === 'inicio' && path === '') || path === id) {
+          element.classList.add("text-gold");
+          element.classList.remove("text-white/80");
+        } else {
+          element.classList.remove("text-gold");
+          element.classList.add("text-white/80");
+        }
+      });
+    }
+
     const observerOptions = {
       root: null,
-      rootMargin: "-40% 0px -45% 0px",
+      rootMargin: "-45% 0px -45% 0px",
       threshold: 0,
     };
 
     const observer = new IntersectionObserver((entries) => {
+      if (isProgrammaticScroll) return;
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
+          if (id && sectionPaths.includes(id)) {
+            updateActiveLink(id);
 
-          // Update Desktop Indicator
-          let activeLink: HTMLElement | null = null;
-          navLinks.forEach((link) => {
-            const href = link.getAttribute("href");
-            const hash =
-              href && href.includes("#")
-                ? href.substring(href.indexOf("#"))
-                : "";
-            const element = link as HTMLElement;
-            if (hash === `#${id}`) {
-              element.classList.add("text-white");
-              element.classList.remove("text-white/70");
-              activeLink = element;
-            } else {
-              element.classList.remove("text-white");
-              element.classList.add("text-white/70");
+            // Update URL dynamically
+            const currentPath = window.location.pathname;
+            const isHomeRoute = currentPath === '/' || sectionPaths.some(p => currentPath === `/${p}` || currentPath === `/${p}/`);
+            if (isHomeRoute) {
+              const targetPath = id === 'inicio' ? '/' : `/${id}`;
+              if (window.location.pathname !== targetPath) {
+                window.history.replaceState(null, '', targetPath);
+              }
             }
-          });
-          if (activeLink) {
-            updateIndicator(activeLink);
           }
-
-          // Update Mobile menu active state
-          mobileNavLinks.forEach((link) => {
-            const href = link.getAttribute("href");
-            const hash =
-              href && href.includes("#")
-                ? href.substring(href.indexOf("#"))
-                : "";
-            const element = link as HTMLElement;
-            if (hash === `#${id}`) {
-              element.classList.add("text-gold");
-              element.classList.remove("text-white/80");
-            } else {
-              element.classList.remove("text-gold");
-              element.classList.add("text-white/80");
-            }
-          });
         }
       });
     }, observerOptions);
 
     sections.forEach((section) => observer.observe(section));
 
-    // Set active link state and indicator based on URL path/hash
+    // Handle clicks on section links
+    function handleNavLinkClick(e: Event) {
+      const link = e.currentTarget as HTMLAnchorElement;
+      if (!link) return;
+
+      const url = new URL(link.href, window.location.origin);
+      const targetPath = url.pathname.replace(/^\/|\/$/g, '');
+
+      const currentPath = window.location.pathname.replace(/^\/|\/$/g, '');
+      const isCurrentPageHome = currentPath === '' || sectionPaths.includes(currentPath);
+      const isTargetPageHome = targetPath === '' || sectionPaths.includes(targetPath);
+
+      if (isCurrentPageHome && isTargetPageHome) {
+        e.preventDefault();
+        const id = targetPath === '' ? 'inicio' : targetPath;
+        const targetElement = document.getElementById(id);
+        if (targetElement) {
+          isProgrammaticScroll = true;
+          if (scrollTimeout) clearTimeout(scrollTimeout);
+
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+
+          // Update URL and Active Link immediately
+          const nextUrl = targetPath === '' ? '/' : `/${targetPath}`;
+          window.history.pushState(null, '', nextUrl);
+          updateActiveLink(id);
+
+          scrollTimeout = window.setTimeout(() => {
+            isProgrammaticScroll = false;
+          }, 1000);
+        }
+      }
+    }
+
+    // Attach click handlers to all anchors with section paths
+    document.querySelectorAll("a").forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href) {
+        const isSectionLink = href === '/' || 
+          sectionPaths.some(path => href === `/${path}` || href === `/#${path}`);
+        if (isSectionLink) {
+          link.addEventListener("click", handleNavLinkClick);
+        }
+      }
+    });
+
+    // Set active link state and indicator based on URL path
     function setInitialActiveState() {
-      const path = window.location.pathname;
-      if (path.includes("/contacto")) {
+      const pathname = window.location.pathname.replace(/^\/|\/$/g, '');
+
+      if (pathname === 'contacto') {
         navLinks.forEach((link) => {
           const href = link.getAttribute("href");
           if (href === "/contacto") {
@@ -266,42 +328,51 @@ import logoImage from "../../assets/logo.png";
             link.classList.add("text-white/80");
           }
         });
-      } else {
-        const hash = window.location.hash;
-        const targetHash = hash || "#inicio";
-        let activeLink: HTMLElement | null = null;
+        return;
+      }
 
-        navLinks.forEach((link) => {
-          const href = link.getAttribute("href");
-          const linkHash =
-            href && href.includes("#") ? href.substring(href.indexOf("#")) : "";
-          const element = link as HTMLElement;
-          if (linkHash === targetHash) {
-            element.classList.add("text-white");
-            element.classList.remove("text-white/70");
-            activeLink = element;
-          } else {
-            element.classList.remove("text-white");
-            element.classList.add("text-white/70");
+      // Check if current path matches any of our section paths
+      const currentPath = window.location.pathname.replace(/^\/|\/$/g, '');
+      const isHomeRoute = currentPath === '' || sectionPaths.includes(currentPath);
+
+      if (isHomeRoute) {
+        let targetSection = 'inicio';
+        if (sectionPaths.includes(currentPath)) {
+          targetSection = currentPath;
+        } else if (window.location.hash) {
+          const hash = window.location.hash.substring(1);
+          if (sectionPaths.includes(hash)) {
+            targetSection = hash;
           }
-        });
-        if (activeLink) {
-          updateIndicator(activeLink);
         }
 
-        mobileNavLinks.forEach((link) => {
-          const href = link.getAttribute("href");
-          const linkHash =
-            href && href.includes("#") ? href.substring(href.indexOf("#")) : "";
-          const element = link as HTMLElement;
-          if (linkHash === targetHash) {
-            element.classList.add("text-gold");
-            element.classList.remove("text-white/80");
-          } else {
-            element.classList.remove("text-gold");
-            element.classList.add("text-white/80");
+        updateActiveLink(targetSection);
+
+        // Scroll to the target section on initial load if it's not the top
+        if (targetSection !== 'inicio') {
+          const targetElement = document.getElementById(targetSection);
+          if (targetElement) {
+            const htmlStyle = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = 'auto';
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'auto' });
+              document.documentElement.style.scrollBehavior = htmlStyle;
+            }, 50);
           }
+        }
+      } else {
+        // Clear all active indicators on non-home pages
+        navLinks.forEach((link) => {
+          link.classList.remove("text-white");
+          link.classList.add("text-white/70");
         });
+        mobileNavLinks.forEach((link) => {
+          link.classList.remove("text-gold");
+          link.classList.add("text-white/80");
+        });
+        if (indicator) {
+          indicator.style.opacity = "0";
+        }
       }
     }
 
