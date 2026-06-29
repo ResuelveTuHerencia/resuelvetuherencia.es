@@ -209,7 +209,7 @@
       </div>
 
       <!-- Madrid Savings Badge / Notice -->
-      <div id="madrid-saving-badge" class="mt-6 p-4 rounded-xl border border-gold/20 bg-gold/5 hidden opacity-0 pointer-events-none flex items-start gap-3 transition-all duration-300">
+      <div id="madrid-saving-badge" class="mt-6 p-4 rounded-xl border border-gold/20 bg-gold/5 hidden opacity-0 pointer-events-none items-start gap-3 transition-all duration-300">
         <div class="text-gold shrink-0 mt-0.5 animate-bounce">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
@@ -381,6 +381,7 @@
       if (savingsBadge && savingsText) {
         if (hasSaving && saving > 0) {
           savingsBadge.classList.remove("hidden");
+          savingsBadge.classList.add("flex");
           setTimeout(() => {
             savingsBadge.classList.remove("opacity-0", "pointer-events-none");
             savingsBadge.classList.add("opacity-100");
@@ -392,6 +393,7 @@
           setTimeout(() => {
             if (savingsBadge.classList.contains("opacity-0")) {
               savingsBadge.classList.add("hidden");
+              savingsBadge.classList.remove("flex");
             }
           }, 300);
         }

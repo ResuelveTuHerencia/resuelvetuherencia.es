@@ -3,6 +3,7 @@ import '../styles/globals.css';
 import { ClientRouter } from 'astro:transitions';
 import WhatsAppButton from '../components/common/WhatsAppButton.astro';
 import { faqs } from '../data/faqs';
+import { SpeedInsights } from '@vercel/speed-insights/astro';
 
 interface Props {
   title: string;
@@ -128,5 +129,6 @@ const faqSchema = {
   <body class="flex min-h-screen flex-col bg-secondary text-primary font-sans antialiased">
     <slot />
     <WhatsAppButton />
+    <SpeedInsights />
   </body>
 </html>
