@@ -481,14 +481,34 @@
               <label
                 for="unlock-name"
                 class="block text-xs font-semibold text-primary/70 mb-1.5 font-sans"
-                >Nombre y Apellidos:</label
+                >Nombre y Apellidos <span class="text-red-500">*</span></label
               >
-              <input
-                type="text"
-                id="unlock-name"
-                placeholder="Ej. Juan Pérez"
-                class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="unlock-name"
+                  required
+                  pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ']{2,60}$"
+                  maxlength="60"
+                  title="Introduce tu nombre y apellidos (solo letras, de 2 a 60 caracteres)"
+                  placeholder="Ej. Juan Pérez"
+                  class="w-full rounded-lg border border-slate-200 pl-4 pr-10 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <span class="valid-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="3"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </span>
+              </div>
             </div>
             <button
               type="button"
@@ -512,14 +532,34 @@
               <label
                 for="unlock-email"
                 class="block text-xs font-semibold text-primary/70 mb-1.5 font-sans"
-                >Correo Electrónico:</label
+                >Correo Electrónico <span class="text-red-500">*</span></label
               >
-              <input
-                type="email"
-                id="unlock-email"
-                placeholder="tucorreo@ejemplo.com"
-                class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
+              <div class="input-group">
+                <input
+                  type="email"
+                  id="unlock-email"
+                  required
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,}$"
+                  maxlength="100"
+                  title="Introduce un correo electrónico válido (ej. usuario@dominio.com)"
+                  placeholder="tucorreo@ejemplo.com"
+                  class="w-full rounded-lg border border-slate-200 pl-4 pr-10 py-2.5 text-sm text-primary placeholder:text-primary/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <span class="valid-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="3"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </span>
+              </div>
             </div>
             <div class="flex gap-2">
               <button
@@ -534,7 +574,7 @@
                 id="btn-unlock-submit"
                 class="btn-primary w-2/3 py-2.5 text-xs font-bold text-center tracking-wider cursor-pointer"
               >
-                OBTENER GUÍA Y VER RESULTADOS
+                OBTENER GUÍA
               </button>
             </div>
           </div>
@@ -560,124 +600,13 @@
               ¡Informe Enviado con Éxito!
             </h4>
             <p class="text-xs text-primary/60 leading-relaxed font-sans">
-              Hemos enviado la hoja de ruta y los detalles de las deudas y
-              legítima a tu correo electrónico.
+              Estamos preparando tu <strong>hoja de ruta</strong> y los detalles de
+              las <strong>deudas y legítima</strong>. Te enviaremos un correo
+              electrónico con toda la información necesaria para ayudarte en el
+              proceso.
             </p>
-            <button
-              type="button"
-              id="btn-reveal-timeline"
-              class="btn-primary w-full py-2.5 text-xs font-bold text-center tracking-wider cursor-pointer"
-            >
-              VER GUÍA INTERACTIVA
-            </button>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Result Timeline (Unlocked) -->
-    <div
-      id="assistant-results-wrapper"
-      class="hidden flex-col justify-between h-full space-y-6"
-    >
-      <div>
-        <!-- Section Title -->
-        <div class="flex items-center justify-between mb-4">
-          <h3
-            class="font-serif text-lg font-bold text-primary flex items-center gap-2"
-          >
-            <span class="flex h-3 w-3 rounded-full bg-gold"></span>
-            Resultado: Hoja de Ruta
-          </h3>
-          <span
-            id="active-step-badge"
-            class="text-[10px] font-bold uppercase tracking-wider text-gold font-sans"
-            >Paso 1 de 6</span
-          >
-        </div>
-
-        <!-- Horizontal Steps Header -->
-        <div class="relative flex items-center justify-between mb-6 px-4">
-          <!-- Connecting gold line -->
-          <div
-            class="absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 z-0"
-          >
-          </div>
-
-          <!-- Step nodes (1 to 6) -->
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-gold text-xs font-bold text-gold cursor-pointer transition-all hover:bg-gold hover:text-white active-node"
-            data-step="1">1</button
-          >
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
-            data-step="2">2</button
-          >
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
-            data-step="3">3</button
-          >
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
-            data-step="4">4</button
-          >
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
-            data-step="5">5</button
-          >
-          <button
-            type="button"
-            class="step-node relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-xs font-bold text-slate-400 cursor-pointer transition-all hover:border-gold hover:text-gold"
-            data-step="6">6</button
-          >
-        </div>
-
-        <!-- Active Step Detail Card -->
-        <div
-          class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm min-h-[180px] flex flex-col justify-center transition-all duration-350"
-        >
-          <h4
-            id="active-step-title"
-            class="font-sans text-sm font-bold text-primary mb-2"
-          >
-            Paso 1: Recopilación de documentos
-          </h4>
-          <p
-            id="active-step-desc"
-            class="text-xs sm:text-sm text-primary/70 leading-relaxed"
-          >
-            Obteniendo certificado de defunción y últimas voluntades para
-            localizar el testamento.
-          </p>
-        </div>
-      </div>
-
-      <!-- Timeline Navigation Footer -->
-      <div
-        class="flex items-center justify-between border-t border-slate-200/60 pt-4 mt-4"
-      >
-        <button
-          type="button"
-          id="btn-prev-step"
-          class="btn-outline px-4 py-2 text-xs font-bold select-none cursor-pointer"
-        >
-          Anterior
-        </button>
-        <span class="text-xs font-semibold text-primary/50 font-sans"
-          >Usa los botones para navegar</span
-        >
-        <button
-          type="button"
-          id="btn-next-step"
-          class="btn-outline px-4 py-2 text-xs font-bold select-none cursor-pointer"
-        >
-          Siguiente
-        </button>
       </div>
     </div>
   </div>
@@ -1014,27 +943,9 @@
     const btnSubmit = document.getElementById(
       "btn-unlock-submit",
     ) as HTMLButtonElement | null;
-    const btnRevealTimeline = document.getElementById(
-      "btn-reveal-timeline",
-    ) as HTMLButtonElement | null;
     const btnBackToQuestions = document.getElementById(
       "btn-unlock-back-to-questions",
     ) as HTMLButtonElement | null;
-
-    // Timeline Elements
-    const stepNodes = document.querySelectorAll(".step-node");
-    const activeStepTitle = document.getElementById("active-step-title");
-    const activeStepDesc = document.getElementById("active-step-desc");
-    const activeStepBadge = document.getElementById("active-step-badge");
-    const btnPrevStep = document.getElementById(
-      "btn-prev-step",
-    ) as HTMLButtonElement | null;
-    const btnNextStep = document.getElementById(
-      "btn-next-step",
-    ) as HTMLButtonElement | null;
-
-    let currentActiveStep = 1;
-    let unlocked = false;
 
     // Timeline state data
     let compiledSteps: Array<{ title: string; desc: string }> = [];
@@ -1062,21 +973,12 @@
 
     updateRadiosSelection();
 
-    // Helper to update the timeline dynamically when options change (if unlocked)
-    function updateTimelineLive() {
-      if (unlocked) {
-        buildGuideData();
-        renderStep(currentActiveStep);
-      }
-    }
-
     // Event listeners for radio changes
     const radios = form.querySelectorAll(".assistant-radio");
     radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         updateRadiosSelection();
         updateLawBadge();
-        updateTimelineLive();
       });
     });
 
@@ -1107,7 +1009,6 @@
     if (provinciaSelect) {
       provinciaSelect.addEventListener("change", () => {
         updateLawBadge();
-        updateTimelineLive();
       });
     }
 
@@ -1117,7 +1018,6 @@
         let val = parseInt(herederosInput.value, 10) || 1;
         if (val > 1) {
           herederosInput.value = String(val - 1);
-          updateTimelineLive();
         }
       });
 
@@ -1125,7 +1025,6 @@
         let val = parseInt(herederosInput.value, 10) || 1;
         if (val < 20) {
           herederosInput.value = String(val + 1);
-          updateTimelineLive();
         }
       });
     }
@@ -1142,8 +1041,11 @@
     ) {
       btnNext.addEventListener("click", () => {
         const nameVal = inputName.value.trim();
-        if (nameVal.length < 2) {
-          alert("Por favor, introduce tu nombre.");
+        const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ']{2,60}$/;
+        if (!nameRegex.test(nameVal)) {
+          alert(
+            "Por favor, introduce tu nombre y apellidos (solo letras y espacios, mínimo 2 caracteres).",
+          );
           return;
         }
         unlockStep1.classList.add("hidden");
@@ -1177,62 +1079,34 @@
 
     // Main action button on left: "GENERAR MI HOJA DE RUTA"
     // Animates the results card into view smoothly!
-    if (btnVerPasos && resultCol && formCol && assistantGrid) {
+    if (btnVerPasos && resultCol && formCol) {
       btnVerPasos.addEventListener("click", () => {
-        // If already unlocked previously, directly render split layout
-        if (unlocked) {
-          assistantGrid.classList.remove("max-w-2xl");
-          assistantGrid.classList.add("lg:grid-cols-12", "max-w-6xl");
+        // Phase 2: Show lead form centered (hide questions form)
+        formCol.classList.add("opacity-0", "translate-y-4");
 
-          formCol.classList.remove("hidden", "opacity-0", "translate-y-4");
-          formCol.classList.add(
-            "lg:col-span-5",
-            "opacity-100",
-            "translate-y-0",
-          );
+        setTimeout(() => {
+          formCol.classList.add("hidden");
 
-          resultCol.classList.remove(
-            "hidden",
-            "opacity-0",
-            "pointer-events-none",
-            "translate-y-4",
-          );
-          resultCol.classList.add(
-            "lg:col-span-7",
-            "opacity-100",
-            "pointer-events-auto",
-            "translate-y-0",
-          );
-
-          renderStep(currentActiveStep);
-        } else {
-          // Phase 2: Show lead form centered (hide questions form)
-          formCol.classList.add("opacity-0", "translate-y-4");
+          // Show right column centered
+          resultCol.classList.remove("hidden", "lg:col-span-7");
 
           setTimeout(() => {
-            formCol.classList.add("hidden");
+            resultCol.classList.remove(
+              "opacity-0",
+              "pointer-events-none",
+              "translate-y-4",
+            );
+            resultCol.classList.add(
+              "opacity-100",
+              "pointer-events-auto",
+              "translate-y-0",
+            );
 
-            // Show right column centered
-            resultCol.classList.remove("hidden", "lg:col-span-7");
-
-            setTimeout(() => {
-              resultCol.classList.remove(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-4",
-              );
-              resultCol.classList.add(
-                "opacity-100",
-                "pointer-events-auto",
-                "translate-y-0",
-              );
-
-              if (inputName) {
-                inputName.focus();
-              }
-            }, 50);
-          }, 300);
-        }
+            if (inputName) {
+              inputName.focus();
+            }
+          }, 50);
+        }, 300);
 
         // Update compiled data (so it's ready in memory)
         buildGuideData();
@@ -1271,13 +1145,20 @@
         const name = inputName.value.trim();
         const email = inputEmail.value.trim();
 
-        // Simple validation
-        if (name.length < 2) {
-          alert("Por favor, introduce tu nombre.");
+        // Strict validations
+        const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ']{2,60}$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,}$/;
+
+        if (!nameRegex.test(name)) {
+          alert(
+            "Por favor, introduce tu nombre y apellidos (solo letras y espacios, mínimo 2 caracteres).",
+          );
           return;
         }
-        if (!email.includes("@") || email.length < 5) {
-          alert("Por favor, introduce un correo electrónico válido.");
+        if (!emailRegex.test(email)) {
+          alert(
+            "Por favor, introduce un correo electrónico válido (ej. usuario@dominio.com).",
+          );
           return;
         }
 
@@ -1370,11 +1251,10 @@ El equipo de Resuelve Tu Herencia.`;
         // 3. Post to our API endpoint
         try {
           const formData = new FormData();
-          formData.append("name", name);
+          formData.append("source", "assistant");
+          formData.append("nombre", name);
           formData.append("email", email);
-          formData.append("municipio", `${provInfo.name} (${provInfo.ca})`);
           formData.append("message", emailMsg);
-          formData.append("phone", "Asistente Digital");
 
           const response = await fetch("/api/submit", {
             method: "POST",
@@ -1402,41 +1282,6 @@ El equipo de Resuelve Tu Herencia.`;
           btnSubmit.disabled = false;
           btnSubmit.innerText = "OBTENER GUÍA Y VER RESULTADOS";
         }
-      });
-    }
-
-    // Show timeline after successful submission (Reveal split layout)
-    if (
-      btnRevealTimeline &&
-      lockWrapper &&
-      resultsWrapper &&
-      assistantGrid &&
-      formCol &&
-      resultCol
-    ) {
-      btnRevealTimeline.addEventListener("click", () => {
-        unlocked = true;
-        lockWrapper.classList.add("hidden");
-        resultsWrapper.classList.remove("hidden");
-
-        // Transition layout to split columns
-        assistantGrid.classList.remove("max-w-2xl");
-        assistantGrid.classList.add("lg:grid-cols-12", "max-w-6xl");
-
-        // Bring back formCol (left column)
-        formCol.classList.remove("hidden");
-        formCol.classList.add("lg:col-span-5");
-
-        // Set resultCol to right column
-        resultCol.classList.add("lg:col-span-7");
-
-        // Ensure fade-in classes are applied smoothly
-        setTimeout(() => {
-          formCol.classList.remove("opacity-0", "translate-y-4");
-          formCol.classList.add("opacity-100", "translate-y-0");
-        }, 50);
-
-        renderStep(1);
       });
     }
 
@@ -1476,30 +1321,30 @@ El equipo de Resuelve Tu Herencia.`;
       let s1Title = "Paso 1: Recopilación de documentos";
       let s1Desc = "";
       if (testamento === "si") {
-        s1Desc = `Obtener el <strong>Certificado de Últimas Voluntades</strong> tras 15 días del fallecimiento. Al existir testamento, se debe localizar la notaría correspondiente para solicitar una <strong>Copia Autorizada del Testamento</strong>.`;
+        s1Desc = `Obtener el Certificado de Últimas Voluntades tras 15 días del fallecimiento. Al existir testamento, se debe localizar la notaría correspondiente para solicitar una Copia Autorizada del Testamento.`;
       } else if (testamento === "no") {
-        s1Desc = `Obtener el <strong>Certificado de Últimas Voluntades</strong>. Al no existir testamento, será obligatorio tramitar previamente una <strong>Declaración de Herederos Abintestato</strong> ante un Notario competente de la provincia de ${provInfo.name} para declarar legalmente los herederos.`;
+        s1Desc = `Obtener el Certificado de Últimas Voluntades. Al no existir testamento, será obligatorio tramitar previamente una Declaración de Herederos Abintestato ante un Notario competente de la provincia de ${provInfo.name} para declarar legalmente los herederos.`;
       } else {
-        s1Desc = `Solicitar obligatoriamente el <strong>Certificado de Últimas Voluntades</strong>. Este documento oficial revelará si el fallecido otorgó testamento y en qué notaría, guiando los siguientes trámites documentales.`;
+        s1Desc = `Solicitar obligatoriamente el Certificado de Últimas Voluntades. Este documento oficial revelará si el fallecido otorgó testamento y en qué notaría, guiando los siguientes trámites documentales.`;
       }
 
       if (menores === "si") {
-        s1Desc += ` Al haber <strong>herederos menores de edad o incapacitados</strong>, en esta fase inicial se debe localizar su documentación legal de representación (patria potestad, tutoría o nombramiento de defensor judicial).`;
+        s1Desc += ` Al haber herederos menores de edad o incapacitados, en esta fase inicial se debe localizar su documentación legal de representación (patria potestad, tutoría o nombramiento de defensor judicial).`;
       }
       compiledSteps.push({ title: s1Title, desc: s1Desc });
 
       // Paso 2
       let s2Title = "Paso 2: Solicitud de certificados";
-      let s2Desc = `Solicitar el <strong>Certificado Literal de Defunción</strong> en el Registro Civil. Con él, obtener el <strong>Certificado de Últimas Voluntades</strong> y el <strong>Certificado de Contratos de Seguros de Vida</strong> del Ministerio de Justicia.`;
+      let s2Desc = `Solicitar el Certificado Literal de Defunción en el Registro Civil. Con él, obtener el Certificado de Últimas Voluntades y el Certificado de Contratos de Seguros de Vida del Ministerio de Justicia.`;
       compiledSteps.push({ title: s2Title, desc: s2Desc });
 
       // Paso 3
       let s3Title = "Paso 3: Inventario de bienes";
       let s3Desc = "";
       if (propiedades === "si") {
-        s3Desc = `Recopilar las escrituras de los inmuebles y solicitar <strong>Notas Simples</strong> actualizadas en el Registro de la Propiedad de ${provInfo.name}. También solicitar los certificados de saldos y valores bancarios de las cuentas a fecha de defunción.`;
+        s3Desc = `Recopilar las escrituras de los inmuebles y solicitar Notas Simples actualizadas en el Registro de la Propiedad de ${provInfo.name}. También solicitar los certificados de saldos y valores bancarios de las cuentas a fecha de defunción.`;
       } else if (propiedades === "no") {
-        s3Desc = `Solicitar los <strong>certificados de saldo bancario</strong> con fecha de defunción en las entidades financieras del causante. Al no existir bienes inmuebles, el inventario se limitará a cuentas, vehículos y enseres.`;
+        s3Desc = `Solicitar los certificados de saldo bancario con fecha de defunción en las entidades financieras del causante. Al no existir bienes inmuebles, el inventario se limitará a cuentas, vehículos y enseres.`;
       } else {
         s3Desc = `Realizar una consulta general de bienes en el Catastro y en el Índice del Registro de la Propiedad para verificar si existen fincas rústicas o urbanas registradas a nombre del fallecido en la provincia de ${provInfo.name}, además de pedir los saldos bancarios.`;
       }
@@ -1512,36 +1357,36 @@ El equipo de Resuelve Tu Herencia.`;
 
       // Adapt based on regional civil code
       if (provInfo.law === "comun") {
-        lawNote = `Al regirse por el <strong>Derecho Civil Común</strong>, la legítima de los descendientes es de <strong>2/3 del caudal hereditario</strong> (1/3 legítima estricta y 1/3 de mejora).`;
+        lawNote = `Al regirse por el Derecho Civil Común, la legítima de los descendientes es de 2/3 del caudal hereditario (1/3 legítima estricta y 1/3 de mejora).`;
       } else if (provInfo.law === "catalan") {
-        lawNote = `Se aplica el <strong>Derecho Civil de Cataluña</strong>. La legítima de los hijos se limita a <strong>1/4 (25%) del total de la herencia</strong>, a repartir entre todos los descendientes legitimarios.`;
+        lawNote = `Se aplica el Derecho Civil de Cataluña. La legítima de los hijos se limita a 1/4 (25%) del total de la herencia, a repartir entre todos los descendientes legitimarios.`;
       } else if (provInfo.law === "gallego") {
-        lawNote = `Se aplica el <strong>Derecho Civil de Galicia</strong>. La legítima de los descendientes es del <strong>25% (un cuarto)</strong> del valor neto de los bienes hereditarios.`;
+        lawNote = `Se aplica el Derecho Civil de Galicia. La legítima de los descendientes es del 25% (un cuarto) del valor neto de los bienes hereditarios.`;
       } else if (provInfo.law === "vasco") {
-        lawNote = `Se aplica la ley civil del <strong>País Vasco</strong>. La legítima de los descendientes es de <strong>1/3</strong>, con la ventaja de que el causante puede atribuirla enteramente a un solo heredero, apartando al resto.`;
+        lawNote = `Se aplica la ley civil del País Vasco. La legítima de los descendientes es de 1/3, con la ventaja de que el causante puede atribuirla enteramente a un solo heredero, apartando al resto.`;
       } else if (provInfo.law === "aragones") {
-        lawNote = `Se aplica el <strong>Derecho Civil de Aragón</strong>. La legítima colectiva para descendientes es de la <strong>mitad (50%)</strong> del patrimonio, pudiendo distribuirse libremente entre ellos.`;
+        lawNote = `Se aplica el Derecho Civil de Aragón. La legítima colectiva para descendientes es de la mitad (50%) del patrimonio, pudiendo distribuirse libremente entre ellos.`;
       } else if (provInfo.law === "balear") {
-        lawNote = `Se rige por el <strong>Derecho Civil Foral de Baleares</strong>. La legítima de los hijos es de <strong>1/3</strong> del caudal relicto (si hay 4 o menos) o la <strong>mitad</strong> (si hay más de 4).`;
+        lawNote = `Se rige por el Derecho Civil Foral de Baleares. La legítima de los hijos es de 1/3 del caudal relicto (si hay 4 o menos) o la mitad (si hay más de 4).`;
       } else if (provInfo.law === "navarro") {
-        lawNote = `Se aplica el Fuero Nuevo de <strong>Navarra</strong>, que confiere **libertad absoluta de testar**. La legítima es meramente formal y no confiere derechos patrimoniales (cinco sueldos y una robada).`;
+        lawNote = `Se aplica el Fuero Nuevo de Navarra, que confiere libertad absoluta de testar. La legítima es meramente formal y no confiere derechos patrimoniales (cinco sueldos y una robada).`;
       }
 
-      s4Desc = `${lawNote} Redactar el cuaderno particional y formalizar la <strong>Escritura de Aceptación y Adjudicación de Herencia</strong> ante Notario para los ${herederos} herederos.`;
+      s4Desc = `${lawNote} Redactar el cuaderno particional y formalizar la Escritura de Aceptación y Adjudicación de Herencia ante Notario para los ${herederos} herederos.`;
 
       // Specific warning for debts (Beneficio de inventario)
       if (deudas === "si") {
-        s4Desc += ` <br/><strong class="text-amber-600">¡AVISO IMPORTANTE POR DEUDAS!</strong> Se aconseja formalizar la aceptación a **beneficio de inventario**. Esto te permite responder de las deudas del fallecido exclusivamente con los bienes de la herencia, protegiendo así por completo tu patrimonio personal.`;
+        s4Desc += ` AVISO IMPORTANTE POR DEUDAS: Se aconseja formalizar la aceptación a beneficio de inventario. Esto te permite responder de las deudas del fallecido exclusivamente con los bienes de la herencia, protegiendo así por completo tu patrimonio personal.`;
       }
 
       // Specific warning for discrepancies (Mediation)
       if (acuerdo === "no") {
-        s4Desc += ` <br/><strong class="text-amber-600 font-bold">¡DISCREPANCIAS DETECTADAS!</strong> Al no existir mutuo acuerdo, se aconseja recurrir a la **Mediación Familiar** para negociar el cuaderno particional. Esto evita un costoso y largo proceso judicial de división de herencia.`;
+        s4Desc += ` DISCREPANCIAS DETECTADAS: Al no existir mutuo acuerdo, se aconseja recurrir a la Mediación Familiar para negociar el cuaderno particional. Esto evita un costoso y largo proceso judicial de división de herencia.`;
       }
 
       // Specific warning for minors
       if (menores === "si") {
-        s4Desc += ` <br/><strong class="text-gold">INFO MENORES:</strong> Al existir menores o incapacitados, se necesitará la intervención del **Ministerio Fiscal** o de un defensor judicial, y la posterior aprobación del juzgado si se alteran sus derechos mínimos.`;
+        s4Desc += ` INFO MENORES: Al existir menores o incapacitados, se necesitará la intervención del Ministerio Fiscal o de un defensor judicial, y la posterior aprobación del juzgado si se alteran sus derechos mínimos.`;
       }
 
       compiledSteps.push({ title: s4Title, desc: s4Desc });
@@ -1553,9 +1398,9 @@ El equipo de Resuelve Tu Herencia.`;
 
       // Adapt based on regional tax code
       if (provInfo.tax === "bonif99") {
-        taxNote = `En ${provInfo.ca} cuentas con una **bonificación del 99%** de la cuota tributaria en el Impuesto de Sucesiones (Modelo 650) para cónyuges, hijos y padres. El impuesto a pagar será prácticamente simbólico.`;
+        taxNote = `En ${provInfo.ca} cuentas con una bonificación del 99% de la cuota tributaria en el Impuesto de Sucesiones (Modelo 650) para cónyuges, hijos y padres. El impuesto a pagar será prácticamente simbólico.`;
       } else if (provInfo.tax === "bonif99_limit") {
-        taxNote = `En Andalucía el Impuesto de Sucesiones está **bonificado al 99%** para herederos directos de Grupo I y II, además de contar con una reducción de hasta 1.000.000 € por heredero.`;
+        taxNote = `En Andalucía el Impuesto de Sucesiones está bonificado al 99% para herederos directos de Grupo I y II, además de contar con una reducción de hasta 1.000.000 € por heredero.`;
       } else if (provInfo.tax === "catalunya") {
         taxNote = `En Cataluña se aplican reducciones personales progresivas y bonificaciones de la cuota que oscilan entre el 99% y el 57% para herederos directos, variando según la base heredada.`;
       } else if (provInfo.tax === "galicia") {
@@ -1565,12 +1410,12 @@ El equipo de Resuelve Tu Herencia.`;
       } else if (provInfo.tax === "navarra") {
         taxNote = `En Navarra se aplican tipos reducidos específicos según ley foral sobre la herencia, con exenciones y deducciones directas.`;
       } else {
-        taxNote = `Se deberá liquidar el Impuesto de Sucesiones aplicando la normativa vigente de **${provInfo.ca}** dentro del plazo obligatorio de 6 meses desde el fallecimiento.`;
+        taxNote = `Se deberá liquidar el Impuesto de Sucesiones aplicando la normativa vigente de ${provInfo.ca} dentro del plazo obligatorio de 6 meses desde el fallecimiento.`;
       }
 
-      s5Desc = `Liquidar el <strong>Impuesto de Sucesiones (Modelo 650)</strong>. ${taxNote}`;
+      s5Desc = `Liquidar el Impuesto de Sucesiones (Modelo 650). ${taxNote}`;
       if (propiedades === "si") {
-        s5Desc += ` Asimismo, al existir bienes inmuebles, es obligatorio liquidar la **Plusvalía Municipal** en el Ayuntamiento correspondiente a la provincia de ${provInfo.name} en el mismo plazo.`;
+        s5Desc += ` Asimismo, al existir bienes inmuebles, es obligatorio liquidar la Plusvalía Municipal en el Ayuntamiento correspondiente a la provincia de ${provInfo.name} en el mismo plazo.`;
       }
       compiledSteps.push({ title: s5Title, desc: s5Desc });
 
@@ -1578,72 +1423,11 @@ El equipo de Resuelve Tu Herencia.`;
       let s6Title = "Paso 6: Adjudicación y registro";
       let s6Desc = "";
       if (propiedades === "si") {
-        s6Desc = `Tras el pago de impuestos, presentar la escritura e **inscribir los nuevos titulares de las fincas y viviendas en el Registro de la Propiedad** de ${provInfo.name} para completar el traspaso patrimonial de forma legal.`;
+        s6Desc = `Tras el pago de impuestos, presentar la escritura e inscribir los nuevos titulares de las fincas y viviendas en el Registro de la Propiedad de ${provInfo.name} para completar el traspaso patrimonial de forma legal.`;
       } else {
-        s6Desc = `Presentar la escritura de aceptación y adjudicación de herencia liquidada ante las entidades bancarias correspondientes para proceder al **reparto y desbloqueo de los fondos** de las cuentas.`;
+        s6Desc = `Presentar la escritura de aceptación y adjudicación de herencia liquidada ante las entidades bancarias correspondientes para proceder al reparto y desbloqueo de los fondos de las cuentas.`;
       }
       compiledSteps.push({ title: s6Title, desc: s6Desc });
-    }
-
-    // Timeline steps rendering logic
-    function renderStep(stepIndex: number) {
-      if (compiledSteps.length === 0) buildGuideData();
-
-      const step = compiledSteps[stepIndex - 1];
-      if (!step) return;
-
-      currentActiveStep = stepIndex;
-
-      // Update Node classes (horizontal nodes at the top)
-      stepNodes.forEach((node) => {
-        const nodeStep = parseInt(
-          (node as HTMLElement).dataset.step || "1",
-          10,
-        );
-        if (nodeStep === stepIndex) {
-          node.classList.add("active-node");
-        } else {
-          node.classList.remove("active-node");
-        }
-      });
-
-      // Update Text values
-      if (activeStepTitle) activeStepTitle.innerHTML = step.title;
-      if (activeStepDesc) activeStepDesc.innerHTML = step.desc;
-      if (activeStepBadge) activeStepBadge.innerText = `Paso ${stepIndex} de 6`;
-
-      // Disable/Enable nav buttons
-      if (btnPrevStep) {
-        (btnPrevStep as HTMLButtonElement).disabled = stepIndex === 1;
-      }
-      if (btnNextStep) {
-        (btnNextStep as HTMLButtonElement).disabled = stepIndex === 6;
-      }
-    }
-
-    // Event listener for node clicks
-    stepNodes.forEach((node) => {
-      node.addEventListener("click", () => {
-        const stepVal = parseInt((node as HTMLElement).dataset.step || "1", 10);
-        renderStep(stepVal);
-      });
-    });
-
-    // Event listener for Prev/Next buttons
-    if (btnPrevStep) {
-      btnPrevStep.addEventListener("click", () => {
-        if (currentActiveStep > 1) {
-          renderStep(currentActiveStep - 1);
-        }
-      });
-    }
-
-    if (btnNextStep) {
-      btnNextStep.addEventListener("click", () => {
-        if (currentActiveStep < 6) {
-          renderStep(currentActiveStep + 1);
-        }
-      });
     }
   };
 

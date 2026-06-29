@@ -85,12 +85,25 @@
             name="comunidad" 
             class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-primary appearance-none focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold font-medium cursor-pointer"
           >
-            <option value="madrid" selected>Comunidad de Madrid</option>
             <option value="andalucia">Andalucía</option>
+            <option value="aragon">Aragón</option>
+            <option value="asturias">Asturias (Principado de)</option>
+            <option value="baleares">Baleares (Islas)</option>
+            <option value="canarias">Canarias</option>
+            <option value="cantabria">Cantabria</option>
+            <option value="castillayleon">Castilla y León</option>
+            <option value="castillalamancha">Castilla-La Mancha</option>
             <option value="catalunya">Cataluña</option>
             <option value="valencia">Comunidad Valenciana</option>
+            <option value="extremadura">Extremadura</option>
             <option value="galicia">Galicia</option>
-            <option value="otras">Otras Comunidades</option>
+            <option value="madrid" selected>Comunidad de Madrid</option>
+            <option value="murcia">Murcia (Región de)</option>
+            <option value="navarra">Navarra (Comunidad Foral de)</option>
+            <option value="paisvasco">País Vasco</option>
+            <option value="larioja">La Rioja</option>
+            <option value="ceuta">Ceuta (Ciudad Autónoma)</option>
+            <option value="melilla">Melilla (Ciudad Autónoma)</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-primary/60">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><polyline points="6 9 12 15 18 9"/></svg>
@@ -196,7 +209,7 @@
       </div>
 
       <!-- Madrid Savings Badge / Notice -->
-      <div id="madrid-saving-badge" class="mt-6 p-4 rounded-xl border border-gold/20 bg-gold/5 flex items-start gap-3 transition-opacity duration-300">
+      <div id="madrid-saving-badge" class="mt-6 p-4 rounded-xl border border-gold/20 bg-gold/5 hidden opacity-0 pointer-events-none flex items-start gap-3 transition-all duration-300">
         <div class="text-gold shrink-0 mt-0.5 animate-bounce">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
@@ -293,24 +306,52 @@
 
       let saving = 0;
       let savingsPctStr = "";
+      let hasSaving = false;
+      let regionName = "";
 
-      // Apply regional modifications
-      if (comunidad === "madrid") {
+      const regionsConfig: Record<string, { name: string; pct: string; factor: number }> = {
+        madrid: { name: "Comunidad de Madrid", pct: "99%", factor: 0.01 },
+        andalucia: { name: "Andalucía", pct: "99%", factor: 0.01 },
+        valencia: { name: "Comunidad Valenciana", pct: "99%", factor: 0.01 },
+        canarias: { name: "Canarias", pct: "99.9%", factor: 0.001 },
+        larioja: { name: "La Rioja", pct: "99%", factor: 0.01 },
+        murcia: { name: "Región de Murcia", pct: "99%", factor: 0.01 },
+        extremadura: { name: "Extremadura", pct: "99%", factor: 0.01 },
+        castillayleon: { name: "Castilla y León", pct: "99%", factor: 0.01 },
+        cantabria: { name: "Cantabria", pct: "100%", factor: 0.00 },
+        baleares: { name: "Islas Baleares", pct: "100%", factor: 0.00 },
+        galicia: { name: "Galicia", pct: "99%", factor: 0.01 },
+        asturias: { name: "Asturias", pct: "95%", factor: 0.05 },
+        aragon: { name: "Aragón", pct: "95%", factor: 0.05 },
+        castillalamancha: { name: "Castilla-La Mancha", pct: "95%", factor: 0.05 },
+        catalunya: { name: "Cataluña", pct: "75%", factor: 0.25 },
+        paisvasco: { name: "País Vasco", pct: "95%", factor: 0.05 },
+        navarra: { name: "Navarra", pct: "95%", factor: 0.05 },
+        ceuta: { name: "Ceuta", pct: "50%", factor: 0.50 },
+        melilla: { name: "Melilla", pct: "50%", factor: 0.50 }
+      };
+
+      const currentRegion = regionsConfig[comunidad];
+      if (currentRegion) {
+        regionName = currentRegion.name;
         if (parentesco === "grupo2") {
-          // Madrid has 99% bonification for direct heirs
-          saving = totalSucesionesTax * 0.99;
-          totalSucesionesTax = totalSucesionesTax * 0.01;
-          savingsPctStr = "99% (Grupo II)";
+          hasSaving = true;
+          saving = totalSucesionesTax * (1 - currentRegion.factor);
+          totalSucesionesTax = totalSucesionesTax * currentRegion.factor;
+          savingsPctStr = `${currentRegion.pct} (Grupo II)`;
         } else if (parentesco === "grupo3") {
-          // Siblings have 15% bonification, nephews have 10%
-          // Let's take a middle ground or 15% as default siblings
-          saving = totalSucesionesTax * 0.15;
-          totalSucesionesTax = totalSucesionesTax * 0.85;
-          savingsPctStr = "15% (Grupo III - Hermanos)";
+          if (comunidad === "madrid") {
+            hasSaving = true;
+            saving = totalSucesionesTax * 0.15;
+            totalSucesionesTax = totalSucesionesTax * 0.85;
+            savingsPctStr = "15% (Grupo III)";
+          } else if (["canarias", "murcia", "andalucia"].includes(comunidad)) {
+            hasSaving = true;
+            saving = totalSucesionesTax * 0.10;
+            totalSucesionesTax = totalSucesionesTax * 0.90;
+            savingsPctStr = "10% (Grupo III)";
+          }
         }
-      } else {
-        // Other regions might have minor reductions or none in this simplified model
-        // Let's assume standard state tax is paid
       }
 
       // Plusvalía Municipal (1.5% of property value as rough estimate)
@@ -338,13 +379,21 @@
 
       // Update Savings Badge
       if (savingsBadge && savingsText) {
-        if (comunidad === "madrid" && (parentesco === "grupo2" || parentesco === "grupo3")) {
-          savingsBadge.classList.remove("opacity-0", "pointer-events-none");
-          savingsBadge.classList.add("opacity-100");
-          savingsText.innerHTML = `Se ha aplicado una bonificación del <strong>${savingsPctStr}</strong> por residir en la <strong>Comunidad de Madrid</strong>. Ahorro estimado de <strong>${formatCurrency(saving)}</strong> en comparación con la tarifa estándar nacional.`;
+        if (hasSaving && saving > 0) {
+          savingsBadge.classList.remove("hidden");
+          setTimeout(() => {
+            savingsBadge.classList.remove("opacity-0", "pointer-events-none");
+            savingsBadge.classList.add("opacity-100");
+          }, 10);
+          savingsText.innerHTML = `Se ha aplicado una bonificación del <strong>${savingsPctStr}</strong> por parentesco y residencia en <strong>${regionName}</strong>. Ahorro estimado de <strong>${formatCurrency(saving)}</strong> en comparación con la tarifa estándar nacional.`;
         } else {
           savingsBadge.classList.add("opacity-0", "pointer-events-none");
           savingsBadge.classList.remove("opacity-100");
+          setTimeout(() => {
+            if (savingsBadge.classList.contains("opacity-0")) {
+              savingsBadge.classList.add("hidden");
+            }
+          }, 300);
         }
       }
     }

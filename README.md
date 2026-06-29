@@ -11,7 +11,7 @@ Desarrollada utilizando **Astro**, **Tailwind CSS** y **TypeScript** con un enfo
 *   **Framework:** [Astro v6](https://astro.build/) (Generación Estática - SSG)
 *   **Estilos:** [Tailwind CSS v3](https://tailwindcss.com/)
 *   **Lenguaje:** [TypeScript](https://www.typescript.org/)
-*   **Integración de Formularios:** [Web3Forms](https://web3forms.com/) (Envío directo de leads)
+*   **Integración de Formularios:** [FormSubmit.co](https://formsubmit.co/) (Envío de leads a dirección de correo electrónico)
 *   **SEO & Estructura:** JSON-LD local business y FAQ Schema integrados para posicionamiento AEO/GEO/SEO.
 
 ---
@@ -56,16 +56,18 @@ pnpm install
 
 ### 2. Configurar Variables de Entorno
 
-Copia el archivo de plantilla `.env.template` como `.env` e introduce tu clave de acceso de Web3Forms (puedes obtener una clave gratuita en [web3forms.com](https://web3forms.com)):
+Copia el archivo de plantilla `.env.template` como `.env` y configura el correo electrónico de destino donde se recibirán los leads:
 
 ```bash
 cp .env.template .env
 ```
 
-Edita `.env` y define tu clave:
+Edita `.env` y define tu correo electrónico:
 ```env
-WEB3FORMS_ACCESS_KEY=tu-access-key-de-web3forms
+CONTACT_EMAIL=tu-email-de-contacto@ejemplo.com
 ```
+
+*Nota: FormSubmit.co requiere confirmación del correo electrónico la primera vez que se realiza un envío desde un nuevo origen. Tras el primer envío en desarrollo o producción, revise la bandeja de entrada del correo especificado (incluyendo la carpeta de spam) y pulse sobre el enlace 'Activate Form'.*
 
 ### 3. Levantar Servidor de Desarrollo
 
@@ -90,7 +92,7 @@ pnpm build
 
 El proyecto ha sido sometido a una auditoría estática de seguridad de caja blanca bajo las metodologías de **OWASP Top 10** y **ASVS v4.0 Nivel 3**:
 
-*   **Evitación de Fuga de Credenciales:** La API key de Web3Forms no está hardcodeada; se carga dinámicamente durante el build utilizando variables de entorno de Astro (`import.meta.env`).
+*   **Evitación de Fuga de Credenciales:** El correo electrónico de contacto de destino no está hardcodeado; se carga dinámicamente utilizando variables de entorno de Astro (`import.meta.env.CONTACT_EMAIL`), cayendo en un valor por defecto seguro en desarrollo para evitar la exposición pública.
 *   **Honeypot Anti-Spam:** Se incluye un campo oculto `botcheck` para detectar e interceptar envíos de bots automatizados de forma transparente para los humanos.
 *   **Validaciones Regex en Cliente:** Los campos sensibles (`Nombre`, `Teléfono`, `Municipio`) contienen patrones de caracteres muy estrictos que evitan payloads imprevistos en el navegador.
 *   **Control de Inyección Script (XSS/SQLi):** Un script nativo intercepta el formulario en el submit para prevenir caracteres HTML especiales y de formateo (`<`, `>`, `&`, `=`), abortando solicitudes con cargas potencialmente maliciosas.

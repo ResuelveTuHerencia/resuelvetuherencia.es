@@ -93,3 +93,81 @@
     transform: none;
   }
 }
+
+/* Form inputs validation & professional state styling */
+input, textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Highlight invalid inputs with a subtle red border and background only after they have text */
+.input-group input:not(:placeholder-shown):invalid, 
+.input-group textarea:not(:placeholder-shown):invalid {
+  border-color: #f87171 !important; /* Red 400 */
+  background-color: #fef2f2 !important; /* Red 50 */
+}
+
+.input-group input:not(:placeholder-shown):invalid:focus, 
+.input-group textarea:not(:placeholder-shown):invalid:focus {
+  border-color: #ef4444 !important; /* Red 500 */
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+/* Highlight valid inputs with a subtle green border and background after they have text */
+.input-group input:not(:placeholder-shown):valid:not([type="checkbox"]), 
+.input-group textarea:not(:placeholder-shown):valid {
+  border-color: #34d399 !important; /* Emerald 400 */
+  background-color: #f0fdf4 !important; /* Emerald 50 */
+}
+
+.input-group input:not(:placeholder-shown):valid:not([type="checkbox"]):focus, 
+.input-group textarea:not(:placeholder-shown):valid:focus {
+  border-color: #10b981 !important; /* Emerald 500 */
+  box-shadow: 0 0 0 1px #10b981 !important;
+}
+
+/* Checkbox custom focus ring */
+input[type="checkbox"] {
+  accent-color: #c5a059;
+}
+
+input[type="checkbox"]:focus {
+  outline: 2px solid rgba(197, 160, 89, 0.4);
+  outline-offset: 1px;
+}
+
+/* Popping valid checkmark animations */
+.input-group {
+  position: relative;
+}
+
+.valid-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  color: #10b981; /* Emerald-500 */
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes popCheck {
+  0% { transform: translateY(-50%) scale(0); opacity: 0; }
+  70% { transform: translateY(-50%) scale(1.3); }
+  100% { transform: translateY(-50%) scale(1); opacity: 1; }
+}
+
+/* Trigger checkmark for required valid inputs */
+input:required:valid ~ .valid-icon,
+textarea:required:valid ~ .valid-icon {
+  animation: popCheck 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Trigger checkmark for optional valid inputs only when they have text */
+input:not(:required):not(:placeholder-shown):valid ~ .valid-icon,
+textarea:not(:required):not(:placeholder-shown):valid ~ .valid-icon {
+  animation: popCheck 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
