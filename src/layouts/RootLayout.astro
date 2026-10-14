@@ -3,98 +3,52 @@ import '../styles/globals.css';
 import { ClientRouter } from 'astro:transitions';
 import WhatsAppButton from '../components/common/WhatsAppButton.astro';
 import { faqs } from '../data/faqs';
+import { SITE_URL, areaServed } from '../data/site';
 import SpeedInsights from '@vercel/speed-insights/astro';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
 interface Props {
   title: string;
   description: string;
   showFaqSchema?: boolean;
+  faqItems?: FAQItem[];
 }
 
-const { title, description, showFaqSchema = false } = Astro.props;
+const { title, description, showFaqSchema = false, faqItems } = Astro.props;
 
-// SEO: Home sections served by [...slug].astro must canonicalize to "/"
-// to avoid duplicate content signals for identical HTML.
+// Secciones de la home que viven como anclas en "/": su canonical es siempre "/"
+// para no duplicar el mismo HTML bajo varias URLs.
 const homeSections = ['inicio', 'servicios', 'herramientas', 'sobre-nosotros', 'faq'];
 const currentPath = Astro.url.pathname.replace(/^\/|\/$/g, '');
 const isHomeSection = currentPath === '' || homeSections.includes(currentPath);
 
 const canonicalURL = isHomeSection
-  ? new URL('/', Astro.site || 'https://resuelvetuherencia.es')
-  : new URL(Astro.url.pathname, Astro.site || 'https://resuelvetuherencia.es');
+  ? new URL('/', SITE_URL)
+  : new URL(`/${currentPath}`, SITE_URL);
 
-const faqSchema = {
+const ogImageURL = new URL('/og-image.png', SITE_URL);
+
+// FAQ: las páginas de servicio pasan sus propias preguntas; la home usa el listado general
+const schemaFaqs = faqItems ?? (showFaqSchema ? faqs : []);
+
+const graph = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
----
-
-
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    
-    <!-- SEO Primary -->
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL.href} />
-    
-    <!-- OpenGraph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Resuelve Tu Herencia" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    
-    <!-- Local SEO -->
-    <meta name="geo.region" content="ES-M" />
-    <meta name="geo.placename" content="Lozoyuela, Madrid" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- Google Fonts: Playfair Display (serif headings) + Inter (sans body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    </noscript>
-    
-    <!-- JSON-LD Structured Data for Local Business -->
-    <script type="application/ld+json">
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@type": "LegalService",
+      "@type": ["LegalService", "Organization"],
+      "@id": `${SITE_URL}/#organization`,
       "name": "Resuelve Tu Herencia",
       "description": "Asesoría integral especializada en tramitación de herencias, sucesiones y gestión patrimonial en la Comunidad de Madrid.",
-      "url": "https://resuelvetuherencia.es",
+      "url": SITE_URL,
+      "logo": new URL('/favicon.svg', SITE_URL).href,
+      "image": ogImageURL.href,
       "email": "agnresuelvetuherencia@gmail.com",
       "telephone": "+34613955069",
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": 40.925864,
-          "longitude": -3.617637
-        },
-        "geoRadius": "50000"
-      },
+      "priceRange": "€€",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Avenida de Madrid, 62",
@@ -108,10 +62,82 @@ const faqSchema = {
         "latitude": 40.925864,
         "longitude": -3.617637
       },
-      "priceRange": "€€"
+      "areaServed": areaServed
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      "url": SITE_URL,
+      "name": "Resuelve Tu Herencia",
+      "inLanguage": "es-ES",
+      "publisher": { "@id": `${SITE_URL}/#organization` }
     }
-    </script>
-    {showFaqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  ]
+};
+
+const faqSchema = schemaFaqs.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": schemaFaqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  : null;
+---
+
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Primary -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImageURL.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Resuelve Tu Herencia" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL.href} />
+
+    <!-- Local SEO -->
+    <meta name="geo.region" content="ES-M" />
+    <meta name="geo.placename" content="Lozoyuela, Madrid" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Google Fonts: Playfair Display (serif headings) + Inter (sans body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- JSON-LD: un único grafo con la organización (mismo @id en todas las páginas) -->
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
 
     <!-- View Transitions for smooth page animations -->

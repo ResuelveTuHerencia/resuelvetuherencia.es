@@ -25,3 +25,9 @@ Este archivo proporciona información consolidada y estructurada sobre **Resuelv
 - **Plazo para liquidar impuestos**: 6 meses desde el fallecimiento, prorrogables por otros 6 meses si se solicita dentro de los primeros 5 meses.
 - **Atención remota**: Totalmente disponible, permitiendo tramitar toda la herencia sin que los herederos tengan que desplazarse.
 - **¿Qué pasa si no hay testamento?**: Realizamos la 'Declaración de Herederos Abintestato' para determinar legalmente quiénes tienen derecho a la herencia según la ley, gestionando todo el proceso notarial.
+
+## Guías por servicio (URLs propias)
+- [Tramitación de herencias en Madrid](https://resuelvetuherencia.es/tramitacion-herencia-madrid): gestión integral llave en mano.
+- [Impuesto de Sucesiones en Madrid](https://resuelvetuherencia.es/impuesto-sucesiones-madrid): liquidación y bonificaciones para familiares directos.
+- [Plusvalía municipal en una herencia en Madrid](https://resuelvetuherencia.es/plusvalia-municipal-herencia-madrid): cálculo y revisión de incremento real de valor.
+- [Herencia sin testamento en Madrid](https://resuelvetuherencia.es/herencia-sin-testamento-madrid): declaración de herederos abintestato.

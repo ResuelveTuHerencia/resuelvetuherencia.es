@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 
-# Host & Sitemap
-Host: https://resuelvetuherencia.es
-Sitemap: https://resuelvetuherencia.es/sitemap.xml
+Sitemap: https://resuelvetuherencia.es/sitemap-index.xml

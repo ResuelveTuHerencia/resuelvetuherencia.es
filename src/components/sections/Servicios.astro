@@ -1,5 +1,5 @@
 ---
-
+import { servicios } from "../../data/servicios";
 ---
 
 <section
@@ -281,83 +281,19 @@
         </div>
       </div>
     </div>
+
+    <!-- Guías detalladas por servicio (URL propia para cada intención de búsqueda) -->
+    <nav aria-label="Guías por servicio" class="mt-12 border-t border-white/10 pt-10">
+      <h3 class="mb-5 text-center font-serif text-xl font-bold text-gold">Guías detalladas</h3>
+      <ul class="grid gap-3 sm:grid-cols-2">
+        {servicios.map((s) => (
+          <li>
+            <a href={`/${s.slug}`} class="block rounded-lg border border-white/10 px-5 py-4 text-sm font-semibold text-white hover:border-gold/40 hover:text-gold transition-colors">
+              {s.h1} →
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
 </section>
-
-<!-- JSON-LD Service Structured Data for advanced SEO/GEO positioning -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Tramitación Integral de Herencias",
-    "serviceType": "Gestión Legal y Fiscal de Sucesiones",
-    "provider": {
-      "@type": "ProfessionalService",
-      "name": "Resuelve Tu Herencia",
-      "url": "https://resuelvetuherencia.es",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Madrid",
-        "addressRegion": "Comunidad de Madrid",
-        "addressCountry": "ES"
-      }
-    },
-    "areaServed": [
-      {
-        "@type": "AdministrativeArea",
-        "name": "Comunidad de Madrid"
-      },
-      {
-        "@type": "Country",
-        "name": "España"
-      }
-    ],
-    "description": "Servicio integral de tramitación de herencias en Madrid. Cubre la obtención de documentos, coordinación de testamentos ante notaría, adjudicación, liquidación de impuestos de sucesiones y plusvalía, e inscripción registral.",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Fases de la Tramitación de Herencias",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Recopilación y Revisión de Documentos",
-            "description": "Gestión y análisis de documentación personal y patrimonial necesaria para la herencia."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Coordinación Notarial y Testamento",
-            "description": "Obtención de testamentos, declaración de herederos abintestato y firma de la escritura de adjudicación."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Adjudicación y Partición de Herencia",
-            "description": "Elaboración del cuaderno particional conforme a la legalidad para evitar conflictos familiares."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Liquidación del Impuesto de Sucesiones",
-            "description": "Presentación y optimización fiscal de los impuestos de sucesiones y plusvalía municipal."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Inscripción en el Registro de la Propiedad",
-            "description": "Registro oficial de los bienes raíces heredados a nombre de los nuevos propietarios."
-          }
-        }
-      ]
-    }
-  }
-</script>

@@ -13,7 +13,7 @@ import FAQ from "../components/sections/FAQ.astro";
 
 export function getStaticPaths() {
   return [
-    { params: { slug: undefined } },
+    // "/" lo sirve src/pages/index.astro; aquí solo las anclas de la home
     { params: { slug: "inicio" } },
     { params: { slug: "servicios" } },
     { params: { slug: "herramientas" } },
