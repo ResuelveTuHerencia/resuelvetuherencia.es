@@ -43,3 +43,5 @@ security-audit.md
 .vercel/
 .netlify/
 .output/
+# Worktrees de agentes (ejecución en paralelo)
+.claude/worktrees/
