@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from "astro:content";
+import RootLayout from "../../layouts/RootLayout.astro";
+import Navbar from "../../components/common/Navbar.astro";
+import Footer from "../../components/common/Footer.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate } = post.data;
+
+const SITE = "https://resuelvetuherencia.es";
+const url = `${SITE}/blog/${post.id}`;
+const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+
+const organization = {
+  "@type": "Organization",
+  "@id": `${SITE}/#organization`,
+  name: "Resuelve Tu Herencia",
+  url: SITE,
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${url}#article`,
+      headline: title,
+      description,
+      datePublished: pubDate.toISOString(),
+      dateModified: (updatedDate ?? pubDate).toISOString(),
+      mainEntityOfPage: url,
+      inLanguage: "es-ES",
+      author: organization,
+      publisher: organization,
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: `${SITE}/` },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE}/blog` },
+        { "@type": "ListItem", position: 3, name: title, item: url },
+      ],
+    },
+  ],
+};
+---
+
+<RootLayout title={`${title} | Resuelve Tu Herencia`} description={description}>
+  <Navbar />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main class="bg-secondary py-16 lg:py-24">
+    <article class="section-container max-w-3xl">
+      <nav aria-label="Migas de pan" class="mb-6 text-xs text-primary/60">
+        <a href="/" class="hover:text-gold">Inicio</a> /
+        <a href="/blog" class="hover:text-gold">Blog</a>
+      </nav>
+      <h1 class="mb-3 font-serif text-3xl sm:text-4xl font-bold text-primary leading-tight">
+        {title}
+      </h1>
+      <p class="mb-10 text-xs text-primary/60">
+        <time datetime={pubDate.toISOString()}>{fmt.format(pubDate)}</time>
+        {updatedDate && <span> · Actualizado el <time datetime={updatedDate.toISOString()}>{fmt.format(updatedDate)}</time></span>}
+      </p>
+      <div class="blog-body text-primary/85 leading-relaxed">
+        <Content />
+      </div>
+      <div class="mt-12 rounded-lg border border-gold/30 p-6 text-center">
+        <p class="mb-4 text-primary/80">¿Tienes una herencia que resolver? Cuéntanos tu caso.</p>
+        <a href="/contacto" class="btn-primary inline-block text-center text-xs">
+          Solicitar sesión diagnóstica gratuita
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</RootLayout>
+
+<style is:global>
+  .blog-body h2 { font-family: var(--font-serif, serif); font-size: 1.5rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+  .blog-body h3 { font-size: 1.125rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+  .blog-body p { margin: 0 0 1rem; }
+  .blog-body ul, .blog-body ol { margin: 0 0 1rem 1.25rem; }
+  .blog-body ul { list-style: disc; }
+  .blog-body ol { list-style: decimal; }
+  .blog-body li { margin-bottom: 0.4rem; }
+  .blog-body a { text-decoration: underline; }
+</style>

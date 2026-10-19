@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import RootLayout from "../../layouts/RootLayout.astro";
+import Navbar from "../../components/common/Navbar.astro";
+import Footer from "../../components/common/Footer.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<RootLayout
+  title="Blog | Resuelve Tu Herencia · Guías sobre herencias en Madrid"
+  description="Guías prácticas sobre herencias, sucesiones e impuestos asociados en la Comunidad de Madrid y la Sierra Norte, redactadas por Resuelve Tu Herencia."
+>
+  <Navbar />
+
+  <main class="bg-secondary py-16 lg:py-24">
+    <div class="section-container max-w-3xl">
+      <h1 class="mb-4 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight">
+        Blog
+      </h1>
+      <p class="mb-12 text-primary/70">
+        Guías prácticas sobre herencias y sucesiones en la Comunidad de Madrid.
+      </p>
+
+      {
+        posts.length === 0 ? (
+          <div class="rounded-lg border border-gold/30 p-8 text-center">
+            <h2 class="mb-3 font-serif text-2xl font-semibold text-primary">Próximamente</h2>
+            <p class="mb-6 text-primary/70">
+              Estamos preparando nuestras primeras guías. Mientras tanto, cuéntanos tu caso.
+            </p>
+            <a href="/contacto" class="btn-primary inline-block text-center text-xs">
+              Solicitar sesión diagnóstica gratuita
+            </a>
+          </div>
+        ) : (
+          <ul class="space-y-8">
+            {posts.map((post) => (
+              <li>
+                <article>
+                  <time class="text-xs text-primary/60" datetime={post.data.pubDate.toISOString()}>
+                    {fmt.format(post.data.pubDate)}
+                  </time>
+                  <h2 class="mt-1 font-serif text-2xl font-semibold text-primary">
+                    <a href={`/blog/${post.id}`} class="hover:text-gold transition-colors">
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  <p class="mt-2 text-primary/70">{post.data.description}</p>
+                </article>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </main>
+
+  <Footer />
+</RootLayout>
