@@ -50,7 +50,7 @@ Criterios:
 | Las Rozas de Madrid | ~53 km | ~97.000 | por verificar | Competencia fuerte (SOUM); anuncios |
 | Coslada | ~55 km | ~85.000 | por verificar | Anuncios geolocalizados |
 | San Fernando de Henares | ~55 km | ~40.000 | por verificar | Anuncios geolocalizados |
-| Madrid (capital) | ~56 km | 3.497.277 | verificado (1 ene. 2026) | **No crear página por distrito**: ya cubierta por las páginas "-madrid" |
+| Madrid (capital) | ~56 km | 3.497.277 | verificado (1 ene. 2026) | Página **hub** `/zona/madrid` (municipio): enlaces a los 4 servicios "-madrid" y a los distritos del norte. **No crear página por distrito.** Competencia muy alta: captar sobre todo por búsqueda y GBP |
 | Majadahonda | ~58 km (límite) | ~70.000 | por verificar | Competencia fuerte; anuncios |
 | Pozuelo de Alarcón | ~60 km (límite) | ~90.000 | por verificar | Competencia fuerte; anuncios |
 | Villalbilla | ~60 km (límite) | 18.687 | verificado (análisis 2025) | GBP; anuncios |
@@ -73,7 +73,7 @@ Criterios:
 
 1. **Primera oleada (4):** San Agustín del Guadalix (~13.800), El Molar (~10.000), Guadalix de la Sierra (6.904, verificado) y Colmenar Viejo. Combinan cercanía, población y canal claro.
 2. **Segunda oleada (4):** Manzanares el Real, Soto del Real, Hoyo de Manzanares y Miraflores de la Sierra. Sierra y norte de la zona de influencia, sin competencia local visible en la búsqueda.
-3. **Tercera oleada:** Torrelaguna, Cobeña, Fuente el Saz, Ajalvir, Cercedilla, Algete, Tres Cantos y Alcobendas, una vez confirmadas las cifras oficiales.
+3. **Tercera oleada:** Torrelaguna, Cobeña, Fuente el Saz, Ajalvir, Cercedilla, Algete, Tres Cantos, Alcobendas y Madrid capital (hub `/zona/madrid`), una vez confirmadas las cifras oficiales.
 4. **Resto (tramos B y C):** páginas sólo cuando el padrón se confirme y exista un dato local real. Hasta entonces, captar con anuncios geolocalizados sobre las páginas de servicio.
 
 ## Antes de crear cada página: qué debe tener
