@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logoImage from "../../assets/logo.png";
+import { NAP } from "../../data/site";
 ---
 
 <footer class="border-t-2 border-gold bg-primary pt-12 pb-6 text-secondary">
@@ -79,8 +80,8 @@ import logoImage from "../../assets/logo.png";
           Oficina
         </h4>
         <ul class="space-y-2 text-sm text-secondary/75">
-          <li>28752, Lozoyuela</li>
-          <li>Madrid, Madrid</li>
+          <li>{NAP.streetAddress}</li>
+          <li>{NAP.postalCode} {NAP.addressLocality}, Madrid</li>
         </ul>
       </div>
 
@@ -94,18 +95,18 @@ import logoImage from "../../assets/logo.png";
         <ul class="space-y-2 text-sm text-secondary/75">
           <li>
             <a
-              href="tel:+34613955069"
+              href={`tel:${NAP.telephoneTel}`}
               class="hover:text-gold transition-colors duration-200"
             >
-              +34 613 95 50 69
+              {NAP.telephone}
             </a>
           </li>
           <li>
             <a
-              href="mailto:agnresuelvetuherencia@gmail.com"
+              href={`mailto:${NAP.email}`}
               class="hover:text-gold transition-colors duration-200"
             >
-              agnresuelvetuherencia@gmail.com
+              {NAP.email}
             </a>
           </li>
         </ul>

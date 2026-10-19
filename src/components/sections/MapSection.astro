@@ -1,5 +1,5 @@
 ---
-
+import { NAP } from "../../data/site";
 ---
 
 <section
@@ -52,7 +52,7 @@
                 Dirección
               </h3>
               <p class="text-xs sm:text-sm text-primary/70 leading-relaxed">
-                Avenida de Madrid, 62, 28752 Lozoyuela, Madrid
+                {NAP.addressLine}
               </p>
             </div>
           </div>
@@ -136,6 +136,7 @@
 
 <!-- Include Maplibre GL stylesheet and JavaScript natively on the client -->
 <script>
+  import { NAP } from "../../data/site";
   // Coordinates for Avenida de Madrid 62, Lozoyuela
   const longitude = -3.6176370164417504;
   const latitude = 40.92586430923798;
@@ -206,8 +207,8 @@
         focusAfterOpen: false,
       }).setHTML(`
         <div class="p-3 font-sans text-primary">
-          <p class="font-serif font-bold text-sm text-gold mb-1">Resuelve Tu Herencia</p>
-          <p class="text-xs text-primary/80 leading-relaxed font-medium">Avenida de Madrid, 62, 28752 Lozoyuela, Madrid</p>
+          <p class="font-serif font-bold text-sm text-gold mb-1">${NAP.name}</p>
+          <p class="text-xs text-primary/80 leading-relaxed font-medium">${NAP.addressLine}</p>
           <a href="https://www.google.com/maps/dir/?api=1&destination=40.92586430923798,-3.6176370164417504" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase text-gold hover:underline mt-2">
             Cómo llegar
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-2.5 h-2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>

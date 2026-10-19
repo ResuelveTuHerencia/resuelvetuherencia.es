@@ -2,6 +2,7 @@
 import RootLayout from "../layouts/RootLayout.astro";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
+import { NAP } from "../data/site";
 
 ---
 
@@ -52,7 +53,7 @@ import Footer from "../components/common/Footer.astro";
             </p>
 
             <form
-              action="https://formsubmit.co/ajax/agnresuelvetuherencia@gmail.com"
+              action={`https://formsubmit.co/ajax/${NAP.email}`}
               method="POST"
               class="grid gap-5 sm:grid-cols-2"
               id="secure-contact-page-form"
@@ -252,7 +253,7 @@ import Footer from "../components/common/Footer.astro";
                   <p
                     class="text-xs sm:text-sm text-primary/70 leading-relaxed mt-0.5 font-sans"
                   >
-                    Avenida de Madrid, 62, 28752 Lozoyuela, Madrid
+                    {NAP.addressLine}
                   </p>
                 </div>
               </div>
@@ -299,10 +300,10 @@ import Footer from "../components/common/Footer.astro";
                     Teléfono
                   </h4>
                   <a
-                    href="tel:+34613955069"
+                    href={`tel:${NAP.telephoneTel}`}
                     class="text-xs sm:text-sm text-gold hover:underline mt-0.5 block font-sans"
                   >
-                    +34 613 95 50 69
+                    {NAP.telephone}
                   </a>
                 </div>
               </div>
@@ -325,10 +326,10 @@ import Footer from "../components/common/Footer.astro";
                     Correo Electrónico
                   </h4>
                   <a
-                    href="mailto:agnresuelvetuherencia@gmail.com"
+                    href={`mailto:${NAP.email}`}
                     class="text-xs sm:text-sm text-gold hover:underline mt-0.5 block break-all font-sans"
                   >
-                    agnresuelvetuherencia@gmail.com
+                    {NAP.email}
                   </a>
                 </div>
               </div>
@@ -381,6 +382,7 @@ import Footer from "../components/common/Footer.astro";
 
 <script>
   import MapLibreGL from "maplibre-gl";
+  import { NAP } from "../data/site";
   import "maplibre-gl/dist/maplibre-gl.css";
 
   // Coordinates for Avenida de Madrid 62, Lozoyuela
@@ -436,8 +438,8 @@ import Footer from "../components/common/Footer.astro";
         focusAfterOpen: false,
       }).setHTML(`
         <div class="p-3 font-sans text-primary">
-          <p class="font-serif font-bold text-sm text-gold mb-1">Resuelve Tu Herencia</p>
-          <p class="text-xs text-primary/80 leading-relaxed font-medium">Avenida de Madrid, 62, 28752 Lozoyuela, Madrid</p>
+          <p class="font-serif font-bold text-sm text-gold mb-1">${NAP.name}</p>
+          <p class="text-xs text-primary/80 leading-relaxed font-medium">${NAP.addressLine}</p>
           <a href="https://www.google.com/maps/dir/?api=1&destination=40.92586430923798,-3.6176370164417504" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[10px] font-bold uppercase text-gold hover:underline mt-2">
             Cómo llegar
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-2.5 h-2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -542,7 +544,7 @@ import Footer from "../components/common/Footer.astro";
           const emailVal = (document.getElementById("email") as HTMLInputElement).value;
           const messageVal = (document.getElementById("message") as HTMLTextAreaElement).value;
 
-          const response = await fetch('https://formsubmit.co/ajax/agnresuelvetuherencia@gmail.com', {
+          const response = await fetch(`https://formsubmit.co/ajax/${NAP.email}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

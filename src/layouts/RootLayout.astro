@@ -3,7 +3,7 @@ import '../styles/globals.css';
 import { ClientRouter } from 'astro:transitions';
 import WhatsAppButton from '../components/common/WhatsAppButton.astro';
 import { faqs } from '../data/faqs';
-import { SITE_URL, areaServed } from '../data/site';
+import { SITE_URL, NAP, areaServed } from '../data/site';
 import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface FAQItem {
@@ -41,21 +41,21 @@ const graph = {
     {
       "@type": ["LegalService", "Organization"],
       "@id": `${SITE_URL}/#organization`,
-      "name": "Resuelve Tu Herencia",
+      "name": NAP.name,
       "description": "Asesoría integral especializada en tramitación de herencias, sucesiones y gestión patrimonial en la Comunidad de Madrid.",
       "url": SITE_URL,
       "logo": new URL('/favicon.svg', SITE_URL).href,
       "image": ogImageURL.href,
-      "email": "agnresuelvetuherencia@gmail.com",
-      "telephone": "+34613955069",
+      "email": NAP.email,
+      "telephone": NAP.telephoneTel,
       "priceRange": "€€",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Avenida de Madrid, 62",
-        "postalCode": "28752",
-        "addressLocality": "Lozoyuela",
-        "addressRegion": "Comunidad de Madrid",
-        "addressCountry": "ES"
+        "streetAddress": NAP.streetAddress,
+        "postalCode": NAP.postalCode,
+        "addressLocality": NAP.addressLocality,
+        "addressRegion": NAP.addressRegion,
+        "addressCountry": NAP.addressCountry
       },
       "geo": {
         "@type": "GeoCoordinates",

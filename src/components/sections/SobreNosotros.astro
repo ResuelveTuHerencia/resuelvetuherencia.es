@@ -1,18 +1,7 @@
 ---
-const locations = [
-  "Lozoyuela",
-  "Buitrago del Lozoya",
-  "Torrelaguna",
-  "La Cabrera",
-  "San Agustín del Guadalix",
-  "El Molar",
-  "Colmenar Viejo",
-  "Alcobendas",
-  "San Sebastián de los Reyes",
-  "Venturada",
-  "Bustarviejo",
-  "Miraflores de la Sierra",
-];
+import { NAP, areaServed } from "../../data/site";
+
+const locations = areaServed;
 ---
 
 <section
@@ -32,7 +21,7 @@ const locations = [
         <span
           class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/10 text-xs font-semibold uppercase tracking-wider text-gold mb-4"
         >
-          📍 Asesoría en Lozoyuela
+          📍 Asesoría en {NAP.addressLocality}
         </span>
         <h2
           class="mb-6 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight"

@@ -2,6 +2,7 @@
 import RootLayout from '../layouts/RootLayout.astro';
 import Navbar from '../components/common/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
+import { NAP } from '../data/site';
 ---
 
 <RootLayout 
@@ -25,9 +26,9 @@ import Footer from '../components/common/Footer.astro';
             <li><strong>Titular:</strong> Álvaro González Nieto</li>
             <li><strong>NIF:</strong> 02580458L</li>
             <li><strong>Nombre comercial:</strong> Resuelve Tu Herencia</li>
-            <li><strong>Domicilio profesional:</strong> Avenida de Madrid, 62, 28752 Lozoyuela, Madrid, España</li>
-            <li><strong>Teléfono:</strong> +34 613 95 50 69</li>
-            <li><strong>Contacto:</strong> agnresuelvetuherencia@gmail.com</li>
+            <li><strong>Domicilio profesional:</strong> {NAP.addressLine}, España</li>
+            <li><strong>Teléfono:</strong> {NAP.telephone}</li>
+            <li><strong>Contacto:</strong> {NAP.email}</li>
           </ul>
         </section>
 

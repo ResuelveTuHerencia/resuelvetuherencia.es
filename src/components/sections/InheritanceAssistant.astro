@@ -632,6 +632,7 @@
 </style>
 
 <script>
+  import { NAP } from "../../data/site";
   // Complete province legal database
   const provinceData: Record<
     string,
@@ -1243,14 +1244,14 @@ PASOS E HOJA DE RUTA RECOMENDADA:
 ¿Necesitas ayuda con estos trámites?
 En Resuelve Tu Herencia somos especialistas en la gestión de sucesiones y optimización fiscal. Te ayudamos a resolver todo el proceso llave en mano.
 
-Solicita tu sesión diagnóstica 100% gratuita llamando al +34 613 95 50 69 o respondiendo a este correo electrónico.
+Solicita tu sesión diagnóstica 100% gratuita llamando al ${NAP.telephone} o respondiendo a este correo electrónico.
 
 Atentamente,
 El equipo de Resuelve Tu Herencia.`;
 
         // 3. Post to FormSubmit.co directly from browser
         try {
-          const response = await fetch("https://formsubmit.co/ajax/agnresuelvetuherencia@gmail.com", {
+          const response = await fetch(`https://formsubmit.co/ajax/${NAP.email}`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',

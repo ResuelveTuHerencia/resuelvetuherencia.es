@@ -1,4 +1,5 @@
 ---
+import { NAP } from "../../data/site";
 ---
 <section id="contacto" class="bg-white py-20 lg:py-24">
   <div class="section-container max-w-4xl">
@@ -9,7 +10,7 @@
           <p class="text-primary/65 text-sm sm:text-base max-w-lg mx-auto">Déjanos tus datos y nos pondremos en contacto contigo para evaluar tu caso sin compromiso.</p>
         </div>
 
-        <form action="https://formsubmit.co/ajax/agnresuelvetuherencia@gmail.com" method="POST" class="grid gap-5 md:grid-cols-2" id="secure-contact-form">
+        <form action={`https://formsubmit.co/ajax/${NAP.email}`} method="POST" class="grid gap-5 md:grid-cols-2" id="secure-contact-form">
         
         <!-- Honeypot anti-spam para interceptar envíos de bots automatizados -->
         <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -117,6 +118,7 @@
 </section>
 
 <script>
+  import { NAP } from "../../data/site";
   const setupForm = () => {
     const form = document.getElementById('secure-contact-form') as HTMLFormElement | null;
     const wrapper = document.getElementById('contact-wrapper');
@@ -181,7 +183,7 @@
           const emailVal = (form.querySelector("#email") as HTMLInputElement).value;
           const messageVal = (form.querySelector("#message") as HTMLTextAreaElement).value;
 
-          const response = await fetch('https://formsubmit.co/ajax/agnresuelvetuherencia@gmail.com', {
+          const response = await fetch(`https://formsubmit.co/ajax/${NAP.email}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

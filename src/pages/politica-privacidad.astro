@@ -2,6 +2,7 @@
 import RootLayout from '../layouts/RootLayout.astro';
 import Navbar from '../components/common/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
+import { NAP } from '../data/site';
 ---
 
 <RootLayout 
@@ -23,7 +24,7 @@ import Footer from '../components/common/Footer.astro';
         <section>
           <h2 class="text-lg font-bold text-primary mb-2">1. Responsable del Tratamiento</h2>
           <p>
-            El responsable del tratamiento de los datos recabados en este sitio web es Resuelve Tu Herencia, con correo de contacto <strong>agnresuelvetuherencia@gmail.com</strong>.
+            El responsable del tratamiento de los datos recabados en este sitio web es Resuelve Tu Herencia, con correo de contacto <strong>{NAP.email}</strong>.
           </p>
         </section>
 
@@ -48,7 +49,7 @@ import Footer from '../components/common/Footer.astro';
         <section>
           <h2 class="text-lg font-bold text-primary mb-2">4. Sus Derechos</h2>
           <p>
-            Puede ejercer sus derechos de acceso, rectificación, supresión, limitación y oposición enviando un correo electrónico detallando su solicitud a <strong>agnresuelvetuherencia@gmail.com</strong>.
+            Puede ejercer sus derechos de acceso, rectificación, supresión, limitación y oposición enviando un correo electrónico detallando su solicitud a <strong>{NAP.email}</strong>.
           </p>
         </section>
       </div>

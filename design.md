@@ -106,7 +106,7 @@ A continuación se detalla el contenido semántico de cada sección de la landin
     - Blog
     - Contacto
   - **Columna 3 (Oficina):**
-    - Dirección física (ej. *Paseo de la Castellana, Madrid*).
+    - Dirección física (*Avenida de Madrid, 62, 28752 Lozoyuela, Madrid*).
   - **Columna 4 (Conversión):**
     - `Solicitar Sesión Diagnóstica Gratuita` (Enlace de contacto rápido).
   - **Columna 5 (Contacto):**
