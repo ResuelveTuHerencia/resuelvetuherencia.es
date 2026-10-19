@@ -30,7 +30,7 @@ export const servicios: Servicio[] = [
       'Gestión integral de herencias en la Comunidad de Madrid: documentación, notaría, impuestos e inscripción en el Registro. Sesión diagnóstica gratuita.',
     h1: 'Tramitación de herencias en Madrid',
     intro:
-      'Nos encargamos de todo el proceso sucesorio, de principio a fin: desde la recopilación de documentos hasta la inscripción de los bienes a nombre de los herederos. Los herederos no tienen que hacer colas ni desplazamientos: coordinamos cada paso por ellos.',
+      'Si buscas un abogado o gestoría de herencias en Madrid, nos encargamos de la tramitación de la herencia de principio a fin: desde la recopilación de documentos hasta la inscripción de los bienes a nombre de los herederos. Coordinamos cada paso con notaría, Hacienda y Registro para reducir los trámites y desplazamientos de la familia.',
     sections: [
       {
         heading: 'Qué incluye la tramitación',
@@ -48,13 +48,13 @@ export const servicios: Servicio[] = [
       {
         heading: 'Cómo trabajamos',
         paragraphs: [
-          'Empezamos con un diagnóstico y un presupuesto cerrado. Después planificamos el reparto y la fiscalidad, y tramitamos cada fase informando a la familia en un lenguaje claro.',
+          'Empezamos con un diagnóstico y un presupuesto cerrado de nuestros honorarios; los gastos de terceros (notaría, registro e impuestos) se indican aparte. Después planificamos el reparto y la fiscalidad, y tramitamos cada fase informando a la familia en un lenguaje claro.',
         ],
       },
       {
         heading: 'Dónde prestamos el servicio',
         paragraphs: [
-          'Atención digital en toda la Comunidad de Madrid y presencial en Lozoyuela, Alcobendas, San Sebastián de los Reyes, Colmenar Viejo y la Sierra Norte.',
+          'Tramitamos herencias en toda la Comunidad de Madrid, con atención a distancia y presencial en Lozoyuela, Alcobendas, San Sebastián de los Reyes, Colmenar Viejo y la Sierra Norte.',
         ],
       },
     ],
@@ -62,12 +62,12 @@ export const servicios: Servicio[] = [
       {
         question: '¿Cuánto tarda el proceso completo de una herencia en Madrid?',
         answer:
-          'Depende de la complejidad: número de herederos, tipo de bienes y si hay testamento. Lo estimamos en la sesión diagnóstica y te damos un calendario orientativo por fases.',
+          'Depende de la complejidad: número de herederos, tipo de bienes y si hay testamento. En la sesión diagnóstica te damos un calendario orientativo por fases; los plazos reales dependen también de notaría, registro y administraciones.',
       },
       {
         question: '¿Puedo tramitar la herencia sin desplazarme a Madrid?',
         answer:
-          'Sí. La gestión puede hacerse 100% en remoto y, si lo prefieres, de forma presencial en nuestra oficina de Lozoyuela. Coordinamos la firma en la notaría correspondiente.',
+          'Sí. Buena parte de la gestión puede hacerse a distancia, salvo los actos que requieren presencia, como la firma en notaría. Si lo prefieres, nos reunimos en nuestra oficina de Lozoyuela. Coordinamos la firma en la notaría correspondiente.',
       },
     ],
   },
@@ -78,18 +78,18 @@ export const servicios: Servicio[] = [
       'Liquidación del Impuesto de Sucesiones en la Comunidad de Madrid, aplicando las bonificaciones vigentes para hijos, padres y cónyuges. Presupuesto cerrado.',
     h1: 'Impuesto de Sucesiones en Madrid',
     intro:
-      'Presentamos y liquidamos el Impuesto sobre Sucesiones y Donaciones en la Comunidad de Madrid, revisando las bonificaciones aplicables a cada heredero y los plazos legales para evitar recargos e intereses de demora.',
+      'Preparamos y presentamos la liquidación del Impuesto sobre Sucesiones y Donaciones en la Comunidad de Madrid, revisando las bonificaciones aplicables a cada heredero y los plazos legales para evitar recargos e intereses de demora.',
     sections: [
       {
         heading: 'Bonificaciones para familiares directos',
         paragraphs: [
-          'La Comunidad de Madrid aplica una bonificación muy elevada en el impuesto para descendientes, ascendientes y cónyuge. Confirmamos la que corresponde a cada caso antes de presentar la liquidación.',
+          'La Comunidad de Madrid aplica una bonificación muy elevada en la cuota para descendientes, ascendientes y cónyuge, según el grupo de parentesco y las condiciones que se cumplan. Lo confirmamos en la sesión diagnóstica y antes de presentar la liquidación.',
         ],
       },
       {
         heading: 'Plazos que conviene no perder',
         paragraphs: [
-          'El impuesto tiene un plazo legal desde el fallecimiento. Si no es posible cumplirlo, existe la posibilidad de solicitar una prórroga dentro del plazo inicial. Controlamos las fechas por ti para evitar recargos.',
+          'El plazo legal orientativo para presentar el impuesto es de seis meses desde el fallecimiento, con posibilidad de solicitar una prórroga dentro de ese plazo inicial. Confirmamos las fechas y condiciones exactas en la sesión diagnóstica y controlamos los plazos por ti para evitar recargos.',
         ],
       },
       {
@@ -103,12 +103,12 @@ export const servicios: Servicio[] = [
       {
         question: '¿Quién paga el Impuesto de Sucesiones en Madrid?',
         answer:
-          'Lo paga cada heredero o legatario en proporción a lo que recibe. Calculamos la cuota individual de cada uno.',
+          'Lo paga cada heredero o legatario en función de lo que recibe. Revisamos la situación de cada uno para preparar su liquidación individual.',
       },
       {
         question: '¿Qué pasa si no pagamos el impuesto a tiempo?',
         answer:
-          'Se generan recargos e intereses de demora. Por eso revisamos los plazos desde la primera sesión y, si es necesario, tramitamos la prórroga.',
+          'Pueden generarse recargos e intereses de demora. Por eso revisamos los plazos desde la primera sesión y, si procede, solicitamos la prórroga dentro del plazo inicial.',
       },
     ],
   },
@@ -119,7 +119,7 @@ export const servicios: Servicio[] = [
       'Cálculo y tramitación de la plusvalía municipal en una herencia en Madrid. Revisamos si existe incremento real de valor antes de pagar.',
     h1: 'Plusvalía municipal en una herencia en Madrid',
     intro:
-      'La plusvalía municipal es el impuesto que grava el incremento de valor de un terreno urbano. En una herencia, la obligación la asume el heredero, y su cálculo depende del ayuntamiento y de la normativa vigente.',
+      'La plusvalía municipal (Impuesto sobre el Incremento de Valor de los Terrenos de Naturaleza Urbana) grava el incremento de valor de un terreno urbano. En una herencia la asume el heredero que recibe el inmueble, y su gestión depende del ayuntamiento donde esté situado (Madrid capital, Alcobendas, Colmenar Viejo u otro municipio) y de su ordenanza fiscal.',
     sections: [
       {
         heading: 'No siempre hay que pagarla',
@@ -130,7 +130,7 @@ export const servicios: Servicio[] = [
       {
         heading: 'Cómo la tramitamos',
         paragraphs: [
-          'Identificamos el inmueble y el valor catastral, calculamos la base imponible según el periodo de titularidad del causante y presentamos la declaración ante el ayuntamiento correspondiente.',
+          'Identificamos el inmueble y el valor catastral, calculamos la base imponible según el periodo de titularidad del causante y presentamos la declaración ante el ayuntamiento correspondiente, cuyos plazos y bonificaciones confirmamos en su ordenanza fiscal.',
         ],
       },
     ],
@@ -138,7 +138,7 @@ export const servicios: Servicio[] = [
       {
         question: '¿Quién paga la plusvalía municipal en una herencia?',
         answer:
-          'Normalmente el heredero que recibe el inmueble. Lo revisamos caso por caso con el reparto previsto.',
+          'Normalmente el heredero que recibe el inmueble urbano. Lo revisamos caso por caso con el reparto previsto.',
       },
       {
         question: '¿Se puede pagar la plusvalía si el inmueble ha bajado de valor?',
@@ -159,7 +159,7 @@ export const servicios: Servicio[] = [
       {
         heading: 'Qué es la declaración de herederos abintestato',
         paragraphs: [
-          'Es el acta notarial que identifica a los herederos según el orden de sucesión del Código Civil (descendientes, ascendientes, cónyuge y, en su caso, otros parientes). Es el documento que permite después aceptar la herencia e inscribir los bienes.',
+          'Es el acta notarial que identifica a los herederos cuando no hay testamento, según el orden de sucesión del Código Civil (descendientes, ascendientes, cónyuge y, en su caso, otros parientes). Es el documento que permite después aceptar la herencia e inscribir los bienes.',
         ],
       },
       {
